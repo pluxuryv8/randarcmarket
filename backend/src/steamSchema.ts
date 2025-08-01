@@ -1,23 +1,24 @@
-// backend/src/steamSchema.ts
+// src/steamSchema.ts
+import dotenv from 'dotenv';
+dotenv.config();
 
-/**
- * Модуль для загрузки схемы предметов из Steam и получения URL иконок
- */
+const STEAM_KEY = process.env.STEAM_API_KEY!;
+const APP_ID = 730;
 
-const STEAM_KEY = process.env.STEAM_API_KEY!; // Ваш Steam API-ключ
-const APP_ID = 730;                             // CS:GO AppID
-
-// Мапа market_hash_name → icon_url hash
 let iconMap: Record<string, string> = {};
 
-/**
- * Загружает схему предметов из Steam Web API и заполняет iconMap
- */
 export async function loadSteamSchema(): Promise<void> {
   console.log('🔄 Загружаю схему предметов из Steam...');
-  const url = `https://api.steampowered.com/IEconItems_${APP_ID}/GetSchemaForGame/v2/?key=${STEAM_KEY}&language=ru`;
+  const url = `https://api.steampowered.com/IEconItems_${APP_ID}/GetSchema/v2/?key=${STEAM_KEY}&language=ru`;
+  console.log('→ Fetch URL:', url);
+
   const response = await fetch(url);
-  const data: any = await response.json();
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Steam API вернул ${response.status}: ${text}`);
+  }
+
+  const data = await response.json();
   const items = data.result?.items_game?.items || [];
 
   iconMap = {};
@@ -32,26 +33,6 @@ export async function loadSteamSchema(): Promise<void> {
   console.log(`✅ Загружено ${Object.keys(iconMap).length} иконок.`);
 }
 
-/**
- * Возвращает полный URL иконки для заданного marketHashName.
- * Если точного совпадения нет, ищет первый ключ, содержащий подстроку.
- */
-export function getIconUrl(marketHashName: string): string | null {
-  let hash = iconMap[marketHashName];
-
-  if (!hash) {
-    // Фоллбэк: ищем ключ, содержащий наше имя
-    const fallbackKey = Object.keys(iconMap).find(key =>
-      key.includes(marketHashName)
-    );
-    if (fallbackKey) {
-      console.log(`🕵️‍♂️ Fallback: '${marketHashName}' → '${fallbackKey}'`);
-      hash = iconMap[fallbackKey];
-    }
-  }
-
-  if (!hash) return null;
-
-  // Формируем URL к Steam CDN
-  return `https://steamcdn-a.akamaihd.net/economy/image/${hash}/360fx360f`;
+export function getIconMap(): Record<string, string> {
+  return iconMap;
 }
