@@ -1,0 +1,103 @@
+.home-page-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* Стандартная анимация Vanta эффекта */
+.home-page-background canvas {
+  animation-duration: 2s !important;
+  transition: all 1s ease-in-out !important;
+}
+
+/* Черный фон */
+.home-page-background {
+  background: #000000 !important;
+}
+
+/* Увеличиваем толщину линий через CSS */
+.home-page-background canvas {
+  stroke-width: 3px !important;
+  line-width: 3px !important;
+}
+
+/* Анимации появления */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInFromDarkness {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: brightness(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+    filter: brightness(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+}
+
+/* Классы для анимаций */
+.animate-fade-in-up {
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 1s ease-out forwards;
+}
+
+.animate-fade-in-darkness {
+  animation: fadeInFromDarkness 1.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 1.2s ease-out forwards;
+}
+
+/* Задержки для последовательного появления */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-1000 { animation-delay: 1.0s; } 

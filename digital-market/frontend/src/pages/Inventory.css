@@ -1,0 +1,238 @@
+/* Анимации появления для страницы инвентаря */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInFromDarkness {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: brightness(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+    filter: brightness(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: brightness(1);
+  }
+}
+
+/* Классы для анимаций */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fadeInScale {
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+.animate-fadeInFromDarkness {
+  animation: fadeInFromDarkness 1s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInFromLeft 0.8s ease-out forwards;
+}
+
+/* Задержки для последовательного появления */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-1000 { animation-delay: 1.0s; }
+
+/* Стили для карточек */
+.inventory-card {
+  transition: all 0.3s ease;
+}
+
+.inventory-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3);
+}
+
+/* Градиентный фон */
+.inventory-gradient {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #1a1a1a 100%);
+}
+
+/* Стили для статистических карточек */
+.stats-card {
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(139, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Стили для кнопок фильтров */
+.filter-button {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  text-transform: none;
+  padding: 8px 16px;
+}
+
+.filter-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+}
+
+/* Стили для поля поиска */
+.search-field {
+  transition: all 0.3s ease;
+}
+
+.search-field:focus-within {
+  transform: scale(1.02);
+}
+
+/* Анимация загрузки */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Стили для чипов */
+.rarity-chip {
+  font-weight: bold;
+  font-size: 0.75rem;
+  border-radius: 12px;
+}
+
+.wear-chip {
+  font-weight: bold;
+  font-size: 0.75rem;
+  border-radius: 12px;
+}
+
+/* Стили для цен */
+.price-steam {
+  color: #27AE60;
+  font-weight: bold;
+}
+
+.price-market {
+  color: #3498DB;
+  font-weight: bold;
+}
+
+.price-difference-positive {
+  color: #27AE60;
+  font-weight: bold;
+}
+
+.price-difference-negative {
+  color: #E74C3C;
+  font-weight: bold;
+}
+
+/* Стили для кнопок действий */
+.action-button {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+}
+
+/* Стили для иконок */
+.rarity-icon {
+  transition: all 0.3s ease;
+}
+
+.rarity-icon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* Стили для изображений */
+.weapon-image {
+  transition: all 0.3s ease;
+}
+
+.weapon-image:hover {
+  transform: scale(1.05);
+}
+
+/* Стили для заголовков */
+.inventory-title {
+  background: linear-gradient(135deg, #ffffff 0%, #cccccc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для описания */
+.inventory-description {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили для поиска и фильтров контейнера */
+.search-filters-container {
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.search-filters-container:hover {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+} 
