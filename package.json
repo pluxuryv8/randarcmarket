@@ -1,9 +1,18 @@
 {
+  "name": "digital-market",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.2.0",
     "@mui/material": "^7.2.0",
     "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
   }
 }
