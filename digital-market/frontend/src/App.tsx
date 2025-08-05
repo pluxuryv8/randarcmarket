@@ -5,6 +5,7 @@ import Layout    from './components/Layout';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import Radar     from './pages/Radar';
+import RadarPage from './components/RadarPage';
 import Profile   from './pages/Profile';
 import Login     from './pages/Login';
 import NotFound  from './pages/NotFound';
@@ -39,6 +40,14 @@ export default function App() {
             element={
               <Layout>
                 <Radar />
+              </Layout>
+            }
+          />
+          <Route
+            path="/radar/analysis"
+            element={
+              <Layout>
+                <RadarPage />
               </Layout>
             }
           />

@@ -1,0 +1,272 @@
+/* Стили для страницы Радар */
+
+.radar-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #000000 100%);
+  color: #ffffff;
+  padding: 20px;
+}
+
+/* Анимация пульсации для активного статуса */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Анимация появления сигналов */
+@keyframes signalAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Эффект свечения для карточек */
+.radar-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.radar-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.radar-card:hover::before {
+  left: 100%;
+}
+
+.radar-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(139, 0, 0, 0.3);
+}
+
+/* Стили для сигналов */
+.signal-card {
+  animation: signalAppear 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.signal-card:hover {
+  transform: scale(1.02);
+}
+
+/* Градиентный текст */
+.gradient-text {
+  background: linear-gradient(45deg, #8B0000, #DC2626);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+
+/* Стили для прогресс-баров */
+.confidence-progress {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.confidence-progress .MuiLinearProgress-bar {
+  transition: width 0.5s ease;
+}
+
+/* Анимация для статистики */
+.stat-card {
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
+}
+
+/* Стили для временных интервалов */
+.timeframe-chip {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.timeframe-chip:hover {
+  transform: scale(1.1);
+}
+
+/* Анимация для уведомлений */
+.notification-item {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Стили для Telegram интеграции */
+.telegram-card {
+  background: linear-gradient(135deg, #1e40af, #3b82f6) !important;
+  transition: all 0.3s ease;
+}
+
+.telegram-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(30, 64, 175, 0.4);
+}
+
+/* Анимация для кнопок */
+.radar-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.radar-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.radar-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Стили для рыночных данных */
+.market-data-card {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.market-data-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Анимация для трендов */
+.trend-up {
+  animation: trendUp 0.5s ease-out;
+}
+
+.trend-down {
+  animation: trendDown 0.5s ease-out;
+}
+
+@keyframes trendUp {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes trendDown {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .radar-page {
+    padding: 10px;
+  }
+  
+  .gradient-text {
+    font-size: 2rem !important;
+  }
+  
+  .stat-card {
+    margin-bottom: 10px;
+  }
+  
+  .timeframe-chip {
+    margin: 2px;
+  }
+}
+
+/* Дополнительные эффекты */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+/* Анимация загрузки */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Эффект свечения для активных элементов */
+.active-glow {
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+}
+
+/* Стили для уведомлений */
+.notification-badge {
+  animation: pulse 2s infinite;
+}
+
+/* Анимация для статистики */
+.stat-value {
+  animation: countUp 1s ease-out;
+}
+
+@keyframes countUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

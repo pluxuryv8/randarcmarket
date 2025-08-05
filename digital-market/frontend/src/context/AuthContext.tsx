@@ -17,7 +17,12 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({
+    steamId: '76561198000000000',
+    name: 'CSGOPlayer123',
+    avatar: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/demo.jpg',
+    telegramLinked: false,
+  });
 
   useEffect(() => {
     const stored = localStorage.getItem('randar_user');
