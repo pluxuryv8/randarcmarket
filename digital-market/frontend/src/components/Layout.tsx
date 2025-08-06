@@ -26,7 +26,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <Box sx={{ 
           width: '100%', 
           minHeight: '100vh', // Изменяем height на minHeight для прокрутки
-          paddingTop: user ? '70px' : 0, // Увеличиваем отступ для фиксированного Header
+          paddingTop: 0, // Убираем отступ сверху для главной страницы
           boxSizing: 'border-box',
           overflow: 'visible' // Убираем ограничения скролла
         }}>

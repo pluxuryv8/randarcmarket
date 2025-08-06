@@ -39,7 +39,7 @@ const Header: React.FC = () => {
 
   const menuItems = [
     { text: 'Главная', icon: <HomeIcon />, path: '/' },
-    { text: 'Маркетплейс', icon: <ShoppingCartIcon />, path: '/items' },
+    { text: 'Маркетплейс', icon: <ShoppingCartIcon />, path: '/marketplace' },
     { text: 'Радар', icon: <RadarIcon />, path: '/radar' },
     { text: 'Инвентарь', icon: <InventoryIcon />, path: '/inventory' },
     { text: 'Профиль', icon: <PersonIcon />, path: '/profile' }

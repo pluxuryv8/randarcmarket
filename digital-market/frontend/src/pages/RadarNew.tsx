@@ -6,6 +6,7 @@ import {
   CardContent,
   Chip,
   Button,
+  Alert,
   LinearProgress,
   TextField,
   Divider,
@@ -29,6 +30,7 @@ import {
   History as HistoryIcon,
   AccountBalance as BalanceIcon,
   Add as AddIcon,
+  Remove as RemoveIcon,
   CheckCircle as CheckIcon,
   Assessment as AssessmentIcon
 } from '@mui/icons-material';
@@ -39,6 +41,7 @@ import {
   RadarSettings,
   RadarStats,
   RadarAlert,
+  TradeRecord,
   RadarEvent,
   RadarDecision,
   RADAR_CONSTANTS
@@ -54,6 +57,7 @@ const Radar: React.FC = () => {
   
   // UI состояния
   const [loading, setLoading] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [showDeposit, setShowDeposit] = useState(false);
   const [showDecisionModal, setShowDecisionModal] = useState(false);
   
@@ -62,7 +66,7 @@ const Radar: React.FC = () => {
   const [radarBudget, setRadarBudget] = useState('');
   
   // Настройки радара
-  const [settings] = useState<RadarSettings>({
+  const [settings, setSettings] = useState<RadarSettings>({
     scanInterval: 15,
     maxHoldTime: 24,
     targetProfitPercent: 15,
@@ -80,22 +84,13 @@ const Radar: React.FC = () => {
 
   // Загрузка данных при монтировании
   useEffect(() => {
-    const setupRealtimeEvents = () => {
-      radarService.connectToEvents(session?.id);
-
-      // Подписываемся на события
-      radarService.addEventListener('purchase_completed', handlePurchaseEvent);
-      radarService.addEventListener('decision_required', handleDecisionRequired);
-      radarService.addEventListener('session_ended', handleSessionEnded);
-    };
-
     loadInitialData();
     setupRealtimeEvents();
 
     return () => {
       radarService.cleanup();
     };
-  }, [session?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadInitialData = async () => {
     setLoading(true);
@@ -124,7 +119,14 @@ const Radar: React.FC = () => {
     }
   };
 
+  const setupRealtimeEvents = () => {
+    radarService.connectToEvents(session?.id);
 
+    // Подписываемся на события
+    radarService.addEventListener('purchase_completed', handlePurchaseEvent);
+    radarService.addEventListener('decision_required', handleDecisionRequired);
+    radarService.addEventListener('session_ended', handleSessionEnded);
+  };
 
   const handlePurchaseEvent = (event: RadarEvent) => {
     loadInitialData();
@@ -391,7 +393,7 @@ const Radar: React.FC = () => {
       <Button
         variant="contained"
         startIcon={<Settings />}
-        onClick={() => {}}
+        onClick={() => setShowSettings(true)}
         className="redline-button quick-action-btn"
       >
         НАСТРОЙКИ

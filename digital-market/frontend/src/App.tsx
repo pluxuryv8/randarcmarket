@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import Layout    from './components/Layout';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
+import Marketplace from './pages/Marketplace';
 import Radar     from './pages/Radar';
 import RadarPage from './components/RadarPage';
 import Profile   from './pages/Profile';
@@ -32,6 +33,14 @@ export default function App() {
             element={
               <Layout>
                 <Inventory />
+              </Layout>
+            }
+          />
+          <Route
+            path="/marketplace"
+            element={
+              <Layout>
+                <Marketplace />
               </Layout>
             }
           />

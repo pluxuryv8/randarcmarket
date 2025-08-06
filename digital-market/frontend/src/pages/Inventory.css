@@ -1,243 +1,733 @@
-/* Inventory Page Styles */
-.inventory-page {
+/* RANDAR INVENTORY - AK-47 Redline Style */
+.steam-inventory-page {
   min-height: 100vh;
-  position: relative;
-  background: 
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #0f0f0f 50%, #1a1a1a 75%, #0a0a0a 100%),
-    radial-gradient(circle at 20% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 60%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 60% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+  width: 100%;
+  background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #000000 100%);
   overflow-x: hidden;
-  width: 100vw;
-  margin: 0;
+  overflow-y: auto;
+  position: relative;
+}
+
+.steam-inventory-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+    linear-gradient(45deg, transparent 48%, rgba(139, 0, 0, 0.02) 50%, transparent 52%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Заголовок в стиле Redline */
+.steam-header {
+  background: rgba(0, 0, 0, 0.95) !important;
+  border: 2px solid rgba(139, 0, 0, 0.4) !important;
+  border-radius: 16px !important;
+  margin: 16px 20px 12px !important;
+  padding: 20px 24px !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 8px 40px rgba(139, 0, 0, 0.3) !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.steam-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #DC2626, #8B0000, #DC2626, transparent);
+  border-radius: 16px 16px 0 0;
+}
+
+.steam-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.steam-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(220, 38, 38, 0.6);
+  background: linear-gradient(45deg, #8B0000, #DC2626);
+  padding: 2px;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.steam-username {
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  margin: 0 !important;
+  letter-spacing: 1px !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 20px rgba(220, 38, 38, 0.8);
+}
+
+.steam-level {
+  font-size: 13px !important;
+  color: #DC2626 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.inventory-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  letter-spacing: 2px !important;
+  text-shadow: 0 0 30px rgba(139, 0, 0, 0.8);
+  margin: 0 !important;
+}
+
+/* Статистика в стиле Redline */
+.steam-stats {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(139, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  margin: 0 20px 12px !important;
+  padding: 16px 20px !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  display: flex;
+  gap: 32px;
+  position: relative;
+  z-index: 10;
+}
+
+.steam-stats::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #DC2626, transparent);
+}
+
+.stats-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stats-icon {
+  font-size: 28px !important;
+  color: #DC2626 !important;
+  filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.6));
+}
+
+.stats-icon.steam-value { color: #FFA500 !important; }
+.stats-icon.market-value { color: #32CD32 !important; }
+
+.stats-value {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.stats-value.steam-value { 
+  color: #FFA500 !important; 
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.4);
+}
+
+.stats-value.market-value { 
+  color: #32CD32 !important; 
+  text-shadow: 0 0 10px rgba(50, 205, 50, 0.4);
+}
+
+.stats-label {
+  font-size: 12px !important;
+  color: #cccccc !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Фильтры в стиле Redline */
+.steam-filters {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(139, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  margin: 0 20px 12px !important;
+  padding: 16px 20px !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 10;
+}
+
+.steam-search {
+  min-width: 240px;
+}
+
+.steam-search .MuiOutlinedInput-root {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  height: 44px !important;
+  font-weight: 500 !important;
+}
+
+.steam-search .MuiOutlinedInput-notchedOutline {
+  border: 1px solid rgba(139, 0, 0, 0.4) !important;
+}
+
+.steam-search .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(220, 38, 38, 0.6) !important;
+}
+
+.steam-search .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #DC2626 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important;
+}
+
+.search-icon {
+  color: #DC2626 !important;
+  font-size: 20px !important;
+  filter: drop-shadow(0 0 4px rgba(220, 38, 38, 0.6));
+}
+
+.steam-select {
+  min-width: 160px;
+}
+
+.steam-select .MuiOutlinedInput-root {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  font-size: 14px !important;
+  height: 44px !important;
+  font-weight: 500 !important;
+}
+
+.steam-select .MuiInputLabel-root {
+  color: #cccccc !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.steam-select .MuiInputLabel-root.Mui-focused {
+  color: #DC2626 !important;
+}
+
+.steam-select .MuiOutlinedInput-notchedOutline {
+  border: 1px solid rgba(139, 0, 0, 0.4) !important;
+}
+
+.steam-select .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(220, 38, 38, 0.6) !important;
+}
+
+.steam-select .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #DC2626 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important;
+}
+
+.items-count {
+  font-size: 14px !important;
+  color: #cccccc !important;
+  margin-left: auto !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.steam-divider {
+  background: linear-gradient(90deg, transparent, #DC2626, #8B0000, #DC2626, transparent) !important;
+  height: 2px !important;
+  margin: 0 20px 12px !important;
+  border-radius: 1px !important;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4) !important;
+}
+
+/* Массовые действия */
+.steam-bulk-actions {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(139, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  margin: 0 20px 12px !important;
+  padding: 12px 20px !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  display: flex;
+  gap: 12px;
+  position: relative;
+  z-index: 10;
+}
+
+.bulk-action-btn {
+  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  min-height: auto !important;
+  transition: all 0.3s ease !important;
+  border: 1px solid rgba(220, 38, 38, 0.4) !important;
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3) !important;
+}
+
+.bulk-action-btn:hover {
+  background: linear-gradient(135deg, #DC2626, #FF0000) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.5) !important;
+}
+
+/* Контент инвентаря */
+.steam-inventory-content {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(139, 0, 0, 0.2) !important;
+  border-radius: 12px !important;
+  margin: 0 20px 20px !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  position: relative;
+  z-index: 10;
+}
+
+.inventory-items-list {
   padding: 0;
+  min-height: 200px;
+  max-height: none;
+  scrollbar-width: thin;
+  scrollbar-color: #DC2626 rgba(0, 0, 0, 0.3);
 }
 
-/* Remove Vanta.js background */
-.inventory-background {
-  display: none !important;
-}
-
-/* Enhanced Container Styles - Full Screen */
-.inventory-page .MuiContainer-root {
+/* Строка предмета в стиле Redline */
+.inventory-item-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
   position: relative;
-  z-index: 3;
-  background: rgba(0, 0, 0, 0.3);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-radius: 0;
-  border: none;
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  max-width: 100vw;
-  min-height: 100vh;
-  box-shadow: none;
+  background: transparent;
 }
 
-/* Hero Section Enhancement - Full Width */
-.hero-section {
+.inventory-item-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: linear-gradient(180deg, #DC2626, #8B0000);
+  transition: width 0.3s ease;
+  z-index: 1;
+}
+
+.inventory-item-row:hover {
+  background: rgba(139, 0, 0, 0.08) !important;
+  transform: translateX(8px);
+  box-shadow: inset 0 0 20px rgba(220, 38, 38, 0.1);
+}
+
+.inventory-item-row:hover::before {
+  width: 4px;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.6);
+}
+
+.inventory-item-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.inventory-item-row:nth-child(even):hover {
+  background: rgba(139, 0, 0, 0.08) !important;
+}
+
+/* Чекбокс */
+.item-checkbox-container {
+  width: 32px;
+  display: flex;
+  justify-content: center;
   position: relative;
-  z-index: 4;
-  background: linear-gradient(135deg, 
-    rgba(0, 0, 0, 0.4) 0%, 
-    rgba(139, 0, 0, 0.1) 50%, 
-    rgba(0, 0, 0, 0.4) 100%);
-  border-radius: 0;
-  padding: 40px 20px;
-  margin: 0;
-  border: none;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    inset 0 0 50px rgba(139, 0, 0, 0.1);
-  width: 100%;
+  z-index: 2;
 }
 
-/* Search Container Enhancement - Full Width */
-.search-container {
-  position: relative;
-  z-index: 4;
-  background: linear-gradient(135deg, 
-    rgba(0, 0, 0, 0.5) 0%, 
-    rgba(139, 0, 0, 0.1) 50%, 
-    rgba(0, 0, 0, 0.5) 100%);
-  border-radius: 0;
-  border: none;
-  padding: 20px;
-  margin: 0 0 20px 0;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.4),
-    inset 0 0 30px rgba(139, 0, 0, 0.1);
-  width: 100%;
-}
-
-/* Items Container Enhancement - Full Width */
-.items-container {
-  position: relative;
-  z-index: 4;
-  background: linear-gradient(135deg, 
-    rgba(0, 0, 0, 0.3) 0%, 
-    rgba(139, 0, 0, 0.05) 50%, 
-    rgba(0, 0, 0, 0.3) 100%);
-  border-radius: 0;
-  padding: 20px;
-  border: none;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    inset 0 0 30px rgba(139, 0, 0, 0.05);
-  width: 100%;
-}
-
-/* Stats Cards - Better Layout */
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin: 20px 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .inventory-page .MuiContainer-root {
-    padding: 0;
-  }
-  
-  .hero-section {
-    padding: 20px 10px;
-  }
-  
-  .search-container {
-    padding: 15px 10px;
-  }
-  
-  .items-container {
-    padding: 15px 10px;
-  }
-  
-  .stats-cards {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-}
-
-/* Dark Theme Enhancement */
-@media (prefers-color-scheme: dark) {
-  .inventory-page {
-    background: 
-      linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #000000 50%, #0a0a0a 75%, #000000 100%),
-      radial-gradient(circle at 20% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 40% 60%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 60% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
-  }
-}
-
-/* Hover Effects */
-.inventory-page .MuiContainer-root:hover {
-  box-shadow: none;
+.item-checkbox {
+  width: 16px;
+  height: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(139, 0, 0, 0.6);
+  border-radius: 3px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
 }
 
-/* Loading Animation */
-.inventory-page.loading {
-  animation: pageLoad 1s ease-out;
+.item-checkbox::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 6px;
+  height: 6px;
+  background: #DC2626;
+  border-radius: 1px;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.8);
 }
 
-@keyframes pageLoad {
-  0% { opacity: 0; transform: scale(0.95); }
-  100% { opacity: 1; transform: scale(1); }
+.item-checkbox:checked {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: #DC2626;
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.4);
 }
 
-/* Global Reset for Full Width */
-* {
-  box-sizing: border-box;
+.item-checkbox:checked::after {
+  transform: translate(-50%, -50%) scale(1);
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background: 
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #0f0f0f 50%, #1a1a1a 75%, #0a0a0a 100%),
-    radial-gradient(circle at 20% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 60%, rgba(34, 197, 94, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 60% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
-  min-height: 100vh;
-  width: 100vw;
+.item-checkbox:hover {
+  border-color: #DC2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
 }
 
-/* Remove default margins from Material-UI components */
-.MuiBox-root {
-  margin: 0 !important;
-  padding: 0 !important;
+/* Изображение предмета */
+.item-image-section {
+  width: 80px;
+  margin-right: 16px;
+  position: relative;
+  z-index: 2;
 }
 
-.MuiGrid-root {
-  margin: 0 !important;
-  padding: 0 !important;
+.item-rarity-border {
+  border-left: 3px solid #DC2626;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  padding: 4px;
+  border: 1px solid rgba(139, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-/* Force full width for all containers */
-.MuiContainer-root {
-  max-width: none !important;
-  width: 100vw !important;
-  margin: 0 !important;
-  padding: 0 !important;
+.item-image-small {
+  width: 68px;
+  height: 51px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  transition: all 0.3s ease;
+  filter: brightness(0.9) contrast(1.1);
 }
 
-/* Remove any centering that might be causing the narrow layout */
-.inventory-page > div {
-  width: 100% !important;
-  max-width: none !important;
+.inventory-item-row:hover .item-image-small {
+  transform: scale(1.05);
+  filter: brightness(1) contrast(1.2);
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
 }
 
-/* Ensure all content stretches to full width */
-.inventory-page .MuiBox-root,
-.inventory-page .MuiGrid-root,
-.inventory-page .MuiContainer-root {
-  width: 100% !important;
-  max-width: none !important;
+/* Информация о предмете */
+.item-info-section {
+  flex: 1;
+  min-width: 0;
+  margin-right: 16px;
+  position: relative;
+  z-index: 2;
 }
 
-/* Override any Material-UI default margins */
-.MuiContainer-root,
-.MuiBox-root,
-.MuiGrid-root {
-  margin: 0 !important;
-  padding: 0 !important;
+.item-name-compact {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin-bottom: 4px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.3px;
 }
 
-/* Force full viewport */
-#root {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 100vw !important;
-  min-height: 100vh !important;
+.item-condition {
+  font-size: 12px !important;
+  color: #cccccc !important;
+  margin-bottom: 2px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* Custom Scrollbar - Hide Default */
-::-webkit-scrollbar {
-  width: 0px;
+.item-float {
+  font-size: 11px !important;
+  color: #999999 !important;
+  font-weight: 500 !important;
+  font-family: 'Courier New', monospace;
+}
+
+/* Цены */
+.item-prices-section {
+  display: flex;
+  gap: 24px;
+  margin-right: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.price-column {
+  text-align: right;
+  min-width: 80px;
+}
+
+.price-label {
+  font-size: 10px !important;
+  color: #999999 !important;
+  margin-bottom: 2px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.steam-price {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #FFA500 !important;
+  text-shadow: 0 0 8px rgba(255, 165, 0, 0.4);
+  font-family: 'Courier New', monospace;
+}
+
+.market-price {
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #32CD32 !important;
+  text-shadow: 0 0 8px rgba(50, 205, 50, 0.4);
+  font-family: 'Courier New', monospace;
+}
+
+/* Действия */
+.item-actions-section {
+  display: flex;
+  gap: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+.action-btn {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: #cccccc !important;
+  border: 1px solid rgba(139, 0, 0, 0.4) !important;
+  border-radius: 6px !important;
+  width: 32px !important;
+  height: 32px !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+.action-btn:hover {
+  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4) !important;
+  border-color: #DC2626 !important;
+}
+
+.action-btn.sell-btn:hover {
+  background: linear-gradient(135deg, #006400, #32CD32) !important;
+  box-shadow: 0 4px 20px rgba(50, 205, 50, 0.4) !important;
+  border-color: #32CD32 !important;
+}
+
+.action-btn .MuiSvgIcon-root {
+  font-size: 16px !important;
+}
+
+/* Состояния загрузки */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
   background: transparent;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+.steam-loading {
+  width: 200px;
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 4px !important;
+  height: 4px !important;
+  overflow: hidden;
+  border: 1px solid rgba(139, 0, 0, 0.3);
 }
 
-::-webkit-scrollbar-thumb {
-  background: transparent;
+.steam-loading .MuiLinearProgress-bar {
+  background: linear-gradient(90deg, #8B0000, #DC2626, #FF0000, #DC2626, #8B0000) !important;
+  background-size: 200% 100% !important;
+  animation: redlineGlow 2s ease infinite !important;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.6) !important;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: transparent;
+@keyframes redlineGlow {
+  0% { 
+    background-position: 0% 50%;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+  }
+  50% { 
+    background-position: 100% 50%;
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.8);
+  }
+  100% { 
+    background-position: 0% 50%;
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+  }
 }
 
-/* Firefox scrollbar */
-* {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-} 
+.loading-text {
+  color: #ffffff !important;
+  margin-top: 20px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 20px rgba(220, 38, 38, 0.6);
+}
+
+.no-items-alert {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(139, 0, 0, 0.4) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  margin: 20px;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Кастомный скроллбар в стиле Redline */
+.inventory-items-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inventory-items-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+.inventory-items-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8B0000, #DC2626);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+}
+
+.inventory-items-list::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #DC2626, #FF0000);
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.6);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .steam-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    margin: 12px 15px 8px;
+    padding: 16px 20px;
+  }
+
+  .steam-stats {
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 15px 8px;
+    padding: 12px 16px;
+  }
+
+  .steam-filters {
+    flex-direction: column;
+    gap: 12px;
+    margin: 0 15px 8px;
+    padding: 12px 16px;
+  }
+
+  .steam-inventory-content {
+    margin: 0 15px 15px;
+  }
+
+  .inventory-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .item-info-section,
+  .item-prices-section {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .item-prices-section {
+    justify-content: space-between;
+  }
+
+  .item-actions-section {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .steam-header {
+    margin: 8px 10px 4px;
+    padding: 12px 16px;
+  }
+
+  .steam-stats {
+    margin: 0 10px 4px;
+    padding: 8px 12px;
+  }
+
+  .steam-filters {
+    margin: 0 10px 4px;
+    padding: 8px 12px;
+  }
+
+  .steam-inventory-content {
+    margin: 0 10px 10px;
+  }
+
+  .inventory-item-row {
+    padding: 12px;
+  }
+
+  .item-image-small {
+    width: 56px;
+    height: 42px;
+  }
+
+  .item-name-compact {
+    font-size: 13px !important;
+  }
+}
