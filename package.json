@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix digital-market/backend\" \"npm start --prefix digital-market/frontend\""
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
   },
   "devDependencies": {
     "concurrently": "^9.2.0"
   },
   "dependencies": {
+    "@tonconnect/ui-react": "^2.2.0",
     "three": "^0.179.1",
     "vanta": "^0.5.24"
   }

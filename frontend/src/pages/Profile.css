@@ -1,0 +1,567 @@
+/* RANDAR PROFILE - AK-47 Redline Style */
+.redline-profile-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #000000 100%);
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background Effects */
+.redline-background-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.redline-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(220, 38, 38, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 38, 38, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.3;
+}
+
+.redline-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(139, 0, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(220, 38, 38, 0.03) 0%, transparent 50%);
+}
+
+/* Header Section */
+.profile-header {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.redline-header-card {
+  background: rgba(0, 0, 0, 0.95) !important;
+  border: 2px solid rgba(139, 0, 0, 0.4) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  box-shadow: 0 8px 40px rgba(139, 0, 0, 0.3) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.redline-header-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #DC2626, #8B0000, #DC2626, transparent);
+  z-index: 1;
+}
+
+.redline-header-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(45deg, transparent 48%, rgba(220, 38, 38, 0.02) 50%, transparent 52%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.header-content {
+  padding: 32px !important;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-main-info {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* Avatar Section */
+.avatar-section {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.redline-avatar {
+  border: 4px solid rgba(220, 38, 38, 0.6) !important;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.4) !important;
+  background: linear-gradient(45deg, #8B0000, #DC2626) !important;
+  padding: 3px !important;
+}
+
+.redline-avatar img {
+  border-radius: 50%;
+}
+
+.avatar-overlay {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+}
+
+.verified-chip {
+  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.5px !important;
+  border: 1px solid rgba(220, 38, 38, 0.6) !important;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.4) !important;
+}
+
+.verified-chip .MuiChip-icon {
+  color: #ffffff !important;
+  font-size: 14px !important;
+}
+
+/* User Details */
+.user-details {
+  flex: 1;
+  min-width: 300px;
+}
+
+.username-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.username {
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  letter-spacing: 2px !important;
+  text-shadow: 0 0 25px rgba(220, 38, 38, 0.8) !important;
+  margin: 0 !important;
+}
+
+.rank-chip {
+  background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.5px !important;
+  border: 1px solid rgba(255, 215, 0, 0.6) !important;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3) !important;
+}
+
+.rank-chip .MuiChip-icon {
+  color: #000000 !important;
+  font-size: 14px !important;
+}
+
+/* Level Section */
+.level-section {
+  margin-bottom: 16px;
+}
+
+.level-text {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #DC2626 !important;
+  letter-spacing: 1px !important;
+  margin-bottom: 8px !important;
+  text-transform: uppercase;
+}
+
+.experience-bar {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.redline-progress {
+  height: 8px !important;
+  border-radius: 4px !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid rgba(139, 0, 0, 0.3) !important;
+}
+
+.redline-progress .MuiLinearProgress-bar {
+  background: linear-gradient(90deg, #8B0000, #DC2626, #FF0000) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.6) !important;
+}
+
+.exp-text {
+  font-size: 12px !important;
+  color: #cccccc !important;
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+}
+
+.join-date {
+  font-size: 13px !important;
+  color: #999999 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase;
+}
+
+/* Edit Button Section */
+.edit-button-section {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.redline-button {
+  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  border: 1px solid rgba(220, 38, 38, 0.4) !important;
+  box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.redline-button:hover {
+  background: linear-gradient(135deg, #DC2626, #FF0000) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 25px rgba(220, 38, 38, 0.5) !important;
+}
+
+.redline-button.save-btn {
+  background: linear-gradient(135deg, #006400, #32CD32) !important;
+  border-color: rgba(50, 205, 50, 0.4) !important;
+}
+
+.redline-button.save-btn:hover {
+  background: linear-gradient(135deg, #32CD32, #00FF00) !important;
+  box-shadow: 0 6px 25px rgba(50, 205, 50, 0.5) !important;
+}
+
+.redline-button.cancel-btn {
+  background: linear-gradient(135deg, #4A4A4A, #666666) !important;
+  border-color: rgba(102, 102, 102, 0.4) !important;
+}
+
+.redline-button.cancel-btn:hover {
+  background: linear-gradient(135deg, #666666, #808080) !important;
+  box-shadow: 0 6px 25px rgba(102, 102, 102, 0.3) !important;
+}
+
+/* Stats Section */
+.stats-section {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.redline-stat-card {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(139, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.redline-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #DC2626, transparent);
+  opacity: 0.6;
+}
+
+.redline-stat-card:hover {
+  border-color: rgba(220, 38, 38, 0.6) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 30px rgba(139, 0, 0, 0.4) !important;
+}
+
+.stat-content {
+  padding: 20px !important;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.stat-icon {
+  font-size: 32px !important;
+  color: #DC2626 !important;
+  filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.6));
+}
+
+.stat-icon.money { color: #FFA500 !important; }
+.stat-icon.inventory { color: #32CD32 !important; }
+.stat-icon.success { color: #00BFFF !important; }
+.stat-icon.level { color: #FF69B4 !important; }
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.3) !important;
+  font-family: 'Courier New', monospace !important;
+  margin-bottom: 4px !important;
+}
+
+.stat-label {
+  font-size: 11px !important;
+  color: #cccccc !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.stat-accent {
+  font-size: 20px !important;
+  color: rgba(220, 38, 38, 0.3) !important;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+/* Content Section */
+.content-section {
+  margin-top: 24px;
+  position: relative;
+  z-index: 10;
+}
+
+.redline-content-card {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(139, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  height: 100%;
+}
+
+.redline-content-card .MuiCardContent-root {
+  padding: 24px !important;
+}
+
+.card-title {
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 16px !important;
+  text-shadow: 0 0 15px rgba(220, 38, 38, 0.6) !important;
+}
+
+.redline-divider {
+  background: linear-gradient(90deg, transparent, #DC2626, #8B0000, #DC2626, transparent) !important;
+  height: 2px !important;
+  margin-bottom: 24px !important;
+  border: none !important;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4) !important;
+}
+
+/* Form Fields */
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.redline-field .MuiOutlinedInput-root {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+}
+
+.redline-field .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(139, 0, 0, 0.4) !important;
+}
+
+.redline-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(220, 38, 38, 0.6) !important;
+}
+
+.redline-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #DC2626 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.3) !important;
+}
+
+.redline-field .MuiInputLabel-root {
+  color: #cccccc !important;
+  font-weight: 600 !important;
+}
+
+.redline-field .MuiInputLabel-root.Mui-focused {
+  color: #DC2626 !important;
+}
+
+.redline-field .MuiOutlinedInput-root.Mui-disabled {
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #999999 !important;
+}
+
+.redline-field .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(102, 102, 102, 0.3) !important;
+}
+
+/* Select Fields */
+.redline-select .MuiOutlinedInput-root {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+}
+
+.redline-select .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(139, 0, 0, 0.4) !important;
+}
+
+.redline-select .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(220, 38, 38, 0.6) !important;
+}
+
+.redline-select .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #DC2626 !important;
+  border-width: 2px !important;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.3) !important;
+}
+
+.redline-label {
+  color: #cccccc !important;
+  font-weight: 600 !important;
+}
+
+.redline-label.Mui-focused {
+  color: #DC2626 !important;
+}
+
+/* Notification Settings */
+.notification-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.switch-label {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+.switch-label .MuiTypography-root {
+  font-size: 14px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+
+.redline-switch .MuiSwitch-switchBase.Mui-checked {
+  color: #DC2626 !important;
+}
+
+.redline-switch .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  background-color: rgba(220, 38, 38, 0.5) !important;
+}
+
+.redline-switch .MuiSwitch-track {
+  background-color: rgba(102, 102, 102, 0.3) !important;
+}
+
+.redline-switch .MuiSwitch-switchBase.Mui-checked .MuiSwitch-thumb {
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.6) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .redline-profile-page {
+    padding: 15px;
+  }
+
+  .profile-main-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .edit-button-section {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .edit-actions {
+    justify-content: center;
+  }
+
+  .username-section {
+    justify-content: center;
+  }
+
+  .experience-bar {
+    max-width: 100%;
+  }
+
+  .header-content {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .redline-profile-page {
+    padding: 10px;
+  }
+
+  .username {
+    font-size: 24px !important;
+  }
+
+  .redline-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  .stat-content {
+    padding: 16px !important;
+  }
+
+  .stat-icon {
+    font-size: 24px !important;
+  }
+
+  .stat-value {
+    font-size: 18px !important;
+  }
+}
