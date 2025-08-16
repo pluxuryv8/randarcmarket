@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "digital-market": "file:..",
+    "digital-market": "file:../digital-market",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",

@@ -1,9 +1,43 @@
-/* Единый стиль для всего сайта */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Colors */
+  --c-bg: #0b0b0e;
+  --c-panel: #101114;
+  --c-card: #121318;
+  --c-line: #232428;
+  
+  --c-text: #f3f4f6;
+  --c-muted: #a1a1aa;
+  --c-dim: #6b7280;
+  
+  --c-brand: #e11d48;
+  --c-brand-weak: #f43f5e;
+  --c-green: #22c55e;
+  --c-red: #ef4444;
+  
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  
+  /* Shadows */
+  --shadow-card: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+/* Временная анимация для маркера */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -13,488 +47,173 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #000000;
-  color: #ffffff;
+  background: var(--c-bg);
+  color: var(--c-text);
   overflow-x: hidden;
-  scroll-behavior: smooth; /* Плавный скролл для всего сайта */
+  scroll-behavior: smooth;
+  line-height: 1.55;
 }
 
-/* Общие стили для всех страниц */
-.app-container {
-  min-height: 100vh;
-  background: #000000;
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+
+h1 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; font-weight: 700; }
+h2 { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.2; font-weight: 600; }
+h5 { font-size: clamp(16px, 1.2vw, 18px); line-height: 1.3; font-weight: 600; }
+
+/* Background scrim */
+.page-scrim::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 11, 14, 0.6);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Main content layer */
+main {
   position: relative;
+  z-index: 10;
 }
 
-/* Анимированный фон для всех страниц */
+/* Animated background */
 .page-background {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0;
+  z-index: -1;
   background: linear-gradient(135deg, #000000 0%, #1a0000 50%, #000000 100%);
   opacity: 0.8;
+  pointer-events: none;
 }
 
-/* Общие стили для карточек */
-.glass-card {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 0, 0, 0.3);
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  transition: all 0.3s ease;
+/* Utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
 }
 
-.glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 80px rgba(139, 0, 0, 0.3);
-  border-color: rgba(139, 0, 0, 0.5);
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-6);
+  }
 }
 
-/* Стили для заголовков */
-.page-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 900;
-  background: linear-gradient(135deg, #8B0000, #DC2626);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
-  text-align: center;
-  margin-bottom: 20px;
+.section {
+  margin-top: var(--space-12);
 }
 
-.page-subtitle {
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 40px;
-  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-  font-weight: 500;
+@media (min-width: 768px) {
+  .section {
+    margin-top: var(--space-16);
+  }
 }
 
-/* Стили для кнопок */
-.gradient-button {
-  background: linear-gradient(135deg, #8B0000, #DC2626);
-  color: white;
-  border: none;
-  padding: 12px 30px;
+/* Card styles */
+.card {
+  background: var(--c-card);
+  border: 1px solid var(--c-line);
   border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(139, 0, 0, 0.4);
-  text-decoration: none;
-  display: inline-block;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.gradient-button:hover {
+.card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(139, 0, 0, 0.6);
-  color: white;
-  text-decoration: none;
+  border-color: rgba(225, 29, 72, 0.4);
 }
 
-.outline-button {
-  background: transparent;
-  color: #ffffff;
-  border: 2px solid #8B0000;
-  padding: 12px 30px;
+/* Button styles */
+.btn {
+  height: 36px;
+  padding: 0 12px;
   border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-.outline-button:hover {
-  background: rgba(139, 0, 0, 0.1);
-  border-color: #DC2626;
-  color: #ffffff;
-  text-decoration: none;
+.btn-primary {
+  background: var(--c-brand);
+  color: var(--c-text);
 }
 
-/* Стили для чипов */
-.gradient-chip {
-  background: linear-gradient(135deg, #8B0000, #DC2626);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 4px 16px rgba(139, 0, 0, 0.3);
+.btn-secondary {
+  background: var(--c-panel);
+  color: var(--c-text);
+  border: 1px solid var(--c-line);
 }
 
-/* Стили для прогресс-баров */
-.gradient-progress {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  overflow: hidden;
+/* Text utilities */
+.text-muted {
+  color: var(--c-muted);
 }
 
-.gradient-progress-bar {
-  background: linear-gradient(135deg, #8B0000, #DC2626);
-  height: 100%;
-  border-radius: 10px;
-  transition: width 0.3s ease;
+.text-dim {
+  color: var(--c-dim);
 }
 
-/* Стили для таблиц */
-.glass-table {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 0, 0, 0.3);
-  border-radius: 20px;
-  overflow: hidden;
+.text-green {
+  color: var(--c-green);
 }
 
-.glass-table th {
-  background: rgba(139, 0, 0, 0.2);
-  color: #ffffff;
-  font-weight: 700;
-  padding: 16px;
-  border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+.text-red {
+  color: var(--c-red);
 }
 
-.glass-table td {
-  color: #ffffff;
-  padding: 16px;
-  border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+/* Grid utilities */
+.grid-cols-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
 }
 
-.glass-table tr:hover {
-  background: rgba(139, 0, 0, 0.1);
-}
-
-/* Стили для форм */
-.glass-input {
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(139, 0, 0, 0.3);
-  border-radius: 12px;
-  color: #ffffff;
-  padding: 12px 16px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.glass-input:focus {
-  outline: none;
-  border-color: #DC2626;
-  box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
-}
-
-.glass-input::placeholder {
-  color: #a3a3a3;
-}
-
-/* Стили для слайдеров */
-.gradient-slider {
-  color: #8B0000;
-}
-
-.gradient-slider .MuiSlider-track {
-  background: linear-gradient(135deg, #8B0000, #DC2626);
-}
-
-.gradient-slider .MuiSlider-thumb {
-  background: linear-gradient(135deg, #8B0000, #DC2626);
-  box-shadow: 0 4px 16px rgba(139, 0, 0, 0.4);
-}
-
-/* Стили для переключателей */
-.gradient-switch .MuiSwitch-switchBase.Mui-checked {
-  color: #8B0000;
-}
-
-.gradient-switch .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
-  background-color: #8B0000;
-}
-
-/* Стили для селектов */
-.gradient-select .MuiOutlinedInput-root {
-  background: rgba(0, 0, 0, 0.8);
-  border: 1px solid rgba(139, 0, 0, 0.3);
-  border-radius: 12px;
-  color: #ffffff;
-}
-
-.gradient-select .MuiOutlinedInput-root:hover {
-  border-color: #DC2626;
-}
-
-.gradient-select .MuiSelect-icon {
-  color: #ffffff;
-}
-
-/* Стили для алертов */
-.gradient-alert {
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(139, 0, 0, 0.3);
-  border-radius: 12px;
-  color: #ffffff;
-}
-
-/* Анимации */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (min-width: 768px) {
+  .grid-cols-12 {
+    gap: var(--space-6);
   }
 }
 
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.col-span-12 {
+  grid-column: span 12;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
+@media (min-width: 768px) {
+  .md\:col-span-4 {
+    grid-column: span 4;
   }
 }
 
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.fade-in-scale {
-  animation: fadeInScale 0.6s ease-out;
-}
-
-.pulse {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* Адаптивность */
-@media (max-width: 768px) {
-  .page-title {
-    font-size: clamp(2rem, 6vw, 3rem);
-  }
-  
-  .page-subtitle {
-    font-size: clamp(1rem, 3vw, 1.4rem);
-  }
-  
-  .gradient-button,
-  .outline-button {
-    padding: 10px 24px;
-    font-size: 14px;
+@media (min-width: 1280px) {
+  .xl\:col-span-3 {
+    grid-column: span 3;
   }
 }
 
-/* Стили для Material-UI компонентов */
-.MuiCard-root {
-  background: rgba(0, 0, 0, 0.8) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(139, 0, 0, 0.3) !important;
-  border-radius: 20px !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+/* Leaderboard grid */
+.leaderboard-grid {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 100px 110px 80px;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
 }
 
-.MuiCard-root:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: 0 25px 80px rgba(139, 0, 0, 0.3) !important;
-  border-color: rgba(139, 0, 0, 0.5) !important;
+/* Skeleton animation */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
 }
 
-.MuiTypography-root {
-  color: #ffffff !important;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8) !important;
-}
-
-.MuiChip-root {
-  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
-  color: white !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 16px rgba(139, 0, 0, 0.3) !important;
-}
-
-.MuiLinearProgress-root {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-radius: 10px !important;
-}
-
-.MuiLinearProgress-bar {
-  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
-  border-radius: 10px !important;
-}
-
-.MuiButton-root {
-  text-transform: none !important;
-  font-weight: 600 !important;
-  border-radius: 12px !important;
-}
-
-.MuiButton-contained {
-  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
-  box-shadow: 0 8px 32px rgba(139, 0, 0, 0.4) !important;
-}
-
-.MuiButton-contained:hover {
-  background: linear-gradient(135deg, #DC2626, #8B0000) !important;
-  box-shadow: 0 12px 40px rgba(139, 0, 0, 0.6) !important;
-  transform: translateY(-2px) !important;
-}
-
-.MuiButton-outlined {
-  border: 2px solid #8B0000 !important;
-  color: #ffffff !important;
-}
-
-.MuiButton-outlined:hover {
-  background: rgba(139, 0, 0, 0.1) !important;
-  border-color: #DC2626 !important;
-}
-
-.MuiTextField-root .MuiOutlinedInput-root {
-  background: rgba(0, 0, 0, 0.8) !important;
-  border: 1px solid rgba(139, 0, 0, 0.3) !important;
-  border-radius: 12px !important;
-  color: #ffffff !important;
-}
-
-.MuiTextField-root .MuiOutlinedInput-root:hover {
-  border-color: #DC2626 !important;
-}
-
-.MuiTextField-root .MuiOutlinedInput-root.Mui-focused {
-  border-color: #DC2626 !important;
-  box-shadow: 0 0 20px rgba(139, 0, 0, 0.3) !important;
-}
-
-.MuiTextField-root .MuiInputLabel-root {
-  color: #a3a3a3 !important;
-}
-
-.MuiTextField-root .MuiInputLabel-root.Mui-focused {
-  color: #DC2626 !important;
-}
-
-.MuiSlider-root {
-  color: #8B0000 !important;
-}
-
-.MuiSlider-track {
-  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
-}
-
-.MuiSlider-thumb {
-  background: linear-gradient(135deg, #8B0000, #DC2626) !important;
-  box-shadow: 0 4px 16px rgba(139, 0, 0, 0.4) !important;
-}
-
-.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked {
-  color: #8B0000 !important;
-}
-
-.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
-  background-color: #8B0000 !important;
-}
-
-.MuiSelect-root {
-  background: rgba(0, 0, 0, 0.8) !important;
-  border: 1px solid rgba(139, 0, 0, 0.3) !important;
-  border-radius: 12px !important;
-  color: #ffffff !important;
-}
-
-.MuiSelect-root:hover {
-  border-color: #DC2626 !important;
-}
-
-.MuiSelect-icon {
-  color: #ffffff !important;
-}
-
-.MuiAlert-root {
-  background: rgba(0, 0, 0, 0.8) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(139, 0, 0, 0.3) !important;
-  border-radius: 12px !important;
-  color: #ffffff !important;
-}
-
-.MuiTableContainer-root {
-  background: rgba(0, 0, 0, 0.8) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(139, 0, 0, 0.3) !important;
-  border-radius: 20px !important;
-  overflow: hidden !important;
-}
-
-.MuiTableHead-root .MuiTableCell-root {
-  background: rgba(139, 0, 0, 0.2) !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  border-bottom: 1px solid rgba(139, 0, 0, 0.3) !important;
-}
-
-.MuiTableBody-root .MuiTableCell-root {
-  color: #ffffff !important;
-  border-bottom: 1px solid rgba(139, 0, 0, 0.1) !important;
-}
-
-.MuiTableRow-root:hover {
-  background: rgba(139, 0, 0, 0.1) !important;
-}
-
-.MuiTabs-root .MuiTab-root {
-  color: #cccccc !important;
-  font-weight: 600 !important;
-}
-
-.MuiTabs-root .MuiTab-root.Mui-selected {
-  color: #8B0000 !important;
-}
-
-.MuiTabs-root .MuiTabs-indicator {
-  background-color: #8B0000 !important;
-}
-
-.MuiFormControlLabel-root .MuiFormControlLabel-label {
-  color: #cccccc !important;
-}
-
-.MuiTooltip-tooltip {
-  background: rgba(0, 0, 0, 0.9) !important;
-  color: #ffffff !important;
-  border: 1px solid rgba(139, 0, 0, 0.3) !important;
-  border-radius: 8px !important;
-  font-size: 14px !important;
-}
-
-.MuiIconButton-root {
-  color: #cccccc !important;
-}
-
-.MuiIconButton-root:hover {
-  background: rgba(139, 0, 0, 0.1) !important;
-  color: #8B0000 !important;
+.skeleton {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
 }

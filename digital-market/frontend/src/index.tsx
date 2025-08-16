@@ -4,11 +4,14 @@ import './index.css';                // анимированный градие�
 import App from './App';
 import theme from './theme';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <App />
-  </ThemeProvider>
+  <TonConnectUIProvider manifestUrl={window.location.origin + '/tonconnect-manifest.json'}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </TonConnectUIProvider>
 );
