@@ -70,12 +70,19 @@ const TelegramLoginButton: React.FC = () => {
 
   const handleTelegramAuth = async (initData: string) => {
     try {
+      // Parse initData string to object
+      const params = new URLSearchParams(initData);
+      const initDataObj: Record<string, string> = {};
+      params.forEach((value, key) => {
+        initDataObj[key] = value;
+      });
+
       const response = await fetch('/api/auth/telegram/verify', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ initData }),
+        body: JSON.stringify(initDataObj),
       });
 
       const data = await response.json();

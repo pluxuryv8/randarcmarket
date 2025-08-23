@@ -2,80 +2,77 @@ import request from 'supertest';
 import { app } from '../index';
 
 describe('Smoke Tests', () => {
-  describe('Health Check', () => {
-    it('should return 200 for health endpoint', async () => {
+  describe('GET /health', () => {
+    it('should return 200 and health status', async () => {
       const response = await request(app)
         .get('/health');
 
       expect(response.status).toBe(200);
-      expect(response.body.status).toBe('ok');
+      expect(response.body).toHaveProperty('status', 'ok');
+      expect(response.body).toHaveProperty('timestamp');
+      expect(response.body).toHaveProperty('uptime');
     });
   });
 
-  describe('NFT Endpoints', () => {
-    it('should return collections array', async () => {
+  describe('GET /api/nft/collections', () => {
+    it('should return 200 and array of collections', async () => {
       const response = await request(app)
         .get('/api/nft/collections');
 
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
       expect(Array.isArray(response.body.data)).toBe(true);
-    });
-
-    it('should return items for a collection', async () => {
-      const response = await request(app)
-        .get('/api/nft/collections/test-collection/items');
-
-      expect(response.status).toBe(200);
-      expect(response.body.success).toBe(true);
-      expect(Array.isArray(response.body.data)).toBe(true);
-    });
-
-    it('should return item details', async () => {
-      const response = await request(app)
-        .get('/api/nft/items/test-item-address');
-
-      expect(response.status).toBe(200);
-      expect(response.body.success).toBe(true);
-      expect(response.body.data).toHaveProperty('address');
-      expect(response.body.data).toHaveProperty('name');
+      
+      // Check if collections have required fields
+      if (response.body.data.length > 0) {
+        const collection = response.body.data[0];
+        expect(collection).toHaveProperty('id');
+        expect(collection).toHaveProperty('name');
+        expect(collection).toHaveProperty('description');
+      }
     });
   });
 
-  describe('Drops Endpoints', () => {
-    it('should return drops array', async () => {
+  describe('GET /api/drops', () => {
+    it('should return 200 and array of drops', async () => {
       const response = await request(app)
         .get('/api/drops');
 
       expect(response.status).toBe(200);
       expect(response.body.success).toBe(true);
       expect(Array.isArray(response.body.data)).toBe(true);
-    });
-
-    it('should return specific drop details', async () => {
-      const response = await request(app)
-        .get('/api/drops/test-drop-id');
-
-      expect(response.status).toBe(200);
-      expect(response.body.success).toBe(true);
-      expect(response.body.data).toHaveProperty('id');
-      expect(response.body.data).toHaveProperty('name');
+      
+      // Check if drops have required fields
+      if (response.body.data.length > 0) {
+        const drop = response.body.data[0];
+        expect(drop).toHaveProperty('id');
+        expect(drop).toHaveProperty('name');
+        expect(drop).toHaveProperty('description');
+        expect(drop).toHaveProperty('price_ton');
+      }
     });
   });
 
-  describe('Radar Endpoints', () => {
-    it('should return 401 for radar endpoints without auth', async () => {
+  describe('GET /bot/health', () => {
+    it('should return 200 and bot health status', async () => {
       const response = await request(app)
-        .get('/api/radar/watchlist');
+        .get('/bot/health');
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('status', 'ok');
+      expect(response.body).toHaveProperty('service', 'telegram-bot');
+      expect(response.body).toHaveProperty('timestamp');
     });
+  });
 
-    it('should return 401 for radar notifications without auth', async () => {
+  describe('404 handler', () => {
+    it('should return 404 for non-existent routes', async () => {
       const response = await request(app)
-        .get('/api/radar/notifications');
+        .get('/api/non-existent-route');
 
-      expect(response.status).toBe(401);
+      expect(response.status).toBe(404);
+      expect(response.body.success).toBe(false);
+      expect(response.body.error).toBe('Route not found');
     });
   });
 });

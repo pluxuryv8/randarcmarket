@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { paymentsApi } from '../services/api';
-import { useTonConnect } from '@tonconnect/ui-react';
-import { FaCheck, FaRocket, FaBell, FaShieldAlt, FaZap, FaSearch } from 'react-icons/fa';
+import { useTonConnectUI } from '@tonconnect/ui-react';
+import { FaCheck, FaRocket, FaBell, FaShieldAlt, FaSearch, FaBolt } from 'react-icons/fa';
 
 const Pricing: React.FC = () => {
   const { user } = useAuth();
-  const { sender } = useTonConnect();
+  const [tonConnectUI] = useTonConnectUI();
   const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async () => {
@@ -15,7 +15,7 @@ const Pricing: React.FC = () => {
       return;
     }
 
-    if (!sender) {
+    if (!tonConnectUI) {
       alert('Пожалуйста, подключите кошелек TON');
       return;
     }
@@ -28,10 +28,15 @@ const Pricing: React.FC = () => {
         const { transaction } = response.data.data;
         
         // Send transaction via TonConnect
-        await sender.send({
-          to: transaction.to,
-          amount: transaction.amount,
-          comment: transaction.comment
+        await tonConnectUI.sendTransaction({
+          validUntil: Math.floor(Date.now() / 1000) + 600, // 10 minutes
+          messages: [
+            {
+              address: transaction.to,
+              amount: transaction.amount,
+              payload: transaction.comment
+            }
+          ]
         });
         
         alert('Подписка успешно создана! Проверьте статус в разделе Radar.');
@@ -84,7 +89,7 @@ const Pricing: React.FC = () => {
             <span>Приоритетный доступ к дропам</span>
           </div>
           <div className="flex items-center space-x-3">
-            <FaZap className="text-blue-500 flex-shrink-0" />
+                         <FaBolt className="text-blue-500 flex-shrink-0" />
             <span>Мгновенные уведомления в Telegram</span>
           </div>
           <div className="flex items-center space-x-3">
@@ -100,7 +105,7 @@ const Pricing: React.FC = () => {
         {/* Subscribe Button */}
         <button
           onClick={handleSubscribe}
-          disabled={loading || !user || !sender}
+                     disabled={loading || !user || !tonConnectUI}
           className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (
@@ -110,8 +115,8 @@ const Pricing: React.FC = () => {
             </div>
           ) : !user ? (
             'Войдите для подписки'
-          ) : !sender ? (
-            'Подключите кошелек'
+                     ) : !tonConnectUI ? (
+             'Подключите кошелек'
           ) : (
             'Подписаться на Radar'
           )}

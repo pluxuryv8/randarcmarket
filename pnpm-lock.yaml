@@ -32,6 +32,12 @@ importers:
 
   apps/backend:
     dependencies:
+      '@randar-market/bot':
+        specifier: workspace:*
+        version: link:../../packages/bot
+      '@randar-market/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       axios:
         specifier: ^1.6.0
         version: 1.11.0

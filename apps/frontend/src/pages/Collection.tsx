@@ -3,8 +3,18 @@ import { Box } from '@mui/material';
 
 
 
-import { getTrendingCollections } from '../services/api';
-import type { TimeRange, Collection } from '../types/domain';
+import { marketApi } from '../services/api';
+
+interface Collection {
+  id: string;
+  name: string;
+  description: string;
+  floor_price?: number;
+  volume_24h?: number;
+  change_24h?: number;
+}
+
+type TimeRange = '24h' | '7d' | '30d';
 
 const Collections: React.FC = ()=>{
   const [range, setRange] = React.useState<TimeRange>('7d');
@@ -13,7 +23,7 @@ const Collections: React.FC = ()=>{
   React.useEffect(()=>{
     let mounted = true;
     setItems(null);
-    getTrendingCollections(range).then((res)=>{ if(mounted) setItems(res); });
+    marketApi.getCollections({ timeRange: range }).then((res)=>{ if(mounted) setItems(res.data); });
     return ()=>{ mounted = false; };
   },[range]);
 

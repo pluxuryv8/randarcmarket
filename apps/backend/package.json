@@ -26,7 +26,9 @@
     "express-rate-limit": "^7.1.5",
     "compression": "^1.7.4",
     "node-cron": "^3.0.3",
-    "ws": "^8.14.2"
+    "ws": "^8.14.2",
+    "@randar-market/bot": "workspace:*",
+    "@randar-market/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",

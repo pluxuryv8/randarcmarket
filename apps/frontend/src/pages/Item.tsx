@@ -26,7 +26,7 @@ const Item: React.FC = () => {
       if (!address) return;
       
       try {
-        const response = await marketApi.getItemDetails(address);
+        const response = await marketApi.getItem(address);
         if (response.data.success) {
           setItem(response.data.data);
         }

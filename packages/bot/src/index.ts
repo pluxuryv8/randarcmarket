@@ -17,7 +17,7 @@ bot.catch((err) => {
   console.error(`Error while handling update ${ctx.update.update_id}:`);
   const e = err.error;
   if (e instanceof BotError) {
-    console.error("Known bot error occurred:", e.description);
+    console.error("Known bot error occurred:", e.message);
   } else if (e instanceof Error) {
     console.error("Unknown error occurred:", e);
   }

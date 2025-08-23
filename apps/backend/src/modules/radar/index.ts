@@ -13,7 +13,7 @@ import { WatchlistFilter, ApiResponse } from '../../types';
 export const radarRouter = Router();
 
 // Start radar worker when module is loaded
-startRadarWorker();
+// startRadarWorker(); // Temporarily disabled for debugging
 
 // GET /api/radar/watchlist
 radarRouter.get('/watchlist', (req: AuthenticatedRequest, res: Response) => {

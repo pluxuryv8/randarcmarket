@@ -11,6 +11,7 @@ import { nftRouter } from './modules/nft';
 import { paymentsRouter } from './modules/payments';
 import { radarRouter } from './modules/radar';
 import { dropsRouter } from './modules/drops';
+// import { botRouter } from './modules/bot';
 
 dotenv.config();
 
@@ -71,6 +72,7 @@ app.use('/api/nft', nftRouter);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/radar', radarRouter);
 app.use('/api/drops', dropsRouter);
+// app.use('/bot', botRouter);
 
 // 404 handler
 app.use('*', (req, res) => {

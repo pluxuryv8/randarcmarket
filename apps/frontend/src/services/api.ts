@@ -38,10 +38,17 @@ api.interceptors.response.use(
 
 // API functions
 export const marketApi = {
-  getCollections: () => api.get('/nft/collections'),
-  getCollectionItems: (id: string) => api.get(`/nft/collections/${id}/items`),
-  getItemDetails: (address: string) => api.get(`/nft/items/${address}`),
-  getActivity: (limit = 50) => api.get(`/nft/activity?limit=${limit}`),
+  getCollections: (params?: { timeRange?: string }) =>
+    api.get('/nft/collections', { params }),
+
+  getCollectionItems: (id: string, params?: Record<string, any>) =>
+    api.get(`/nft/collections/${id}/items`, { params }),
+
+  getItem: (address: string) =>
+    api.get(`/nft/items/${address}`),
+
+  getActivity: (params?: Record<string, any>) =>
+    api.get('/nft/activity', { params }),
 };
 
 export const authApi = {
@@ -66,3 +73,5 @@ export const dropsApi = {
   getDrop: (id: string) => api.get(`/drops/${id}`),
   participate: (id: string) => api.post(`/drops/${id}/participate`),
 };
+
+export const getDrops = () => api.get('/drops');
