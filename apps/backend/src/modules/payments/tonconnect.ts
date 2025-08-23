@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { v4 as uuid } from 'uuid';
+import crypto from 'crypto';
 import { AuthenticatedRequest } from '../auth/jwt';
 import { OrderPayload, TonConnectTransaction, ApiResponse } from '../../types';
 
@@ -20,7 +20,7 @@ export async function createSubscription(req: AuthenticatedRequest, res: Respons
       } as ApiResponse);
     }
 
-    const orderId = uuid();
+    const orderId = crypto.randomUUID();
     const amountNano = BigInt(Math.floor(PRICE_TON * 1e9)).toString();
 
     const comment = `SUB:${orderId};UID:${userId}`;

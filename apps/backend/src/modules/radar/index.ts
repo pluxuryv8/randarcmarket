@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { v4 as uuid } from 'uuid';
+import crypto from 'crypto';
 import { AuthenticatedRequest } from '../auth/jwt';
 import { 
   addWatchlistFilter, 
@@ -53,7 +53,7 @@ radarRouter.post('/watchlist', (req: AuthenticatedRequest, res: Response) => {
     
     const filterData = req.body;
     const filter: WatchlistFilter = {
-      id: uuid(),
+      id: crypto.randomUUID(),
       user_id: userId,
       collection_address: filterData.collection_address,
       min_price: filterData.min_price,

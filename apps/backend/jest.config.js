@@ -12,4 +12,7 @@ module.exports = {
   coverageReporters: ['text', 'lcov', 'html'],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
   testTimeout: 10000,
+  transformIgnorePatterns: [
+    'node_modules/(?!(uuid)/)'
+  ]
 };

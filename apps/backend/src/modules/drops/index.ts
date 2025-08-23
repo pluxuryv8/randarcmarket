@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { v4 as uuid } from 'uuid';
+import crypto from 'crypto';
 import { AuthenticatedRequest } from '../auth/jwt';
 import { Drop, ApiResponse } from '../../types';
 
