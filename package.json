@@ -1,16 +1,45 @@
 {
-  "name": "digital-market",
-  "version": "0.1.0",
+  "name": "randar-market",
+  "version": "1.0.0",
   "private": true,
+  "description": "Randar Market - TON/Telegram NFT marketplace with Radar subscription",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\""
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "docker:up": "docker compose -f infra/docker-compose.yml up --build",
+    "docker:down": "docker compose -f infra/docker-compose.yml down",
+    "docker:logs": "docker compose -f infra/docker-compose.yml logs -f",
+    "clean": "pnpm -r clean",
+    "install:all": "pnpm install"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "prettier": "^3.0.0",
     "concurrently": "^9.2.0"
   },
-  "dependencies": {
-    "@tonconnect/ui-react": "^2.2.0",
-    "three": "^0.179.1",
-    "vanta": "^0.5.24"
-  }
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "keywords": [
+    "ton",
+    "telegram",
+    "nft",
+    "marketplace",
+    "radar",
+    "subscription"
+  ],
+  "author": "Randar Team",
+  "license": "MIT"
 }

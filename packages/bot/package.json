@@ -1,0 +1,29 @@
+{
+  "name": "@randar-market/bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for Randar Market",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "grammy": "^1.20.0",
+    "axios": "^1.6.0",
+    "@randar-market/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "rimraf": "^5.0.0",
+    "ts-node": "^10.9.0"
+  },
+  "keywords": ["telegram", "bot", "randar-market"],
+  "author": "Randar Market Team",
+  "license": "MIT"
+}
