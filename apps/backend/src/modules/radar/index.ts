@@ -18,7 +18,7 @@ startRadarWorker();
 // GET /api/radar/watchlist
 radarRouter.get('/watchlist', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const userId = req.user?.user_id;
+    const userId = req.user?.sub;
     if (!userId) {
       return res.status(401).json({
         success: false,
@@ -43,7 +43,7 @@ radarRouter.get('/watchlist', (req: AuthenticatedRequest, res: Response) => {
 // POST /api/radar/watchlist
 radarRouter.post('/watchlist', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const userId = req.user?.user_id;
+    const userId = req.user?.sub;
     if (!userId) {
       return res.status(401).json({
         success: false,
@@ -81,7 +81,7 @@ radarRouter.post('/watchlist', (req: AuthenticatedRequest, res: Response) => {
 // DELETE /api/radar/watchlist/:id
 radarRouter.delete('/watchlist/:id', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const userId = req.user?.user_id;
+    const userId = req.user?.sub;
     if (!userId) {
       return res.status(401).json({
         success: false,
@@ -115,7 +115,7 @@ radarRouter.delete('/watchlist/:id', (req: AuthenticatedRequest, res: Response) 
 // GET /api/radar/notifications
 radarRouter.get('/notifications', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const userId = req.user?.user_id;
+    const userId = req.user?.sub;
     if (!userId) {
       return res.status(401).json({
         success: false,

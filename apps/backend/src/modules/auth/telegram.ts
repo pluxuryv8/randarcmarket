@@ -100,7 +100,7 @@ export async function verifyTelegram(req: Request, res: Response) {
     }
     
     // Find or create user
-    const user = findOrCreateUser(initData as TelegramAuthData);
+    const user = findOrCreateUser(initData as unknown as TelegramAuthData);
     
     // Generate JWT
     const token = jwt.sign(

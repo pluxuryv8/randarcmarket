@@ -8,7 +8,7 @@ export const authRouter = Router();
 authRouter.post('/telegram/verify', verifyTelegram);
 
 // GET /api/auth/me (get current user)
-authRouter.get('/me', authenticateJWT, (req, res) => {
+authRouter.get('/me', authenticateJWT, (req: any, res) => {
   res.json({
     success: true,
     data: {

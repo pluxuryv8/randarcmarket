@@ -12,7 +12,7 @@ const orders = new Map<string, OrderPayload>();
 
 export async function createSubscription(req: AuthenticatedRequest, res: Response) {
   try {
-    const userId = req.user?.user_id;
+    const userId = req.user?.user_id || req.user?.sub;
     if (!userId) {
       return res.status(401).json({
         success: false,

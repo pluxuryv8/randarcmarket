@@ -81,7 +81,7 @@ dropsRouter.get('/:id', (req: Request, res: Response) => {
 // POST /api/drops/:id/participate
 dropsRouter.post('/:id/participate', (req: AuthenticatedRequest, res: Response) => {
   try {
-    const userId = req.user?.user_id;
+    const userId = req.user?.sub;
     if (!userId) {
       return res.status(401).json({
         success: false,

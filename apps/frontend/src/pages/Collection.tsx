@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import SectionHeader from '../components/ui/SectionHeader';
-import SkeletonCard from '../components/ui/SkeletonCard';
-import CollectionCard from '../components/cards/CollectionCard';
+
+
+
 import { getTrendingCollections } from '../services/api';
 import type { TimeRange, Collection } from '../types/domain';
 
@@ -19,14 +19,20 @@ const Collections: React.FC = ()=>{
 
   return (
     <Box>
-      <SectionHeader title="Коллекции" subtitle="Тренды и лидеры" range={range} onRangeChange={setRange} />
+      <Box sx={{ mb: 3 }}>
+        <h1>Коллекции</h1>
+        <p>Тренды и лидеры</p>
+      </Box>
       <Box sx={{ display:'grid', gap:2, gridTemplateColumns:{ xs:'1fr', sm:'repeat(2,1fr)', md:'repeat(3,1fr)' } }}>
         {items ? (
           items.map((c)=> (
-            <CollectionCard key={c.id} data={c} range={range} />
+            <Box key={c.id} sx={{ p: 2, border: '1px solid #333', borderRadius: 2 }}>
+              <h3>{c.name}</h3>
+              <p>{c.description}</p>
+            </Box>
           ))
         ) : (
-          Array.from({ length: 9 }).map((_,i)=> <SkeletonCard key={i} />)
+          Array.from({ length: 9 }).map((_,i)=> <Box key={i} sx={{ p: 2, border: '1px solid #333', borderRadius: 2, height: 200 }}>Loading...</Box>)
         )}
       </Box>
     </Box>

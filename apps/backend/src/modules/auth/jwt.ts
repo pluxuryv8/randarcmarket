@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { getUserById } from './telegram';
+import { User } from '../../types';
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
