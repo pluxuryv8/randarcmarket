@@ -69,7 +69,7 @@ randar-market/
 
 4. **Запустите в режиме разработки**
    ```bash
-   pnpm dev
+   pnpm dev     # фронт на 5173, бэк на 8080
    ```
 
 ### Docker Compose

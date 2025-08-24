@@ -5,7 +5,7 @@
     "outDir": "./dist",
     "jsx": "react-jsx",
     "skipLibCheck": true,
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
-  "include": ["src"]
+  "include": ["src", "src/vite-env.d.ts"]
 }
