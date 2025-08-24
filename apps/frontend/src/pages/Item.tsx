@@ -1,37 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { marketApi } from '../services/api';
+import { marketService, Item as ItemType } from '../services/market';
 import { FaArrowLeft, FaCopy, FaExternalLinkAlt } from 'react-icons/fa';
 
-interface NFTItem {
-  address: string;
-  collection_address: string;
-  name: string;
-  description?: string;
-  image_url?: string;
-  attributes?: Record<string, any>;
-  price?: number;
-  owner?: string;
-  last_sale?: number;
-  rarity_score?: number;
-}
-
-const Item: React.FC = () => {
+const ItemPage: React.FC = () => {
   const { address } = useParams<{ address: string }>();
-  const [item, setItem] = useState<NFTItem | null>(null);
+  const [item, setItem] = useState<ItemType | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchItem = async () => {
       if (!address) return;
       
+      setLoading(true);
+      setError(null);
+      
       try {
-        const response = await marketApi.getItem(address);
-        if (response.data.success) {
-          setItem(response.data.data);
-        }
+        const data = await marketService.getItem(address);
+        setItem(data);
       } catch (error) {
         console.error('Error fetching item details:', error);
+        setError('Предмет не найден');
       } finally {
         setLoading(false);
       }
@@ -42,53 +32,62 @@ const Item: React.FC = () => {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    alert('Скопировано в буфер обмена!');
+    // Можно добавить toast уведомление
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-96">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-red mx-auto mb-4"></div>
+          <p className="text-text-300">Загрузка предмета...</p>
+        </div>
       </div>
     );
   }
 
-  if (!item) {
+  if (error || !item) {
     return (
       <div className="text-center py-20">
         <div className="text-6xl mb-4">❌</div>
-        <h3 className="text-xl font-semibold mb-2">Предмет не найден</h3>
-        <p className="text-gray-400">Попробуйте другой адрес</p>
+        <h3 className="text-xl font-semibold mb-2 text-text-100">Предмет не найден</h3>
+        <p className="text-text-300 mb-4">{error || 'Попробуйте другой адрес'}</p>
+        <Link to="/market" className="btn-primary">
+          Вернуться к рынку
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="item-page max-w-6xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
         <Link
           to="/market"
-          className="inline-flex items-center space-x-2 text-blue-400 hover:text-blue-300 mb-4"
+          className="inline-flex items-center space-x-2 text-accent-red hover:text-accent-red-2 mb-4 transition-colors"
         >
           <FaArrowLeft />
           <span>Назад к рынку</span>
         </Link>
-        <h1 className="text-4xl font-bold mb-4">{item.name}</h1>
+        <h1 className="text-4xl font-bold mb-4 text-text-100">{item.title}</h1>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Image */}
         <div className="card p-6">
-          <div className="aspect-square bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg flex items-center justify-center">
-            {item.image_url ? (
+          <div className="aspect-square bg-bg-800 rounded-lg flex items-center justify-center overflow-hidden">
+            {item.image ? (
               <img
-                src={item.image_url}
-                alt={item.name}
-                className="w-full h-full object-cover rounded-lg"
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://via.placeholder.com/600x600/1f2632/666?text=No+Image';
+                }}
               />
             ) : (
-              <div className="text-8xl text-gray-400">🎨</div>
+              <div className="text-8xl text-text-300">🎨</div>
             )}
           </div>
         </div>
@@ -97,90 +96,132 @@ const Item: React.FC = () => {
         <div className="space-y-6">
           {/* Basic Info */}
           <div className="card p-6">
-            <h2 className="text-2xl font-bold mb-4">Информация</h2>
+            <h2 className="text-2xl font-bold mb-4 text-text-100">Информация</h2>
             
-            {item.description && (
-              <div className="mb-4">
-                <h3 className="text-lg font-semibold mb-2">Описание</h3>
-                <p className="text-gray-400">{item.description}</p>
-              </div>
-            )}
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <div className="text-gray-400 text-sm">Адрес</div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-white font-mono text-sm">
-                    {item.address.slice(0, 8)}...{item.address.slice(-6)}
-                  </span>
-                  <button
-                    onClick={() => copyToClipboard(item.address)}
-                    className="text-blue-400 hover:text-blue-300"
-                    title="Копировать адрес"
-                  >
-                    <FaCopy />
-                  </button>
-                </div>
-              </div>
-
+            <div className="space-y-4">
+              {/* Price */}
               {item.price && (
-                <div>
-                  <div className="text-gray-400 text-sm">Цена</div>
-                  <div className="text-blue-400 font-semibold text-lg">
-                    {item.price} TON
+                <div className="flex justify-between items-center">
+                  <span className="text-text-300">Цена</span>
+                  <span className="text-2xl font-bold text-accent-red">{item.price} TON</span>
+                </div>
+              )}
+
+              {/* Status */}
+              <div className="flex justify-between items-center">
+                <span className="text-text-300">Статус</span>
+                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  item.isForSale 
+                    ? 'bg-green-900/20 text-green-400 border border-green-700' 
+                    : 'bg-gray-900/20 text-gray-400 border border-gray-700'
+                }`}>
+                  {item.isForSale ? 'В продаже' : 'Не продается'}
+                </span>
+              </div>
+
+              {/* Rarity */}
+              {item.rarity && (
+                <div className="flex justify-between items-center">
+                  <span className="text-text-300">Редкость</span>
+                  <span className="text-text-100 font-medium">{item.rarity}</span>
+                </div>
+              )}
+
+              {/* Last Sale */}
+              {item.lastSale && (
+                <div className="flex justify-between items-center">
+                  <span className="text-text-300">Последняя продажа</span>
+                  <span className="text-text-100 font-medium">{item.lastSale} TON</span>
+                </div>
+              )}
+
+              {/* Owner */}
+              {item.owner && (
+                <div className="flex justify-between items-center">
+                  <span className="text-text-300">Владелец</span>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-text-100 font-mono text-sm">
+                      {item.owner.slice(0, 6)}...{item.owner.slice(-4)}
+                    </span>
+                    <button
+                      onClick={() => copyToClipboard(item.owner!)}
+                      className="text-text-300 hover:text-accent-red transition-colors"
+                      aria-label="Копировать адрес владельца"
+                    >
+                      <FaCopy size={14} />
+                    </button>
                   </div>
                 </div>
               )}
 
-              {item.rarity_score && (
-                <div>
-                  <div className="text-gray-400 text-sm">Редкость</div>
-                  <div className="text-white font-semibold">
-                    {item.rarity_score.toFixed(2)}
-                  </div>
+              {/* Address */}
+              <div className="flex justify-between items-center">
+                <span className="text-text-300">Адрес</span>
+                <div className="flex items-center space-x-2">
+                  <span className="text-text-100 font-mono text-sm">
+                    {item.address.slice(0, 6)}...{item.address.slice(-4)}
+                  </span>
+                                      <button
+                      onClick={() => copyToClipboard(item.address)}
+                      className="text-text-300 hover:text-accent-red transition-colors"
+                      aria-label="Копировать адрес предмета"
+                    >
+                      <FaCopy size={14} />
+                    </button>
                 </div>
-              )}
-
-              {item.last_sale && (
-                <div>
-                  <div className="text-gray-400 text-sm">Последняя продажа</div>
-                  <div className="text-white font-semibold">
-                    {item.last_sale} TON
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
           </div>
 
-          {/* Attributes */}
-          {item.attributes && Object.keys(item.attributes).length > 0 && (
-            <div className="card p-6">
-              <h2 className="text-2xl font-bold mb-4">Атрибуты</h2>
-              <div className="grid grid-cols-2 gap-4">
-                {Object.entries(item.attributes).map(([key, value]) => (
-                  <div key={key} className="bg-white/5 p-3 rounded-lg">
-                    <div className="text-gray-400 text-sm">{key}</div>
-                    <div className="text-white font-semibold">{String(value)}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Actions */}
           <div className="card p-6">
-            <h2 className="text-2xl font-bold mb-4">Действия</h2>
+            <h2 className="text-2xl font-bold mb-4 text-text-100">Действия</h2>
+            
             <div className="space-y-3">
-              <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all">
-                Купить за {item.price || 'N/A'} TON
-              </button>
-              <button className="w-full border border-blue-500 text-blue-400 py-3 rounded-lg font-semibold hover:bg-blue-500 hover:text-white transition-all">
+              {item.isForSale && (
+                <button className="btn-primary w-full py-3">
+                  Купить за {item.price} TON
+                </button>
+              )}
+              
+              <button className="w-full py-3 px-4 border border-line-700 rounded-lg text-text-100 hover:bg-surface-800 transition-colors">
                 Предложить цену
               </button>
-              <button className="w-full border border-gray-500 text-gray-400 py-3 rounded-lg font-semibold hover:bg-gray-500 hover:text-white transition-all">
+              
+              <button className="w-full py-3 px-4 border border-line-700 rounded-lg text-text-100 hover:bg-surface-800 transition-colors">
                 Добавить в избранное
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Attributes */}
+      {item.traits && Object.keys(item.traits).length > 0 && (
+        <div className="mt-8">
+          <div className="card p-6">
+            <h2 className="text-2xl font-bold mb-4 text-text-100">Атрибуты</h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {Object.entries(item.traits).map(([trait, value]) => (
+                <div key={trait} className="bg-surface-800 rounded-lg p-4 border border-line-700">
+                  <div className="text-sm text-text-300 mb-1">{trait}</div>
+                  <div className="text-text-100 font-medium">{value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Similar Items */}
+      <div className="mt-8">
+        <div className="card p-6">
+          <h2 className="text-2xl font-bold mb-4 text-text-100">Похожие предметы</h2>
+          
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🔍</div>
+            <p className="text-text-300">Похожие предметы будут показаны здесь</p>
           </div>
         </div>
       </div>
@@ -188,4 +229,4 @@ const Item: React.FC = () => {
   );
 };
 
-export default Item;
+export default ItemPage;

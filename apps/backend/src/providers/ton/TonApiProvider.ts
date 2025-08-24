@@ -48,8 +48,10 @@ export interface GiftsProvider {
   getCollections(params: any): Promise<Collection[]>;
   getItems(params: any): Promise<ItemPage>;
   getCollectionById(id: string): Promise<Collection>;
+  getItem(address: string): Promise<Item>;
   getTraits(collectionId: string): Promise<TraitBucket[]>;
   getStats(params: any): Promise<Stats>;
+  getActivity(params: any): Promise<ItemPage>;
   search(query: string): Promise<ItemPage>;
 }
 
@@ -150,6 +152,29 @@ export class TonApiProvider implements GiftsProvider {
     }
   }
 
+  async getItem(address: string): Promise<Item> {
+    try {
+      const data = await this.request(`nft/items/${address}`);
+      const item = data.result;
+
+      return {
+        address: item.address,
+        title: item.name || item.metadata?.name || 'Unknown',
+        image: item.metadata?.image || item.image || '',
+        price: item.price,
+        isForSale: item.is_for_sale || false,
+        traits: item.metadata?.attributes || {},
+        collectionId: item.collection_address,
+        rarity: item.rarity_score,
+        lastSale: item.last_sale_price,
+        owner: item.owner_address
+      };
+    } catch (error) {
+      console.error('TonAPI getItem error:', error);
+      throw new Error('Item not found');
+    }
+  }
+
   async getTraits(collectionId: string): Promise<TraitBucket[]> {
     try {
       const data = await this.request(`nft/collections/${collectionId}/traits`);
@@ -192,6 +217,31 @@ export class TonApiProvider implements GiftsProvider {
         supply: 0,
         owners: 0
       };
+    }
+  }
+
+  async getActivity(params: any): Promise<ItemPage> {
+    try {
+      const data = await this.request('nft/activity', params);
+      return {
+        items: data.result?.items?.map((item: any) => ({
+          address: item.address,
+          title: item.name || item.metadata?.name || 'Unknown',
+          image: item.metadata?.image || item.image || '',
+          price: item.price,
+          isForSale: item.is_for_sale || false,
+          traits: item.metadata?.attributes || {},
+          collectionId: item.collection_address,
+          rarity: item.rarity_score,
+          lastSale: item.last_sale_price,
+          owner: item.owner_address
+        })) || [],
+        total: data.result?.total || 0,
+        cursor: data.result?.cursor
+      };
+    } catch (error) {
+      console.error('TonAPI getActivity error:', error);
+      return { items: [], total: 0 };
     }
   }
 

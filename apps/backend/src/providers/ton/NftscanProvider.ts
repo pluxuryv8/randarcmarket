@@ -96,6 +96,29 @@ export class NftscanProvider implements GiftsProvider {
     }
   }
 
+  async getItem(address: string): Promise<Item> {
+    try {
+      const data = await this.request(`items/${address}`);
+      const item = data.result;
+
+      return {
+        address: item.token_address,
+        title: item.name,
+        image: item.image_url,
+        price: item.price,
+        isForSale: item.is_for_sale || false,
+        traits: item.attributes || {},
+        collectionId: item.contract_address,
+        rarity: item.rarity_score,
+        lastSale: item.last_sale_price,
+        owner: item.owner_address
+      };
+    } catch (error) {
+      console.error('NFTScan getItem error:', error);
+      throw new Error('Item not found');
+    }
+  }
+
   async getTraits(collectionId: string): Promise<TraitBucket[]> {
     try {
       const data = await this.request(`collections/${collectionId}/traits`);
@@ -138,6 +161,31 @@ export class NftscanProvider implements GiftsProvider {
         supply: 0,
         owners: 0
       };
+    }
+  }
+
+  async getActivity(params: any): Promise<ItemPage> {
+    try {
+      const data = await this.request('activity', params);
+      return {
+        items: data.result?.items?.map((item: any) => ({
+          address: item.token_address,
+          title: item.name,
+          image: item.image_url,
+          price: item.price,
+          isForSale: item.is_for_sale || false,
+          traits: item.attributes || {},
+          collectionId: item.contract_address,
+          rarity: item.rarity_score,
+          lastSale: item.last_sale_price,
+          owner: item.owner_address
+        })) || [],
+        total: data.result?.total || 0,
+        cursor: data.result?.cursor
+      };
+    } catch (error) {
+      console.error('NFTScan getActivity error:', error);
+      return { items: [], total: 0 };
     }
   }
 

@@ -103,29 +103,22 @@ nftRouter.get('/items', async (req: Request, res: Response) => {
 nftRouter.get('/items/:address', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
-    const items = await giftsProvider.getItems({ address });
-    
-    if (!items.items.length) {
-      return res.status(404).json({
-        success: false,
-        error: 'Item not found'
-      } as ApiResponse);
-    }
-    
+    const item = await giftsProvider.getItem(address);
     const headers = giftsProvider.getResponseHeaders();
+    
     Object.entries(headers).forEach(([key, value]) => {
       res.setHeader(key, value);
     });
     
     res.json({
       success: true,
-      data: items.items[0]
+      data: item
     } as ApiResponse);
   } catch (error) {
     console.error('Error in item details endpoint:', error);
-    res.status(500).json({
+    res.status(404).json({
       success: false,
-      error: 'Failed to fetch item details'
+      error: 'Item not found'
     } as ApiResponse);
   }
 });
@@ -164,8 +157,7 @@ nftRouter.get('/search', async (req: Request, res: Response) => {
 // GET /api/nft/activity
 nftRouter.get('/activity', async (req: Request, res: Response) => {
   try {
-    const limit = Number(req.query.limit) || 50;
-    const activity = await giftsProvider.getItems({ limit });
+    const activity = await giftsProvider.getActivity(req.query);
     const headers = giftsProvider.getResponseHeaders();
     
     Object.entries(headers).forEach(([key, value]) => {
@@ -174,7 +166,7 @@ nftRouter.get('/activity', async (req: Request, res: Response) => {
     
     res.json({
       success: true,
-      data: activity.items
+      data: activity
     } as ApiResponse);
   } catch (error) {
     console.error('Error in activity endpoint:', error);

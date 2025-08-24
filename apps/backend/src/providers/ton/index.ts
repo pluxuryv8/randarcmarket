@@ -73,6 +73,24 @@ export class TonGiftsProvider implements GiftsProvider {
     }
   }
 
+  async getItem(address: string) {
+    try {
+      this.lastSource = 'tonapi';
+      const result = await this.tonApi.getItem(address);
+      return result;
+    } catch (error) {
+      console.warn('TonAPI failed, falling back to NFTScan');
+      try {
+        this.lastSource = 'nftscan';
+        const result = await this.nftscan.getItem(address);
+        return result;
+      } catch (fallbackError) {
+        console.error('Both providers failed:', fallbackError);
+        throw new Error('Item not found');
+      }
+    }
+  }
+
   async getTraits(collectionId: string) {
     try {
       this.lastSource = 'tonapi';
@@ -115,6 +133,24 @@ export class TonGiftsProvider implements GiftsProvider {
     }
   }
 
+  async getActivity(params: any) {
+    try {
+      this.lastSource = 'tonapi';
+      const result = await this.tonApi.getActivity(params);
+      return result;
+    } catch (error) {
+      console.warn('TonAPI failed, falling back to NFTScan');
+      try {
+        this.lastSource = 'nftscan';
+        const result = await this.nftscan.getActivity(params);
+        return result;
+      } catch (fallbackError) {
+        console.error('Both providers failed:', fallbackError);
+        return { items: [], total: 0 };
+      }
+    }
+  }
+
   async search(query: string) {
     try {
       this.lastSource = 'tonapi';
@@ -131,13 +167,6 @@ export class TonGiftsProvider implements GiftsProvider {
         return { items: [], total: 0 };
       }
     }
-  }
-
-  getResponseHeaders() {
-    return {
-      'X-Source': this.lastSource,
-      'Cache-Control': 'public, max-age=30'
-    };
   }
 }
 
