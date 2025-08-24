@@ -18,10 +18,10 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-accent-red rounded-lg flex items-center justify-center">
               <FaRocket className="text-white text-sm" />
             </div>
-            <span className="text-xl font-bold gradient-text">Randar Market</span>
+            <span className="text-xl font-bold text-text-100">Randar Market</span>
           </Link>
 
           {/* Navigation */}
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
             <Link
               to="/market"
               className={`text-sm font-medium transition-colors ${
-                isActive('/market') ? 'text-blue-400' : 'text-gray-300 hover:text-white'
+                isActive('/market') ? 'text-accent-red-2' : 'text-text-300 hover:text-text-100'
               }`}
             >
               Market
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
             <Link
               to="/drops"
               className={`text-sm font-medium transition-colors ${
-                isActive('/drops') ? 'text-blue-400' : 'text-gray-300 hover:text-white'
+                isActive('/drops') ? 'text-accent-red-2' : 'text-text-300 hover:text-text-100'
               }`}
             >
               <FaGift className="inline mr-1" />
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
             <Link
               to="/radar"
               className={`text-sm font-medium transition-colors ${
-                isActive('/radar') ? 'text-blue-400' : 'text-gray-300 hover:text-white'
+                isActive('/radar') ? 'text-accent-red-2' : 'text-text-300 hover:text-text-100'
               }`}
             >
               <FaSearch className="inline mr-1" />
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
             <Link
               to="/pricing"
               className={`text-sm font-medium transition-colors ${
-                isActive('/pricing') ? 'text-blue-400' : 'text-gray-300 hover:text-white'
+                isActive('/pricing') ? 'text-accent-red-2' : 'text-text-300 hover:text-text-100'
               }`}
             >
               Pricing
@@ -78,18 +78,18 @@ const Header: React.FC = () => {
                   />
                 )}
                 <div className="hidden sm:block">
-                  <div className="text-sm font-medium text-white">
+                  <div className="text-sm font-medium text-text-100">
                     {user.first_name || user.username || 'User'}
                   </div>
                   {wallet && (
-                    <div className="text-xs text-gray-400">
+                    <div className="text-xs text-text-300">
                       {wallet.account.address.slice(0, 6)}...{wallet.account.address.slice(-4)}
                     </div>
                   )}
                 </div>
                 <button
                   onClick={logout}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-text-300 hover:text-text-100 transition-colors"
                 >
                   Logout
                 </button>

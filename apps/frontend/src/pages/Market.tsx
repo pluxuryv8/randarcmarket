@@ -1,198 +1,328 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { marketService, MarketFilters as MarketFiltersType, Item } from '../services/market';
-import MarketFilters from '../components/MarketFilters';
+import { giftsApi } from '../services/giftsLocal';
+import { GiftItem, GiftCollection } from '../types/domain';
+import { GiftCard } from '../components/GiftCard';
+import { Button } from '../components/ui/Button';
+import { Input } from '../components/ui/Input';
+import { Select } from '../components/ui/Select';
+import { Chip } from '../components/ui/Chip';
+import { useQueryState, useArrayQueryState, useNumberQueryState, useBooleanQueryState } from '../lib/useQueryState';
 
-const Marketplace: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [items, setItems] = useState<Item[]>([]);
-  const [totalItems, setTotalItems] = useState(0);
+const MarketPage: React.FC = () => {
+  // URL состояние
+  const [search, setSearch] = useQueryState('search', '');
+  const [collectionId, setCollectionId] = useQueryState('collection', '');
+  const [forSale, setForSale] = useBooleanQueryState('forSale', true);
+  const [minPrice, setMinPrice] = useNumberQueryState('minPrice', 0);
+  const [maxPrice, setMaxPrice] = useNumberQueryState('maxPrice', 0);
+  const [sort, setSort] = useQueryState('sort', 'price');
+  const [order, setOrder] = useQueryState('order', 'desc');
+  const [selectedTraits, setSelectedTraits] = useArrayQueryState('traits', []);
+
+  // Состояние
+  const [items, setItems] = useState<GiftItem[]>([]);
+  const [collections, setCollections] = useState<GiftCollection[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingError, setLoadingError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
-  const [filters, setFilters] = useState<MarketFiltersType>({
-    limit: 24,
-    sort: 'price',
-    order: 'desc'
-  });
+  const [cursor, setCursor] = useState<string | null>(null);
 
-  // Синхронизация с URL
+  // Загрузка коллекций
   useEffect(() => {
-    const urlFilters = marketService.buildFiltersFromURL(searchParams);
-    setFilters(prev => ({ ...prev, ...urlFilters }));
-  }, [searchParams]);
+    const loadCollections = async () => {
+      try {
+        const data = await giftsApi.getCollections();
+        setCollections(data);
+      } catch (error) {
+        console.error('Error loading collections:', error);
+      }
+    };
+    loadCollections();
+  }, []);
 
-  // Обновление URL при изменении фильтров
-  const updateURL = useCallback((newFilters: MarketFiltersType) => {
-    const params = marketService.buildURLFromFilters(newFilters);
-    setSearchParams(params);
-  }, [setSearchParams]);
-
-  // Обработка изменения фильтров
-  const handleFiltersChange = useCallback((newFilters: MarketFiltersType) => {
-    setFilters(newFilters);
-    updateURL(newFilters);
-    setItems([]);
-    setHasMore(true);
-  }, [updateURL]);
-
-  // Загрузка данных
-  const loadItems = useCallback(async (reset = false) => {
-    if (reset) {
+  // Загрузка предметов
+  useEffect(() => {
+    const loadItems = async () => {
       setIsLoading(true);
-      setItems([]);
-      setHasMore(true);
-    }
+      try {
+        const params = {
+          collectionId: collectionId || undefined,
+          forSale: forSale,
+          minPrice: minPrice || undefined,
+          maxPrice: maxPrice || undefined,
+          traits: selectedTraits.length > 0 ? { 'Rarity': selectedTraits } : undefined,
+          search: search || undefined,
+          sort: sort as any,
+          order: order as 'asc' | 'desc',
+          limit: 24,
+          cursor: null
+        };
+        
+        const response = await giftsApi.getItems(params);
+        setItems(response.items);
+        setHasMore(!!response.nextCursor);
+        setCursor(response.nextCursor);
+      } catch (error) {
+        console.error('Error loading items:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadItems();
+  }, [collectionId, forSale, minPrice, maxPrice, selectedTraits, search, sort, order]);
 
-    setLoadingError(null);
+  // Загрузка дополнительных предметов
+  const loadMore = async () => {
+    if (!cursor || isLoading) return;
     
     try {
-      console.log('🔄 Загрузка данных с фильтрами:', filters);
+      const params = {
+        collectionId: collectionId || undefined,
+        forSale: forSale,
+        minPrice: minPrice || undefined,
+        maxPrice: maxPrice || undefined,
+        traits: selectedTraits.length > 0 ? { 'Rarity': selectedTraits } : undefined,
+        search: search || undefined,
+        sort: sort as any,
+        order: order as 'asc' | 'desc',
+        limit: 24,
+        cursor: cursor
+      };
       
-      const response = await marketService.getItems(filters);
-      
-      console.log('✅ Загружено товаров:', response.items.length, 'из', response.total);
-      
-      if (reset) {
-        setItems(response.items);
-      } else {
-        setItems(prev => [...prev, ...response.items]);
-      }
-      
-      setTotalItems(response.total);
-      setHasMore(response.items.length === filters.limit && response.cursor);
-      
+      const response = await giftsApi.getItems(params);
+      setItems(prev => [...prev, ...response.items]);
+      setHasMore(!!response.nextCursor);
+      setCursor(response.nextCursor);
     } catch (error) {
-      console.error('❌ Ошибка загрузки данных:', error);
-      setLoadingError('Не удалось загрузить данные. Попробуйте обновить страницу.');
-    } finally {
-      setIsLoading(false);
+      console.error('Error loading more items:', error);
     }
-  }, [filters]);
+  };
 
-  // Первоначальная загрузка
-  useEffect(() => {
-    loadItems(true);
-  }, [loadItems]);
+  // Очистка фильтров
+  const clearFilters = () => {
+    setSearch('');
+    setCollectionId('');
+    setForSale(true);
+    setMinPrice(0);
+    setMaxPrice(0);
+    setSelectedTraits([]);
+    setSort('price');
+    setOrder('desc');
+  };
 
-  // Загрузка следующей страницы
-  const loadMore = useCallback(() => {
-    if (!isLoading && hasMore) {
-      const nextFilters = { ...filters, cursor: items[items.length - 1]?.address };
-      setFilters(nextFilters);
-    }
-  }, [isLoading, hasMore, filters, items]);
+  // Обработка трейтов
+  const handleTraitToggle = (trait: string) => {
+    setSelectedTraits(prev => 
+      prev.includes(trait) 
+        ? prev.filter(t => t !== trait)
+        : [...prev, trait]
+    );
+  };
 
-  // Debounced поиск
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (filters.search !== undefined) {
-        loadItems(true);
-      }
-    }, 400);
+  const removeTrait = (trait: string) => {
+    setSelectedTraits(prev => prev.filter(t => t !== trait));
+  };
 
-    return () => clearTimeout(timeoutId);
-  }, [filters.search, loadItems]);
+  const sortOptions = [
+    { value: 'price', label: 'Цена' },
+    { value: 'listed_at', label: 'Недавно выставлены' },
+    { value: 'sold_at', label: 'Недавно проданы' },
+    { value: 'volume_24h', label: 'Объем 24ч' }
+  ];
+
+  const orderOptions = [
+    { value: 'desc', label: 'По убыванию' },
+    { value: 'asc', label: 'По возрастанию' }
+  ];
 
   return (
-    <div className="marketplace max-w-7xl mx-auto px-4 py-8">
-      <div className="header mb-8">
-        <h1 className="text-4xl font-bold mb-2 text-text-100">RANDAR MARKETPLACE</h1>
-        <p className="text-text-300">Telegram Gifts: {totalItems}</p>
-      </div>
-      
-      <div className="flex gap-8">
-        {/* Сайдбар с фильтрами */}
-        <div className="w-80 flex-shrink-0">
-          <MarketFilters
-            filters={filters}
-            onFiltersChange={handleFiltersChange}
-          />
-        </div>
-
-        {/* Основной контент */}
-        <div className="flex-1">
-          {isLoading && items.length === 0 && (
-            <div className="flex justify-center items-center py-20">
-              <div className="text-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-red mx-auto mb-4"></div>
-                <p className="text-text-300">Загрузка данных...</p>
+    <div className="min-h-screen bg-bg-900">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex gap-8">
+          {/* Сайдбар фильтров */}
+          <div className="w-80 flex-shrink-0">
+            <div className="bg-surface-800 rounded-lg p-6 border border-line-700">
+              <h2 className="text-xl font-semibold text-text-100 mb-6">Фильтры</h2>
+              
+              {/* Поиск */}
+              <div className="mb-6">
+                <Input
+                  label="Поиск"
+                  placeholder="Название предмета..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </div>
-            </div>
-          )}
 
-          {loadingError && !isLoading && (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">❌</div>
-              <h3 className="text-xl font-semibold mb-2 text-text-100">Ошибка загрузки</h3>
-              <p className="text-text-300 mb-4">{loadingError}</p>
-              <button onClick={() => loadItems(true)} className="btn-primary">
-                Попробовать снова
-              </button>
-            </div>
-          )}
+              {/* Коллекция */}
+              <div className="mb-6">
+                <Select
+                  label="Коллекция"
+                  options={[
+                    { value: '', label: 'Все коллекции' },
+                    ...collections.map(c => ({ value: c.id, label: c.title }))
+                  ]}
+                  value={collectionId}
+                  onChange={setCollectionId}
+                />
+              </div>
 
-          {!isLoading && !loadingError && items.length > 0 && (
-            <>
-              <div className="items-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {items.map((item) => (
-                  <div key={item.address} className="card p-4 hover:shadow-medium transition-shadow">
-                    <div className="aspect-square mb-4 rounded-lg overflow-hidden">
-                      <img 
-                        src={item.image} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.currentTarget.src = 'https://via.placeholder.com/300x300/1f2632/666?text=No+Image';
-                        }}
-                      />
+              {/* Статус продажи */}
+              <div className="mb-6">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={forSale}
+                    onChange={(e) => setForSale(e.target.checked)}
+                    className="mr-2"
+                  />
+                  <span className="text-text-100">Только в продаже</span>
+                </label>
+              </div>
+
+              {/* Ценовой диапазон */}
+              <div className="mb-6">
+                <h3 className="text-sm font-medium text-text-300 mb-3">Цена (TON)</h3>
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="От"
+                    type="number"
+                    value={minPrice || ''}
+                    onChange={(e) => setMinPrice(parseFloat(e.target.value) || 0)}
+                  />
+                  <Input
+                    placeholder="До"
+                    type="number"
+                    value={maxPrice || ''}
+                    onChange={(e) => setMaxPrice(parseFloat(e.target.value) || 0)}
+                  />
+                </div>
+              </div>
+
+              {/* Трейты */}
+              <div className="mb-6">
+                <h3 className="text-sm font-medium text-text-300 mb-3">Редкость</h3>
+                <div className="space-y-2">
+                  {['Common', 'Rare', 'Legendary'].map((trait) => (
+                    <Chip
+                      key={trait}
+                      label={trait}
+                      active={selectedTraits.includes(trait)}
+                      onClick={() => handleTraitToggle(trait)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Очистить фильтры */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={clearFilters}
+                className="w-full"
+              >
+                Очистить все
+              </Button>
+            </div>
+          </div>
+
+          {/* Основной контент */}
+          <div className="flex-1">
+            {/* Тулбар */}
+            <div className="bg-surface-800 rounded-lg p-4 border border-line-700 mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-4">
+                  <Select
+                    options={sortOptions}
+                    value={sort}
+                    onChange={setSort}
+                  />
+                  <Select
+                    options={orderOptions}
+                    value={order}
+                    onChange={setOrder}
+                  />
+                </div>
+                <span className="text-text-300">
+                  {items.length} предметов
+                </span>
+              </div>
+
+              {/* Активные фильтры */}
+              {(search || collectionId || selectedTraits.length > 0) && (
+                <div className="flex flex-wrap gap-2">
+                  {search && (
+                    <Chip
+                      label={`Поиск: ${search}`}
+                      onRemove={() => setSearch('')}
+                    />
+                  )}
+                  {collectionId && (
+                    <Chip
+                      label={`Коллекция: ${collections.find(c => c.id === collectionId)?.title}`}
+                      onRemove={() => setCollectionId('')}
+                    />
+                  )}
+                  {selectedTraits.map(trait => (
+                    <Chip
+                      key={trait}
+                      label={`Редкость: ${trait}`}
+                      onRemove={() => removeTrait(trait)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Сетка предметов */}
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="card p-4 animate-pulse">
+                    <div className="aspect-square bg-surface-800 rounded-lg mb-4"></div>
+                    <div className="space-y-2">
+                      <div className="h-4 bg-surface-800 rounded"></div>
+                      <div className="h-6 bg-surface-800 rounded w-1/2"></div>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2 text-text-100 truncate">{item.title}</h3>
-                    {item.price && (
-                      <p className="text-accent-red font-semibold mb-1">{item.price} TON</p>
-                    )}
-                    {item.rarity && (
-                      <p className="text-text-300 text-sm mb-1">Редкость: {item.rarity}</p>
-                    )}
-                    <p className="text-text-300 text-sm mb-3">
-                      {item.isForSale ? 'В продаже' : 'Не продается'}
-                    </p>
-                    {item.owner && (
-                      <p className="text-text-300 text-xs mb-3">
-                        Владелец: {item.owner.slice(0, 6)}...{item.owner.slice(-4)}
-                      </p>
-                    )}
-                    <button className="btn-primary w-full">Подробнее</button>
                   </div>
                 ))}
               </div>
-
-              {/* Кнопка "Загрузить еще" */}
-              {hasMore && (
-                <div className="text-center mt-8">
-                  <button
-                    onClick={loadMore}
-                    disabled={isLoading}
-                    className="btn-primary px-8 py-3"
-                  >
-                    {isLoading ? 'Загрузка...' : 'Загрузить еще'}
-                  </button>
+            ) : items.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {items.map((item) => (
+                    <GiftCard key={item.id} item={item} />
+                  ))}
                 </div>
-              )}
-            </>
-          )}
-
-          {!isLoading && !loadingError && items.length === 0 && (
-            <div className="text-center py-20">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold mb-2 text-text-100">Telegram Gifts не найдены</h3>
-              <p className="text-text-300">Попробуйте изменить параметры поиска</p>
-            </div>
-          )}
+                
+                {hasMore && (
+                  <div className="text-center mt-8">
+                    <Button onClick={loadMore} disabled={isLoading}>
+                      Загрузить еще
+                    </Button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-20">
+                <div className="text-6xl mb-4">🔍</div>
+                <h3 className="text-xl font-semibold mb-2 text-text-100">
+                  Предметы не найдены
+                </h3>
+                <p className="text-text-300 mb-4">
+                  Попробуйте изменить параметры фильтрации
+                </p>
+                <Button onClick={clearFilters}>
+                  Очистить фильтры
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Marketplace;
+export default MarketPage;

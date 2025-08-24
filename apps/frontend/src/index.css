@@ -2,18 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Design tokens - Dark theme */
-  --bg-900: #0b0f14;
-  --bg-800: #121720;
-  --surface-800: #161b24;
-  --text-100: #e6eaf2;
-  --text-300: #a9b2c0;
-  --line-700: #1f2632;
-  --accent-red: #b3122e;
-  --accent-red-2: #e6243b;
-  --focus-ring: rgba(230, 36, 59, 0.35);
-}
+@import './theme/tokens.css';
 
 body {
   margin: 0;
@@ -51,7 +40,7 @@ code {
 
 /* TonConnect button styles */
 .tc-btn {
-  background: linear-gradient(135deg, #0088cc 0%, #00a8ff 100%);
+  background: var(--accent-red);
   border: none;
   border-radius: 12px;
   color: white;
@@ -62,8 +51,9 @@ code {
 }
 
 .tc-btn:hover {
+  background: var(--accent-red-2);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 136, 204, 0.3);
+  box-shadow: 0 8px 25px rgba(230, 36, 59, 0.3);
 }
 
 /* Card styles */
