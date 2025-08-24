@@ -1,31 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-
+import React, { useState, useEffect } from 'react';
+import { marketApi } from '../services/api';
 
 interface MarketItem {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
+  address: string;
+  title: string;
   image: string;
-  rarity: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
-  condition: 'factory-new' | 'minimal-wear' | 'field-tested' | 'well-worn' | 'battle-scarred';
-  seller: {
-    name: string;
-    avatar: string;
-    rating: number;
-    verified: boolean;
-  };
-  category: string;
-  views: number;
-  likes: number;
-  isHot: boolean;
-  discount?: number;
-  tags: string[];
-  float?: number;
-  stickers?: string[];
-  market_hash_name?: string;
-  collection?: string;
+  price?: number;
+  isForSale: boolean;
+  traits: Record<string, string>;
+  collectionId: string;
+  rarity?: number;
+  lastSale?: number;
+  owner?: string;
 }
 
 const Marketplace: React.FC = () => {
@@ -35,56 +21,27 @@ const Marketplace: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingError, setLoadingError] = useState<string | null>(null);
 
-  // Загрузка мок данных
+  // Загрузка данных из API
   useEffect(() => {
-    const loadMockItems = async () => {
+    const loadItems = async () => {
       setIsLoading(true);
       setLoadingError(null);
       
       try {
-        console.log('🔄 Загрузка мок данных...');
+        console.log('🔄 Загрузка данных из API...');
         
-        // Мок данные для маркетплейса
-        const mockItems: MarketItem[] = [
-          {
-            id: 'mock_1',
-            name: 'AK-47 | Redline',
-            price: 750,
-            originalPrice: 890,
-            image: 'https://via.placeholder.com/330x192/DC2626/FFFFFF?text=AK-47+Redline',
-            rarity: 'epic',
-            condition: 'minimal-wear',
-            seller: { name: 'ProTrader', avatar: '', rating: 4.9, verified: true },
-            category: 'rifles',
-            views: 1250,
-            likes: 89,
-            isHot: true,
-            discount: 16,
-            tags: ['популярное', 'редкое'],
-            float: 0.12,
-            market_hash_name: 'AK-47 | Redline (Minimal Wear)'
-          },
-          {
-            id: 'mock_2',
-            name: 'M4A4 | Howl',
-            price: 2500,
-            image: 'https://via.placeholder.com/330x192/FFD700/FFFFFF?text=M4A4+Howl',
-            rarity: 'legendary',
-            condition: 'factory-new',
-            seller: { name: 'SkinKing', avatar: '', rating: 4.8, verified: true },
-            category: 'rifles',
-            views: 3200,
-            likes: 156,
-            isHot: true,
-            tags: ['легендарное', 'коллекционное'],
-            float: 0.01,
-            market_hash_name: 'M4A4 | Howl (Factory New)'
-          }
-        ];
+        const response = await marketApi.getItems({ 
+          forSale: true, 
+          limit: 24 
+        });
         
-        console.log('✅ Загружено мок товаров:', mockItems.length);
-        setItems(mockItems);
-        setFilteredItems(mockItems);
+        if (response.data.success) {
+          console.log('✅ Загружено товаров:', response.data.data.items.length);
+          setItems(response.data.data.items);
+          setFilteredItems(response.data.data.items);
+        } else {
+          throw new Error(response.data.error || 'Ошибка загрузки данных');
+        }
         
       } catch (error) {
         console.error('❌ Ошибка загрузки данных:', error);
@@ -94,69 +51,83 @@ const Marketplace: React.FC = () => {
       }
     };
 
-    loadMockItems();
+    loadItems();
   }, []);
 
-  // Простая фильтрация по поиску
+  // Фильтрация по поиску
   useEffect(() => {
     const filtered = items.filter(item => 
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredItems(filtered);
   }, [items, searchQuery]);
 
   return (
-    <div className="marketplace">
-      <div className="header">
-        <h1>RANDAR MARKETPLACE</h1>
-        <p>Товаров: {filteredItems.length}</p>
+    <div className="marketplace max-w-7xl mx-auto px-4 py-8">
+      <div className="header mb-8">
+        <h1 className="text-4xl font-bold mb-2">RANDAR MARKETPLACE</h1>
+        <p className="text-text-300">Telegram Gifts: {filteredItems.length}</p>
       </div>
       
-      <div className="search">
+      <div className="search mb-6">
         <input
           type="text"
-          placeholder="Поиск товаров..."
+          placeholder="Поиск Telegram Gifts..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          className="input-field w-full max-w-md"
         />
       </div>
 
       {isLoading && (
-        <div className="loading">
-          <p>Загрузка данных...</p>
+        <div className="flex justify-center items-center py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-red mx-auto mb-4"></div>
+            <p className="text-text-300">Загрузка данных...</p>
+          </div>
         </div>
       )}
 
       {loadingError && !isLoading && (
-        <div className="error">
-          <h3>Ошибка загрузки</h3>
-          <p>{loadingError}</p>
-          <button onClick={() => window.location.reload()}>
+        <div className="text-center py-20">
+          <div className="text-6xl mb-4">❌</div>
+          <h3 className="text-xl font-semibold mb-2">Ошибка загрузки</h3>
+          <p className="text-text-300 mb-4">{loadingError}</p>
+          <button onClick={() => window.location.reload()} className="btn-primary">
             Попробовать снова
           </button>
         </div>
       )}
 
       {!isLoading && !loadingError && (
-        <div className="items-grid">
+        <div className="items-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredItems.map((item) => (
-            <div key={item.id} className="item-card">
-              <img src={item.image} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p>Цена: ₽{item.price.toLocaleString()}</p>
-              <p>Редкость: {item.rarity}</p>
-              <p>Состояние: {item.condition}</p>
-              <p>Продавец: {item.seller.name}</p>
-              <button>Добавить в корзину</button>
+            <div key={item.address} className="card p-4">
+              <div className="aspect-square mb-4 rounded-lg overflow-hidden">
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-text-100">{item.title}</h3>
+              {item.price && <p className="text-accent-red font-semibold mb-1">{item.price} TON</p>}
+              {item.rarity && <p className="text-text-300 text-sm mb-1">Редкость: {item.rarity}</p>}
+              <p className="text-text-300 text-sm mb-3">
+                {item.isForSale ? 'В продаже' : 'Не продается'}
+              </p>
+              {item.owner && (
+                <p className="text-text-300 text-xs mb-3">
+                  Владелец: {item.owner.slice(0, 6)}...{item.owner.slice(-4)}
+                </p>
+              )}
+              <button className="btn-primary w-full">Подробнее</button>
             </div>
           ))}
         </div>
       )}
 
       {!isLoading && !loadingError && filteredItems.length === 0 && (
-        <div className="no-items">
-          <h3>Товары не найдены</h3>
-          <p>Попробуйте изменить параметры поиска</p>
+        <div className="text-center py-20">
+          <div className="text-6xl mb-4">🔍</div>
+          <h3 className="text-xl font-semibold mb-2">Telegram Gifts не найдены</h3>
+          <p className="text-text-300">Попробуйте изменить параметры поиска</p>
         </div>
       )}
     </div>

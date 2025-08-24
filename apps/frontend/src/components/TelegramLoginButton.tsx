@@ -101,10 +101,8 @@ const TelegramLoginButton: React.FC = () => {
     // This will be called by the Telegram Login Widget
     console.log('Telegram user:', user);
     
-    // In a real implementation, you would send the user data to your backend
-    // For now, we'll simulate a successful login
-    const mockToken = 'mock_telegram_token_' + user.id;
-    login(mockToken);
+    // Send user data to backend for verification
+    handleTelegramAuth(JSON.stringify(user));
   };
 
   return (
@@ -116,15 +114,8 @@ const TelegramLoginButton: React.FC = () => {
       {!window.Telegram?.WebApp && (
         <button
           onClick={() => {
-            // Simulate Telegram login for development
-            const mockUser = {
-              id: 123456789,
-              first_name: 'Test',
-              last_name: 'User',
-              username: 'testuser',
-              photo_url: 'https://via.placeholder.com/150'
-            };
-            handleTelegramLogin(mockUser);
+            // Show message that Telegram is required
+            alert('Для входа требуется Telegram WebApp');
           }}
           className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
         >

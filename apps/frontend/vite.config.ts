@@ -16,5 +16,8 @@ export default defineConfig({
   build: {
     outDir: 'build',
     sourcemap: true
+  },
+  preview: {
+    port: 5173
   }
 })

@@ -1,20 +1,8 @@
 import express from 'express';
-import fs from 'fs';
-import path from 'path';
+import { TonGiftsProvider } from '../../providers/ton';
 
 const router = express.Router();
-
-// Загрузка данных скинов
-const loadSkinsData = () => {
-  try {
-    const skinsPath = path.join(__dirname, '../../skins.json');
-    const skinsData = fs.readFileSync(skinsPath, 'utf8');
-    return JSON.parse(skinsData);
-  } catch (error) {
-    console.error('Ошибка загрузки данных скинов:', error);
-    return [];
-  }
-};
+const giftsProvider = new TonGiftsProvider();
 
 // Генерация случайной цены
 const generateRandomPrice = (min: number, max: number) => {
@@ -44,46 +32,48 @@ const generateSignalType = () => {
 
 // Генерация источника
 const generateSource = () => {
-  const sources = ['steam', 'telegram', 'nft'];
+  const sources = ['telegram', 'nft'];
   return sources[Math.floor(Math.random() * sources.length)];
 };
 
 // Генерация редкости
 const generateRarity = () => {
-  const rarities = ['Consumer Grade', 'Industrial Grade', 'Mil-Spec Grade', 'Restricted', 'Classified', 'Covert', 'Contraband'];
+  const rarities = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'];
   return rarities[Math.floor(Math.random() * rarities.length)];
 };
 
-// Генерация float
-const generateFloat = () => {
-  return Math.random();
-};
-
-// Получение случайного скина
-const getRandomSkin = (skins: any[]) => {
-  return skins[Math.floor(Math.random() * skins.length)];
+// Получение случайного gift
+const getRandomGift = async () => {
+  try {
+    const items = await giftsProvider.getItems({ limit: 100 });
+    if (items.items.length > 0) {
+      return items.items[Math.floor(Math.random() * items.items.length)];
+    }
+    return null;
+  } catch (error) {
+    console.error('Error getting random gift:', error);
+    return null;
+  }
 };
 
 // Генерация сигналов радара
-const generateRadarSignals = (count: number = 10) => {
-  const skins = loadSkinsData();
+const generateRadarSignals = async (count: number = 10) => {
   const signals = [];
 
   for (let i = 0; i < count; i++) {
-    const skin = getRandomSkin(skins);
-    const price = generateRandomPrice(100, 2000);
+    const gift = await getRandomGift();
+    const price = generateRandomPrice(1, 100); // TON цены
     const change = generatePriceChange();
     const volume = generateVolume();
     const confidence = generateConfidence();
     const type = generateSignalType();
     const source = generateSource();
     const rarity = generateRarity();
-    const float = generateFloat();
 
     signals.push({
       id: `signal_${Date.now()}_${i}`,
       type,
-      asset: skin.name || `Skin ${i + 1}`,
+      asset: gift?.title || `Gift ${i + 1}`,
       price: Math.round(price * 100) / 100,
       change: Math.round(change * 100) / 100,
       volume: Math.round(volume),
@@ -92,7 +82,7 @@ const generateRadarSignals = (count: number = 10) => {
       status: 'active',
       source,
       rarity,
-      float: Math.round(float * 1000) / 1000
+      address: gift?.address
     });
   }
 
@@ -114,91 +104,115 @@ const generateRadarStats = () => {
 };
 
 // Генерация рыночных данных
-const generateMarketData = () => {
-  const popularSkins = [
-    'AK-47 | Redline',
-    'AWP | Dragon Lore',
-    'M4A4 | Howl',
-    'Karambit | Fade',
-    'Butterfly Knife | Crimson Web'
-  ];
-
-  return popularSkins.map((skin, index) => ({
-    symbol: skin,
-    currentPrice: Math.round((Math.random() * 1000 + 100) * 100) / 100,
-    change24h: Math.round((Math.random() - 0.5) * 20 * 100) / 100,
-    volume24h: Math.round(Math.random() * 1000000 + 100000),
-    marketCap: Math.round(Math.random() * 10000000 + 1000000),
-    trend: Math.random() > 0.5 ? 'up' : 'down'
-  }));
+const generateMarketData = async () => {
+  try {
+    const collections = await giftsProvider.getCollections({ limit: 5 });
+    return collections.map((collection) => ({
+      symbol: collection.title,
+      currentPrice: collection.floor,
+      change24h: Math.round((Math.random() - 0.5) * 20 * 100) / 100,
+      volume24h: collection.volume24h,
+      marketCap: collection.supply * collection.floor,
+      trend: Math.random() > 0.5 ? 'up' : 'down'
+    }));
+  } catch (error) {
+    console.error('Error generating market data:', error);
+    return [];
+  }
 };
 
 // Генерация уведомлений
-const generateNotifications = () => {
-  const notifications = [
-    'Радар нашел выгодное предложение: AK-47 | Redline за 1500₽',
-    'Авто-продажа выполнена: +250₽ прибыли',
-    'Депозит пополнен на 500₽',
-    'Новый скин добавлен в инвентарь',
-    'Сбор за хранение: -5₽'
-  ];
-
-  return notifications.slice(0, 3).map((message, index) => ({
-    id: index + 1,
-    message,
-    timestamp: new Date(Date.now() - Math.random() * 3600000).toISOString(),
-    type: 'info'
-  }));
+const generateNotifications = async () => {
+  try {
+    const items = await giftsProvider.getItems({ limit: 3 });
+    const notifications = items.items.map((item, index) => ({
+      id: index + 1,
+      message: `Радар нашел выгодное предложение: ${item.title} за ${item.price} TON`,
+      timestamp: new Date(Date.now() - Math.random() * 3600000).toISOString(),
+      type: 'info'
+    }));
+    return notifications;
+  } catch (error) {
+    console.error('Error generating notifications:', error);
+    return [];
+  }
 };
 
 // Генерация аналитики
-const generateAnalytics = () => {
-  return {
-    performance: {
-      totalSignals: Math.floor(Math.random() * 100) + 50,
-      successfulTrades: Math.floor(Math.random() * 30) + 20,
-      failedTrades: Math.floor(Math.random() * 10) + 5,
-      accuracy: Math.round((Math.random() * 20 + 80) * 10) / 10,
-      totalProfit: Math.round((Math.random() * 2000 + 1000) * 100) / 100,
-      averageProfit: Math.round((Math.random() * 200 + 100) * 100) / 100
-    },
-    trends: {
-      buySignals: Math.floor(Math.random() * 40) + 20,
-      sellSignals: Math.floor(Math.random() * 30) + 15,
-      alertSignals: Math.floor(Math.random() * 20) + 10,
-      mostProfitableAsset: 'AK-47 | Redline',
-      leastProfitableAsset: 'M4A4 | Desert Storm'
-    },
-    marketInsights: {
-      volatility: Math.round((Math.random() * 30 + 20) * 10) / 10,
-      trendStrength: Math.round((Math.random() * 40 + 60) * 10) / 10,
-      marketSentiment: Math.random() > 0.5 ? 'bullish' : 'bearish',
-      topPerformingAssets: ['AK-47 | Redline', 'AWP | Dragon Lore', 'M4A4 | Howl']
-    }
-  };
+const generateAnalytics = async () => {
+  try {
+    const collections = await giftsProvider.getCollections({ limit: 3 });
+    const topAssets = collections.map(c => c.title);
+    
+    return {
+      performance: {
+        totalSignals: Math.floor(Math.random() * 100) + 50,
+        successfulTrades: Math.floor(Math.random() * 30) + 20,
+        failedTrades: Math.floor(Math.random() * 10) + 5,
+        accuracy: Math.round((Math.random() * 20 + 80) * 10) / 10,
+        totalProfit: Math.round((Math.random() * 2000 + 1000) * 100) / 100,
+        averageProfit: Math.round((Math.random() * 200 + 100) * 100) / 100
+      },
+      trends: {
+        buySignals: Math.floor(Math.random() * 40) + 20,
+        sellSignals: Math.floor(Math.random() * 30) + 15,
+        alertSignals: Math.floor(Math.random() * 20) + 10,
+        mostProfitableAsset: topAssets[0] || 'Unknown Gift',
+        leastProfitableAsset: topAssets[topAssets.length - 1] || 'Unknown Gift'
+      },
+      marketInsights: {
+        volatility: Math.round((Math.random() * 30 + 20) * 10) / 10,
+        trendStrength: Math.round((Math.random() * 40 + 60) * 10) / 10,
+        marketSentiment: Math.random() > 0.5 ? 'bullish' : 'bearish',
+        topPerformingAssets: topAssets
+      }
+    };
+  } catch (error) {
+    console.error('Error generating analytics:', error);
+    return {
+      performance: { totalSignals: 0, successfulTrades: 0, failedTrades: 0, accuracy: 0, totalProfit: 0, averageProfit: 0 },
+      trends: { buySignals: 0, sellSignals: 0, alertSignals: 0, mostProfitableAsset: 'Unknown', leastProfitableAsset: 'Unknown' },
+      marketInsights: { volatility: 0, trendStrength: 0, marketSentiment: 'neutral', topPerformingAssets: [] }
+    };
+  }
 };
 
 // Основной эндпоинт радара
-router.get('/', (req, res) => {
-  const signals = generateRadarSignals(15);
-  const stats = generateRadarStats();
-  
-  res.json({
-    signals,
-    ...stats
-  });
+router.get('/', async (req, res) => {
+  try {
+    const signals = await generateRadarSignals(15);
+    const stats = generateRadarStats();
+    
+    res.json({
+      signals,
+      ...stats
+    });
+  } catch (error) {
+    console.error('Error in radar endpoint:', error);
+    res.status(500).json({ error: 'Failed to generate radar data' });
+  }
 });
 
 // Рыночные данные
-router.get('/market-data', (req, res) => {
-  const marketData = generateMarketData();
-  res.json(marketData);
+router.get('/market-data', async (req, res) => {
+  try {
+    const marketData = await generateMarketData();
+    res.json(marketData);
+  } catch (error) {
+    console.error('Error in market-data endpoint:', error);
+    res.status(500).json({ error: 'Failed to generate market data' });
+  }
 });
 
 // Уведомления
-router.get('/notifications', (req, res) => {
-  const notifications = generateNotifications();
-  res.json(notifications);
+router.get('/notifications', async (req, res) => {
+  try {
+    const notifications = await generateNotifications();
+    res.json(notifications);
+  } catch (error) {
+    console.error('Error in notifications endpoint:', error);
+    res.status(500).json({ error: 'Failed to generate notifications' });
+  }
 });
 
 // Статистика
@@ -227,15 +241,15 @@ router.get('/analytics', (req, res) => {
 // Фильтры
 router.get('/filters', (req, res) => {
   res.json({
-    categories: ['skins', 'telegram', 'nft'],
+    categories: ['telegram', 'nft'],
     priceRanges: [
-      { label: 'До 500₽', value: [0, 500] },
-      { label: '500-1000₽', value: [500, 1000] },
-      { label: '1000-2000₽', value: [1000, 2000] },
-      { label: 'Более 2000₽', value: [2000, 10000] }
+      { label: 'До 5 TON', value: [0, 5] },
+      { label: '5-10 TON', value: [5, 10] },
+      { label: '10-50 TON', value: [10, 50] },
+      { label: 'Более 50 TON', value: [50, 1000] }
     ],
-    rarities: ['Consumer Grade', 'Industrial Grade', 'Mil-Spec Grade', 'Restricted', 'Classified', 'Covert', 'Contraband'],
-    sources: ['steam', 'telegram', 'nft']
+    rarities: ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'],
+    sources: ['telegram', 'nft']
   });
 });
 
@@ -264,7 +278,7 @@ router.post('/stop', (req, res) => {
 // Покупка предмета
 router.post('/buy', (req, res) => {
   const { signalId, price } = req.body;
-  console.log(`Покупка предмета ${signalId} за ${price}₽`);
+  console.log(`Покупка предмета ${signalId} за ${price} TON`);
   
   res.json({
     success: true,

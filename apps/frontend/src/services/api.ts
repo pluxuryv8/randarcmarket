@@ -38,17 +38,26 @@ api.interceptors.response.use(
 
 // API functions
 export const marketApi = {
-  getCollections: (params?: { timeRange?: string }) =>
+  getCollections: (params?: Record<string, any>) =>
     api.get('/nft/collections', { params }),
 
-  getCollectionItems: (id: string, params?: Record<string, any>) =>
-    api.get(`/nft/collections/${id}/items`, { params }),
+  getCollectionById: (id: string) =>
+    api.get(`/nft/collections/${id}`),
+
+  getCollectionTraits: (id: string) =>
+    api.get(`/nft/collections/${id}/traits`),
+
+  getItems: (params?: Record<string, any>) =>
+    api.get('/nft/items', { params }),
 
   getItem: (address: string) =>
     api.get(`/nft/items/${address}`),
 
   getActivity: (params?: Record<string, any>) =>
     api.get('/nft/activity', { params }),
+
+  search: (query: string) =>
+    api.get('/nft/search', { params: { q: query } }),
 };
 
 export const authApi = {
