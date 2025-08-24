@@ -7,7 +7,7 @@ import Market from './pages/Market';
 import Collection from './pages/Collection';
 import Item from './pages/Item';
 import Pricing from './pages/Pricing';
-import Drops from './pages/Drops';
+// import Drops from './pages/Drops'; // Удалено
 import Radar from './pages/Radar';
 import NotFound from './pages/NotFound';
 
@@ -24,8 +24,8 @@ function App() {
               <Route path="/collection/:id" element={<Collection />} />
               <Route path="/item/:address" element={<Item />} />
               <Route path="/pricing" element={<Pricing />} />
-              <Route path="/drops" element={<Drops />} />
-              <Route path="/drops/:id" element={<Drops />} />
+              {/* <Route path="/drops" element={<Drops />} /> */}
+              {/* <Route path="/drops/:id" element={<Drops />} /> */}
               <Route path="/radar" element={<Radar />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -7,7 +7,7 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 
 import { authRouter } from './modules/auth';
-import { nftRouter } from './modules/nft';
+import nftRoutes from './routes/nft';
 import { paymentsRouter } from './modules/payments';
 import { radarRouter } from './modules/radar';
 import { dropsRouter } from './modules/drops';
@@ -68,7 +68,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/auth', authRouter);
-app.use('/api/nft', nftRouter);
+app.use('/api/nft', nftRoutes);
 app.use('/api/payments', paymentsRouter);
 app.use('/api/radar', radarRouter);
 app.use('/api/drops', dropsRouter);

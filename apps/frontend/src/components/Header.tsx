@@ -34,7 +34,7 @@ const Header: React.FC = () => {
             >
               Market
             </Link>
-            <Link
+            {/* <Link
               to="/drops"
               className={`text-sm font-medium transition-colors ${
                 isActive('/drops') ? 'text-accent-red-2' : 'text-text-300 hover:text-text-100'
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
             >
               <FaGift className="inline mr-1" />
               Drops
-            </Link>
+            </Link> */}
             <Link
               to="/radar"
               className={`text-sm font-medium transition-colors ${

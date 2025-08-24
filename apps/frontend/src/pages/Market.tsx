@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { marketApi } from '../services/market';
 import { giftsApi } from '../services/giftsLocal';
 import { GiftItem, GiftCollection } from '../types/domain';
+import canonicalCollections from '../mock/gift_collections.canonical.json';
 import { GiftCard } from '../components/GiftCard';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -23,18 +25,69 @@ const MarketPage: React.FC = () => {
   // Состояние
   const [items, setItems] = useState<GiftItem[]>([]);
   const [collections, setCollections] = useState<GiftCollection[]>([]);
+  const [collectionsStats, setCollectionsStats] = useState<{
+    totalCollections: number;
+    totalItems: number;
+  }>({ totalCollections: 0, totalItems: 0 });
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingCollections, setIsLoadingCollections] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState<string | null>(null);
+
+  // Стабильные параметры для useEffect
+  const traitsKey = useMemo(() => JSON.stringify(selectedTraits), [selectedTraits]);
+  
+  const params = useMemo(() => ({
+    collectionId: collectionId || undefined,
+    forSale: forSale,
+    minPrice: minPrice || undefined,
+    maxPrice: maxPrice || undefined,
+    sort: sort as any,
+    order: order as 'asc' | 'desc',
+    traitsKey
+  }), [collectionId, forSale, minPrice, maxPrice, sort, order, traitsKey]);
 
   // Загрузка коллекций
   useEffect(() => {
     const loadCollections = async () => {
+      setIsLoadingCollections(true);
       try {
-        const data = await giftsApi.getCollections();
-        setCollections(data);
+        // Пробуем загрузить из нового API
+        const result = await marketApi.getCollections();
+        if (result.collections && result.collections.length > 0) {
+          setCollections(result.collections);
+          setCollectionsStats({
+            totalCollections: result.totalCollections,
+            totalItems: result.totalItems
+          });
+        } else {
+          throw new Error('No collections from API');
+        }
       } catch (error) {
-        console.error('Error loading collections:', error);
+        console.log('Using local fallback for collections');
+        // Fallback: используем локальный API
+        try {
+          const result = await giftsApi.getCollections();
+          setCollections(result.collections);
+          setCollectionsStats({
+            totalCollections: result.totalItems,
+            totalItems: result.totalItems
+          });
+        } catch (fallbackError) {
+          // Final fallback: создаем коллекции из канонического списка
+          const fallbackCollections = canonicalCollections.map((title) => ({
+            id: title.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-'),
+            title,
+            supply: undefined
+          }));
+          setCollections(fallbackCollections);
+          setCollectionsStats({
+            totalCollections: canonicalCollections.length,
+            totalItems: 0
+          });
+        }
+      } finally {
+        setIsLoadingCollections(false);
       }
     };
     loadCollections();
@@ -42,60 +95,125 @@ const MarketPage: React.FC = () => {
 
   // Загрузка предметов
   useEffect(() => {
+    let alive = true;
+    
     const loadItems = async () => {
       setIsLoading(true);
       try {
-        const params = {
-          collectionId: collectionId || undefined,
-          forSale: forSale,
-          minPrice: minPrice || undefined,
-          maxPrice: maxPrice || undefined,
+        const requestParams = {
+          collectionId: params.collectionId,
+          forSale: params.forSale,
+          minPrice: params.minPrice,
+          maxPrice: params.maxPrice,
           traits: selectedTraits.length > 0 ? { 'Rarity': selectedTraits } : undefined,
           search: search || undefined,
-          sort: sort as any,
-          order: order as 'asc' | 'desc',
+          sort: params.sort,
+          order: params.order,
           limit: 24,
           cursor: null
         };
         
-        const response = await giftsApi.getItems(params);
-        setItems(response.items);
-        setHasMore(!!response.nextCursor);
-        setCursor(response.nextCursor);
+        // Пробуем загрузить из нового API
+        const response = await marketApi.getItems(requestParams);
+        if (response.items && response.items.length > 0) {
+          if (alive) {
+            setItems(response.items);
+            setHasMore(!!response.nextCursor);
+            setCursor(response.nextCursor || null);
+          }
+        } else {
+          throw new Error('No items from API');
+        }
       } catch (error) {
-        console.error('Error loading items:', error);
+        console.log('Using local fallback for items');
+        // Fallback: используем локальный API
+        try {
+          const response = await giftsApi.getItems({
+            collectionId: params.collectionId,
+            forSale: params.forSale,
+            minPrice: params.minPrice,
+            maxPrice: params.maxPrice,
+            traits: selectedTraits.length > 0 ? { 'Rarity': selectedTraits } : undefined,
+            search: search || undefined,
+            sort: params.sort,
+            order: params.order,
+            limit: 24,
+            cursor: null
+          });
+          if (alive) {
+            setItems(response.items);
+            setHasMore(!!response.nextCursor);
+            setCursor(response.nextCursor || null);
+          }
+        } catch (fallbackError) {
+          if (alive) {
+            setItems([]);
+            setHasMore(false);
+          }
+        }
       } finally {
-        setIsLoading(false);
+        if (alive) {
+          setIsLoading(false);
+        }
       }
     };
     
     loadItems();
-  }, [collectionId, forSale, minPrice, maxPrice, selectedTraits, search, sort, order]);
+    
+    return () => {
+      alive = false;
+    };
+  }, [params.collectionId, params.forSale, params.minPrice, params.maxPrice, params.sort, params.order, params.traitsKey, search]);
 
   // Загрузка дополнительных предметов
   const loadMore = async () => {
     if (!cursor || isLoading) return;
     
     try {
-      const params = {
-        collectionId: collectionId || undefined,
-        forSale: forSale,
-        minPrice: minPrice || undefined,
-        maxPrice: maxPrice || undefined,
+      const requestParams = {
+        collectionId: params.collectionId,
+        forSale: params.forSale,
+        minPrice: params.minPrice,
+        maxPrice: params.maxPrice,
         traits: selectedTraits.length > 0 ? { 'Rarity': selectedTraits } : undefined,
         search: search || undefined,
-        sort: sort as any,
-        order: order as 'asc' | 'desc',
+        sort: params.sort,
+        order: params.order,
         limit: 24,
         cursor: cursor
       };
       
-      const response = await giftsApi.getItems(params);
-      setItems(prev => [...prev, ...response.items]);
-      setHasMore(!!response.nextCursor);
-      setCursor(response.nextCursor);
+      // Пробуем загрузить из нового API
+      const response = await marketApi.getItems(requestParams);
+      if (response.items && response.items.length > 0) {
+        setItems(prev => [...prev, ...response.items]);
+        setHasMore(!!response.nextCursor);
+        setCursor(response.nextCursor || null);
+      } else {
+        throw new Error('No items from API');
+      }
     } catch (error) {
-      console.error('Error loading more items:', error);
+      console.log('Using local fallback for loadMore');
+      // Fallback: используем локальный API
+      try {
+        const response = await giftsApi.getItems({
+          collectionId: params.collectionId,
+          forSale: params.forSale,
+          minPrice: params.minPrice,
+          maxPrice: params.maxPrice,
+          traits: selectedTraits.length > 0 ? { 'Rarity': selectedTraits } : undefined,
+          search: search || undefined,
+          sort: params.sort,
+          order: params.order,
+          limit: 24,
+          cursor: cursor
+        });
+        setItems(prev => [...prev, ...response.items]);
+        setHasMore(!!response.nextCursor);
+        setCursor(response.nextCursor || null);
+      } catch (fallbackError) {
+        // Игнорируем ошибки при загрузке дополнительных предметов
+      }
     }
   };
 
@@ -113,15 +231,15 @@ const MarketPage: React.FC = () => {
 
   // Обработка трейтов
   const handleTraitToggle = (trait: string) => {
-    setSelectedTraits(prev => 
-      prev.includes(trait) 
-        ? prev.filter(t => t !== trait)
-        : [...prev, trait]
-    );
+    const newTraits = selectedTraits.includes(trait) 
+      ? selectedTraits.filter((t: string) => t !== trait)
+      : [...selectedTraits, trait];
+    setSelectedTraits(newTraits);
   };
 
   const removeTrait = (trait: string) => {
-    setSelectedTraits(prev => prev.filter(t => t !== trait));
+    const newTraits = selectedTraits.filter((t: string) => t !== trait);
+    setSelectedTraits(newTraits);
   };
 
   const sortOptions = [
@@ -139,6 +257,14 @@ const MarketPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-bg-900">
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Статистика */}
+        <div className="mb-6 p-4 bg-surface-800 rounded-lg border border-line-700">
+          <p className="text-text-300">
+            Коллекций отрисовано: <span className="text-text-100 font-semibold">{collectionsStats.totalCollections}</span> | 
+            All Collections: <span className="text-text-100 font-semibold">{collectionsStats.totalItems.toLocaleString()}</span>
+          </p>
+        </div>
+        
         <div className="flex gap-8">
           {/* Сайдбар фильтров */}
           <div className="w-80 flex-shrink-0">
@@ -157,15 +283,52 @@ const MarketPage: React.FC = () => {
 
               {/* Коллекция */}
               <div className="mb-6">
-                <Select
-                  label="Коллекция"
-                  options={[
-                    { value: '', label: 'Все коллекции' },
-                    ...collections.map(c => ({ value: c.id, label: c.title }))
-                  ]}
-                  value={collectionId}
-                  onChange={setCollectionId}
-                />
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-medium text-text-300">Collection</h3>
+                  <span className="text-xs text-text-300">{collectionsStats.totalCollections}</span>
+                </div>
+                
+                {/* All Collections */}
+                <div 
+                  className={`flex items-center justify-between p-2 rounded cursor-pointer transition-colors ${
+                    !collectionId ? 'bg-accent-red/20 text-accent-red' : 'hover:bg-surface-700'
+                  }`}
+                  onClick={() => setCollectionId('')}
+                >
+                  <span className="text-sm font-medium">All Collections</span>
+                  <span className="text-sm text-text-300">
+                    {collectionsStats.totalItems.toLocaleString()}
+                  </span>
+                </div>
+                
+                {/* Список коллекций */}
+                <div className="max-h-64 overflow-y-auto space-y-1 mt-2">
+                  {isLoadingCollections ? (
+                    <div className="space-y-2">
+                      {[...Array(10)].map((_, i) => (
+                        <div key={i} className="flex items-center justify-between p-2">
+                          <div className="h-4 bg-surface-700 rounded animate-pulse flex-1 mr-2"></div>
+                          <div className="h-4 bg-surface-700 rounded w-8 animate-pulse"></div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    collections.map((collection) => (
+                      <div
+                        key={collection.id}
+                        className={`flex items-center justify-between p-2 rounded cursor-pointer transition-colors ${
+                          collectionId === collection.id ? 'bg-accent-red/20 text-accent-red' : 'hover:bg-surface-700'
+                        }`}
+                        onClick={() => setCollectionId(collection.id)}
+                      >
+                        <span className="text-sm truncate flex-1">{collection.title}</span>
+                        <span className="text-sm text-text-300 ml-2 min-w-[3rem] text-right">
+                          {collection.supply ? collection.supply.toLocaleString() : '—'}
+                        </span>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
 
               {/* Статус продажи */}

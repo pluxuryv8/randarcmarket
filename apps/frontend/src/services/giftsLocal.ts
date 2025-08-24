@@ -4,6 +4,37 @@ import { collections, items, traitBuckets } from '../mock/gifts.data';
 // Имитация задержки сети
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Агрегирование коллекций из предметов
+function aggregateCollections(): { totalItems: number; collections: GiftCollection[] } {
+  const byId = new Map<string, GiftCollection & { count: number }>();
+  
+  for (const item of items) {
+    const id = item.collectionId;
+    const existing = byId.get(id);
+    
+    if (existing) {
+      existing.count += 1;
+      existing.supply = existing.count;
+    } else {
+      byId.set(id, {
+        id,
+        title: item.collectionTitle || id,
+        cover: item.image,
+        supply: 1,
+        count: 1,
+        floor: item.priceTon,
+        owners: 1,
+        volume24h: item.lastSaleTon || 0
+      });
+    }
+  }
+  
+  const collections = Array.from(byId.values());
+  const totalItems = collections.reduce((sum, c) => sum + (c.supply || 0), 0);
+  
+  return { totalItems, collections };
+}
+
 // Фильтрация и сортировка на клиенте
 const filterItems = (
   items: GiftItem[],
@@ -101,10 +132,12 @@ export const giftsApi = {
     order?: 'asc' | 'desc';
     limit?: number;
     offset?: number;
-  }): Promise<GiftCollection[]> {
+  }): Promise<{ totalItems: number; collections: GiftCollection[] }> {
     await delay(300);
     
-    let filtered = collections;
+    const { totalItems, collections: aggregatedCollections } = aggregateCollections();
+    
+    let filtered = aggregatedCollections;
     
     if (params?.search) {
       filtered = filtered.filter(c => 
@@ -123,11 +156,15 @@ export const giftsApi = {
     const offset = params?.offset || 0;
     const limit = params?.limit || 24;
     
-    return filtered.slice(offset, offset + limit);
+    return {
+      totalItems,
+      collections: filtered.slice(offset, offset + limit)
+    };
   },
 
   async getCollectionById(id: string): Promise<GiftCollection> {
     await delay(200);
+    const { collections } = aggregateCollections();
     const collection = collections.find(c => c.id === id);
     if (!collection) {
       throw new Error('Collection not found');

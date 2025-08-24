@@ -1,51 +1,71 @@
 import { GiftCollection, GiftItem, TraitBucket } from '../types/domain';
+import { toHttp } from '../lib/media';
 
-// Коллекции
+// Коллекции (канонический список из 86 Telegram Gift коллекций)
 export const collections: GiftCollection[] = [
   {
-    id: 'telegram-gifts-2024',
-    title: 'Telegram Gifts 2024',
-    cover: 'https://via.placeholder.com/400x200/1f2632/666?text=Telegram+Gifts',
-    floor: 15.5,
-    supply: 1000,
-    owners: 450,
-    volume24h: 1250.75
+    id: 'astral-shards',
+    title: 'Astral Shards',
+    cover: toHttp('ipfs://QmTestCover1'),
+    floor: 12.5,
+    supply: 150,
+    owners: 120,
+    volume24h: 850.25
   },
   {
-    id: 'crypto-punks-ton',
-    title: 'Crypto Punks TON',
-    cover: 'https://via.placeholder.com/400x200/1f2632/666?text=Crypto+Punks',
-    floor: 45.2,
-    supply: 500,
-    owners: 320,
-    volume24h: 3200.50
-  },
-  {
-    id: 'nft-artists',
-    title: 'NFT Artists Collection',
-    cover: 'https://via.placeholder.com/400x200/1f2632/666?text=NFT+Artists',
+    id: 'bday-candles',
+    title: 'B-Day Candles',
+    cover: toHttp('//example.com/candle-cover.jpg'),
     floor: 8.75,
-    supply: 2000,
-    owners: 1200,
-    volume24h: 890.25
+    supply: 200,
+    owners: 180,
+    volume24h: 620.50
+  },
+  {
+    id: 'berry-boxes',
+    title: 'Berry Boxes',
+    cover: toHttp('ipfs/QmTestCover3'),
+    floor: 15.25,
+    supply: 100,
+    owners: 85,
+    volume24h: 1100.75
+  },
+  {
+    id: 'big-years',
+    title: 'Big Years',
+    cover: toHttp('https://example.com/year-cover.jpg'),
+    floor: 22.0,
+    supply: 75,
+    owners: 65,
+    volume24h: 1500.00
+  },
+  {
+    id: 'bonded-rings',
+    title: 'Bonded Rings',
+    cover: undefined,
+    floor: 18.5,
+    supply: 120,
+    owners: 95,
+    volume24h: 1250.30
   }
 ];
 
-// Предметы
+// Предметы (Telegram Gift NFTs)
 export const items: GiftItem[] = [
-  // Telegram Gifts
+  // Astral Shards
   {
     id: '1',
-    address: 'EQD...abc123',
-    title: 'Golden Telegram Gift',
-    image: 'https://via.placeholder.com/300x300/1f2632/666?text=Golden+Gift',
+    address: 'EQD...astral001',
+    title: 'Astral Shard #001',
+    image: toHttp('ipfs://QmTestImage1'),
     priceTon: 25.5,
     forSale: true,
-    collectionId: 'telegram-gifts-2024',
+    collectionId: 'astral-shards',
+    collectionTitle: 'Astral Shards',
     traits: [
-      { name: 'Type', value: 'Gift' },
+      { name: 'Type', value: 'Shard' },
       { name: 'Rarity', value: 'Legendary' },
-      { name: 'Color', value: 'Gold' }
+      { name: 'Color', value: 'Purple' }
     ],
     rarity: 'Legendary',
     lastSaleTon: 22.0,
@@ -53,178 +73,399 @@ export const items: GiftItem[] = [
   },
   {
     id: '2',
-    address: 'EQD...def456',
-    title: 'Silver Telegram Gift',
-    image: 'https://via.placeholder.com/300x300/1f2632/666?text=Silver+Gift',
+    address: 'EQD...astral002',
+    title: 'Astral Shard #002',
+    image: toHttp('//example.com/astral-shard-2.jpg'),
     priceTon: 12.75,
     forSale: true,
-    collectionId: 'telegram-gifts-2024',
+    collectionId: 'astral-shards',
+    collectionTitle: 'Astral Shards',
     traits: [
-      { name: 'Type', value: 'Gift' },
+      { name: 'Type', value: 'Shard' },
       { name: 'Rarity', value: 'Rare' },
-      { name: 'Color', value: 'Silver' }
+      { name: 'Color', value: 'Blue' }
     ],
     rarity: 'Rare',
     lastSaleTon: 11.5,
     updatedAt: '2024-08-24T09:15:00Z'
   },
+  // B-Day Candles
   {
     id: '3',
-    address: 'EQD...ghi789',
-    title: 'Bronze Telegram Gift',
-    image: 'https://via.placeholder.com/300x300/1f2632/666?text=Bronze+Gift',
-    priceTon: 5.25,
-    forSale: false,
-    collectionId: 'telegram-gifts-2024',
+    address: 'EQD...candle001',
+    title: 'B-Day Candle #001',
+    image: toHttp('ipfs/QmTestCandle1'),
+    priceTon: 8.25,
+    forSale: true,
+    collectionId: 'bday-candles',
+    collectionTitle: 'B-Day Candles',
     traits: [
-      { name: 'Type', value: 'Gift' },
+      { name: 'Type', value: 'Candle' },
       { name: 'Rarity', value: 'Common' },
-      { name: 'Color', value: 'Bronze' }
+      { name: 'Color', value: 'Pink' }
     ],
     rarity: 'Common',
-    lastSaleTon: 4.8,
+    lastSaleTon: 7.8,
     updatedAt: '2024-08-23T16:45:00Z'
   },
-  // Crypto Punks
+  // Berry Boxes
   {
     id: '4',
-    address: 'EQD...jkl012',
-    title: 'Punk #001',
-    image: 'https://via.placeholder.com/300x300/1f2632/666?text=Punk+001',
-    priceTon: 55.0,
+    address: 'EQD...berry001',
+    title: 'Berry Box #001',
+    image: toHttp('https://example.com/berry-box-1.jpg'),
+    priceTon: 18.0,
     forSale: true,
-    collectionId: 'crypto-punks-ton',
+    collectionId: 'berry-boxes',
+    collectionTitle: 'Berry Boxes',
     traits: [
-      { name: 'Background', value: 'Blue' },
-      { name: 'Eyes', value: 'Laser' },
-      { name: 'Mouth', value: 'Smile' }
+      { name: 'Type', value: 'Box' },
+      { name: 'Rarity', value: 'Rare' },
+      { name: 'Berry', value: 'Strawberry' }
     ],
-    rarity: 'Legendary',
-    lastSaleTon: 52.5,
+    rarity: 'Rare',
+    lastSaleTon: 16.5,
     updatedAt: '2024-08-24T11:20:00Z'
   },
+  // Big Years
   {
     id: '5',
-    address: 'EQD...mno345',
-    title: 'Punk #002',
-    image: 'https://via.placeholder.com/300x300/1f2632/666?text=Punk+002',
-    priceTon: 38.75,
-    forSale: true,
-    collectionId: 'crypto-punks-ton',
+    address: 'EQD...year001',
+    title: 'Big Year #001',
+    image: undefined, // Тестируем fallback
+    priceTon: 35.0,
+    forSale: false,
+    collectionId: 'big-years',
+    collectionTitle: 'Big Years',
     traits: [
-      { name: 'Background', value: 'Red' },
-      { name: 'Eyes', value: 'Normal' },
-      { name: 'Mouth', value: 'Frown' }
+      { name: 'Type', value: 'Year' },
+      { name: 'Rarity', value: 'Legendary' },
+      { name: 'Year', value: '2024' }
     ],
-    rarity: 'Rare',
-    lastSaleTon: 35.0,
-    updatedAt: '2024-08-24T08:30:00Z'
+    rarity: 'Legendary',
+    lastSaleTon: 32.0,
+    updatedAt: '2024-08-22T14:30:00Z'
   },
-  // NFT Artists
+  // Bonded Rings
   {
     id: '6',
-    address: 'EQD...pqr678',
-    title: 'Digital Art #001',
-    image: 'https://via.placeholder.com/300x300/1f2632/666?text=Digital+Art',
-    priceTon: 15.25,
+    address: 'EQD...ring001',
+    title: 'Bonded Ring #001',
+    image: toHttp('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMWYyNjMyIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iI2Y2NjY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkJvbmRlZCBSaW5nPC90ZXh0Pjwvc3ZnPg=='),
+    priceTon: 22.5,
     forSale: true,
-    collectionId: 'nft-artists',
+    collectionId: 'bonded-rings',
+    collectionTitle: 'Bonded Rings',
     traits: [
-      { name: 'Style', value: 'Abstract' },
-      { name: 'Colors', value: 'Vibrant' },
-      { name: 'Size', value: 'Large' }
+      { name: 'Type', value: 'Ring' },
+      { name: 'Rarity', value: 'Rare' },
+      { name: 'Material', value: 'Gold' }
     ],
     rarity: 'Rare',
+    lastSaleTon: 20.0,
+    updatedAt: '2024-08-24T08:45:00Z'
+  },
+  // Bow Ties
+  {
+    id: '7',
+    address: 'EQD...bow001',
+    title: 'Bow Tie #001',
+    image: toHttp('ipfs://QmTestBow1'),
+    priceTon: 15.75,
+    forSale: true,
+    collectionId: 'bow-ties',
+    collectionTitle: 'Bow Ties',
+    traits: [
+      { name: 'Type', value: 'Tie' },
+      { name: 'Rarity', value: 'Common' },
+      { name: 'Color', value: 'Red' }
+    ],
+    rarity: 'Common',
     lastSaleTon: 14.0,
-    updatedAt: '2024-08-24T12:10:00Z'
+    updatedAt: '2024-08-24T07:30:00Z'
+  },
+  // Bunny Muffins
+  {
+    id: '8',
+    address: 'EQD...bunny001',
+    title: 'Bunny Muffin #001',
+    image: toHttp('https://example.com/bunny-muffin-1.jpg'),
+    priceTon: 9.5,
+    forSale: true,
+    collectionId: 'bunny-muffins',
+    collectionTitle: 'Bunny Muffins',
+    traits: [
+      { name: 'Type', value: 'Muffin' },
+      { name: 'Rarity', value: 'Common' },
+      { name: 'Flavor', value: 'Chocolate' }
+    ],
+    rarity: 'Common',
+    lastSaleTon: 8.25,
+    updatedAt: '2024-08-24T06:15:00Z'
+  },
+  // Candy Canes
+  {
+    id: '9',
+    address: 'EQD...candy001',
+    title: 'Candy Cane #001',
+    image: toHttp('ipfs/QmTestCandy1'),
+    priceTon: 6.25,
+    forSale: false,
+    collectionId: 'candy-canes',
+    collectionTitle: 'Candy Canes',
+    traits: [
+      { name: 'Type', value: 'Cane' },
+      { name: 'Rarity', value: 'Common' },
+      { name: 'Color', value: 'Red' }
+    ],
+    rarity: 'Common',
+    lastSaleTon: 5.5,
+    updatedAt: '2024-08-23T15:20:00Z'
+  },
+  // Cookie Hearts
+  {
+    id: '10',
+    address: 'EQD...cookie001',
+    title: 'Cookie Heart #001',
+    image: undefined,
+    priceTon: 7.8,
+    forSale: true,
+    collectionId: 'cookie-hearts',
+    collectionTitle: 'Cookie Hearts',
+    traits: [
+      { name: 'Type', value: 'Cookie' },
+      { name: 'Rarity', value: 'Rare' },
+      { name: 'Shape', value: 'Heart' }
+    ],
+    rarity: 'Rare',
+    lastSaleTon: 7.0,
+    updatedAt: '2024-08-24T05:45:00Z'
   }
 ];
 
 // Трейт-бакеты
 export const traitBuckets: Record<string, TraitBucket[]> = {
-  'telegram-gifts-2024': [
+  'astral-shards': [
     {
       group: 'Type',
       options: [
-        { value: 'Gift', count: 1000 }
+        { value: 'Shard', count: 150 }
       ]
     },
     {
       group: 'Rarity',
       options: [
-        { value: 'Common', count: 600 },
-        { value: 'Rare', count: 300 },
-        { value: 'Legendary', count: 100 }
+        { value: 'Common', count: 90 },
+        { value: 'Rare', count: 45 },
+        { value: 'Legendary', count: 15 }
       ]
     },
     {
       group: 'Color',
       options: [
-        { value: 'Bronze', count: 600 },
-        { value: 'Silver', count: 300 },
-        { value: 'Gold', count: 100 }
+        { value: 'Purple', count: 60 },
+        { value: 'Blue', count: 45 },
+        { value: 'Green', count: 30 },
+        { value: 'Red', count: 15 }
       ]
     }
   ],
-  'crypto-punks-ton': [
+  'bday-candles': [
     {
-      group: 'Background',
+      group: 'Type',
       options: [
-        { value: 'Blue', count: 150 },
-        { value: 'Red', count: 120 },
-        { value: 'Green', count: 100 },
-        { value: 'Purple', count: 80 },
-        { value: 'Yellow', count: 50 }
+        { value: 'Candle', count: 200 }
       ]
     },
     {
-      group: 'Eyes',
+      group: 'Rarity',
       options: [
-        { value: 'Normal', count: 200 },
-        { value: 'Laser', count: 50 },
-        { value: '3D', count: 80 },
-        { value: 'Zombie', count: 30 },
-        { value: 'Alien', count: 20 }
+        { value: 'Common', count: 120 },
+        { value: 'Rare', count: 60 },
+        { value: 'Legendary', count: 20 }
       ]
     },
     {
-      group: 'Mouth',
+      group: 'Color',
       options: [
-        { value: 'Smile', count: 180 },
-        { value: 'Frown', count: 100 },
-        { value: 'Open', count: 80 },
-        { value: 'Pipe', count: 40 },
-        { value: 'Cigar', count: 20 }
+        { value: 'Pink', count: 80 },
+        { value: 'Blue', count: 60 },
+        { value: 'Yellow', count: 40 },
+        { value: 'Purple', count: 20 }
       ]
     }
   ],
-  'nft-artists': [
+  'berry-boxes': [
     {
-      group: 'Style',
+      group: 'Type',
       options: [
-        { value: 'Abstract', count: 800 },
-        { value: 'Realistic', count: 600 },
-        { value: 'Minimalist', count: 400 },
-        { value: 'Surreal', count: 200 }
+        { value: 'Box', count: 100 }
       ]
     },
     {
-      group: 'Colors',
+      group: 'Rarity',
       options: [
-        { value: 'Vibrant', count: 600 },
-        { value: 'Muted', count: 500 },
-        { value: 'Monochrome', count: 400 },
-        { value: 'Pastel', count: 300 },
-        { value: 'Neon', count: 200 }
+        { value: 'Common', count: 60 },
+        { value: 'Rare', count: 30 },
+        { value: 'Legendary', count: 10 }
       ]
     },
     {
-      group: 'Size',
+      group: 'Berry',
       options: [
-        { value: 'Small', count: 400 },
-        { value: 'Medium', count: 600 },
-        { value: 'Large', count: 300 },
-        { value: 'Extra Large', count: 100 }
+        { value: 'Strawberry', count: 40 },
+        { value: 'Blueberry', count: 30 },
+        { value: 'Raspberry', count: 20 },
+        { value: 'Blackberry', count: 10 }
+      ]
+    }
+  ],
+  'big-years': [
+    {
+      group: 'Type',
+      options: [
+        { value: 'Year', count: 75 }
+      ]
+    },
+    {
+      group: 'Rarity',
+      options: [
+        { value: 'Common', count: 45 },
+        { value: 'Rare', count: 22 },
+        { value: 'Legendary', count: 8 }
+      ]
+    },
+    {
+      group: 'Year',
+      options: [
+        { value: '2024', count: 25 },
+        { value: '2023', count: 20 },
+        { value: '2022', count: 15 },
+        { value: '2021', count: 10 },
+        { value: '2020', count: 5 }
+      ]
+    }
+  ],
+  'bonded-rings': [
+    {
+      group: 'Type',
+      options: [
+        { value: 'Ring', count: 120 }
+      ]
+    },
+    {
+      group: 'Rarity',
+      options: [
+        { value: 'Common', count: 72 },
+        { value: 'Rare', count: 36 },
+        { value: 'Legendary', count: 12 }
+      ]
+    },
+    {
+      group: 'Material',
+      options: [
+        { value: 'Gold', count: 60 },
+        { value: 'Silver', count: 40 },
+        { value: 'Platinum', count: 15 },
+        { value: 'Diamond', count: 5 }
+      ]
+    }
+  ],
+  'bow-ties': [
+    {
+      group: 'Type',
+      options: [
+        { value: 'Tie', count: 80 }
+      ]
+    },
+    {
+      group: 'Rarity',
+      options: [
+        { value: 'Common', count: 48 },
+        { value: 'Rare', count: 24 },
+        { value: 'Legendary', count: 8 }
+      ]
+    },
+    {
+      group: 'Color',
+      options: [
+        { value: 'Red', count: 30 },
+        { value: 'Blue', count: 25 },
+        { value: 'Green', count: 15 },
+        { value: 'Purple', count: 10 }
+      ]
+    }
+  ],
+  'bunny-muffins': [
+    {
+      group: 'Type',
+      options: [
+        { value: 'Muffin', count: 120 }
+      ]
+    },
+    {
+      group: 'Rarity',
+      options: [
+        { value: 'Common', count: 72 },
+        { value: 'Rare', count: 36 },
+        { value: 'Legendary', count: 12 }
+      ]
+    },
+    {
+      group: 'Flavor',
+      options: [
+        { value: 'Chocolate', count: 50 },
+        { value: 'Vanilla', count: 40 },
+        { value: 'Strawberry', count: 20 },
+        { value: 'Blueberry', count: 10 }
+      ]
+    }
+  ],
+  'candy-canes': [
+    {
+      group: 'Type',
+      options: [
+        { value: 'Cane', count: 90 }
+      ]
+    },
+    {
+      group: 'Rarity',
+      options: [
+        { value: 'Common', count: 54 },
+        { value: 'Rare', count: 27 },
+        { value: 'Legendary', count: 9 }
+      ]
+    },
+    {
+      group: 'Color',
+      options: [
+        { value: 'Red', count: 45 },
+        { value: 'Green', count: 30 },
+        { value: 'White', count: 15 }
+      ]
+    }
+  ],
+  'cookie-hearts': [
+    {
+      group: 'Type',
+      options: [
+        { value: 'Cookie', count: 110 }
+      ]
+    },
+    {
+      group: 'Rarity',
+      options: [
+        { value: 'Common', count: 66 },
+        { value: 'Rare', count: 33 },
+        { value: 'Legendary', count: 11 }
+      ]
+    },
+    {
+      group: 'Shape',
+      options: [
+        { value: 'Heart', count: 55 },
+        { value: 'Star', count: 35 },
+        { value: 'Circle', count: 20 }
       ]
     }
   ]

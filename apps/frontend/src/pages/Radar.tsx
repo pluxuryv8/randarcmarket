@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { radarApi } from '../services/api';
+// import { radarApi } from '../services/api'; // Удален старый API
 import { FaSearch, FaBell, FaPlus, FaTrash, FaCog } from 'react-icons/fa';
 
 interface WatchlistFilter {
@@ -39,17 +39,34 @@ const Radar: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const [watchlistRes, notificationsRes] = await Promise.all([
-        radarApi.getWatchlist(),
-        radarApi.getNotifications()
-      ]);
+      // Временные моки для демонстрации
+      const mockWatchlist: WatchlistFilter[] = [
+        {
+          id: '1',
+          user_id: user.id,
+          collection_address: 'EQD...abc123',
+          min_price: 10,
+          max_price: 100,
+          rarity_filter: ['Legendary', 'Rare'],
+          below_floor_percent: 20,
+          created_at: new Date()
+        }
+      ];
+      
+      const mockNotifications: RadarSignal[] = [
+        {
+          id: '1',
+          user_id: user.id,
+          filter_id: '1',
+          item_address: 'EQD...def456',
+          signal_type: 'price_drop',
+          message: 'Цена упала на 15%',
+          created_at: new Date()
+        }
+      ];
 
-      if (watchlistRes.data.success) {
-        setWatchlist(watchlistRes.data.data);
-      }
-      if (notificationsRes.data.success) {
-        setNotifications(notificationsRes.data.data);
-      }
+      setWatchlist(mockWatchlist);
+      setNotifications(mockNotifications);
     } catch (error) {
       console.error('Error fetching radar data:', error);
     } finally {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { paymentsApi } from '../services/api';
+// import { paymentsApi } from '../services/api'; // Удален старый API
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import { FaCheck, FaRocket, FaBell, FaShieldAlt, FaSearch, FaBolt } from 'react-icons/fa';
 
@@ -22,25 +22,28 @@ const Pricing: React.FC = () => {
 
     setLoading(true);
     try {
-      const response = await paymentsApi.createSubscription();
+      // const response = await paymentsApi.createSubscription(); // Временно отключено
       
-      if (response.data.success) {
-        const { transaction } = response.data.data;
+              // Временно отключено - используем мок данные
+        const mockTransaction = {
+          to: 'EQD...receiver123',
+          amount: '25000000000', // 25 TON в нанотонах
+          comment: 'SUBSCRIPTION:123;UID:1'
+        };
         
         // Send transaction via TonConnect
         await tonConnectUI.sendTransaction({
           validUntil: Math.floor(Date.now() / 1000) + 600, // 10 minutes
           messages: [
             {
-              address: transaction.to,
-              amount: transaction.amount,
-              payload: transaction.comment
+              address: mockTransaction.to,
+              amount: mockTransaction.amount,
+              payload: mockTransaction.comment
             }
           ]
         });
         
         alert('Подписка успешно создана! Проверьте статус в разделе Radar.');
-      }
     } catch (error) {
       console.error('Subscription error:', error);
       alert('Ошибка при создании подписки. Попробуйте еще раз.');

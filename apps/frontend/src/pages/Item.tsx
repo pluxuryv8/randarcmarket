@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { marketService, Item as ItemType } from '../services/market';
+import { giftsApi } from '../services/giftsLocal';
+import { GiftItem as ItemType } from '../types/domain';
 import { FaArrowLeft, FaCopy, FaExternalLinkAlt } from 'react-icons/fa';
 
 const ItemPage: React.FC = () => {
@@ -17,7 +18,7 @@ const ItemPage: React.FC = () => {
       setError(null);
       
       try {
-        const data = await marketService.getItem(address);
+        const data = await giftsApi.getItem(address);
         setItem(data);
       } catch (error) {
         console.error('Error fetching item details:', error);

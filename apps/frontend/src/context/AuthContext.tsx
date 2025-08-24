@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useTonWallet } from '@tonconnect/ui-react';
-import { api } from '../services/api';
+// import { api } from '../services/api'; // Удален старый API
 
 interface User {
   id: string;
@@ -44,24 +44,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     // Check if user is authenticated on mount
     if (token) {
-      api.get('/auth/me', {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(response => {
-        if (response.data.success) {
-          setUser(response.data.data.user);
-        } else {
-          localStorage.removeItem('token');
-          setToken(null);
-        }
-      })
-      .catch(() => {
-        localStorage.removeItem('token');
-        setToken(null);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      // Временно отключено - используем мок данные
+      const mockUser: User = {
+        id: '1',
+        tg_id: '123456789',
+        username: 'testuser',
+        first_name: 'Test',
+        last_name: 'User',
+        photo_url: 'https://via.placeholder.com/150/1f2632/666?text=User'
+      };
+      setUser(mockUser);
+      setLoading(false);
     } else {
       setLoading(false);
     }
@@ -76,16 +69,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (initData: any) => {
     try {
-      const response = await api.post('/auth/telegram/verify', initData);
-      
-      if (response.data.success) {
-        const { token: newToken, user: userData } = response.data.data;
-        localStorage.setItem('token', newToken);
-        setToken(newToken);
-        setUser(userData);
-      } else {
-        throw new Error(response.data.error);
-      }
+      // Временно отключено - используем мок данные
+      const mockUser: User = {
+        id: '1',
+        tg_id: '123456789',
+        username: 'testuser',
+        first_name: 'Test',
+        last_name: 'User',
+        photo_url: 'https://via.placeholder.com/150/1f2632/666?text=User'
+      };
+      const mockToken = 'mock-token-123';
+      localStorage.setItem('token', mockToken);
+      setToken(mockToken);
+      setUser(mockUser);
     } catch (error) {
       console.error('Login error:', error);
       throw error;

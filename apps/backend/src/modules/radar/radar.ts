@@ -222,14 +222,15 @@ router.get('/stats', (req, res) => {
 });
 
 // История сигналов
-router.get('/history', (req, res) => {
-  const signals = generateRadarSignals(50).map(signal => ({
+router.get('/history', async (req, res) => {
+  const signals = await generateRadarSignals(50);
+  const signalsWithStats = signals.map(signal => ({
     ...signal,
     profit: Math.round((Math.random() - 0.5) * 500 * 100) / 100,
     loss: Math.round(Math.random() * 200 * 100) / 100
   }));
   
-  res.json({ signals });
+  res.json({ signals: signalsWithStats });
 });
 
 // Аналитика

@@ -12,7 +12,7 @@ export type TraitBucket = {
 export type GiftCollection = { 
   id: string; 
   title: string; 
-  cover: string; 
+  cover?: string; 
   floor?: number; 
   supply?: number; 
   owners?: number; 
@@ -23,12 +23,13 @@ export type GiftItem = {
   id: string; 
   address: string; 
   title: string; 
-  image: string; 
+  image?: string; 
   priceTon?: number; 
   forSale?: boolean; 
   traits: Trait[]; 
   rarity?: string; 
   collectionId: string; 
+  collectionTitle?: string; 
   lastSaleTon?: number; 
   updatedAt?: string; 
 };

@@ -6,18 +6,27 @@ interface GiftCardProps {
   item: GiftItem;
 }
 
+const FALLBACK = '/images/nft-fallback.png';
+
 export const GiftCard: React.FC<GiftCardProps> = ({ item }) => {
+  const src = item.image ?? FALLBACK;
+
   return (
     <Link to={`/item/${item.address}`} className="block">
       <div className="card p-4 hover:shadow-medium transition-all duration-200 group">
         {/* Изображение */}
         <div className="aspect-square mb-4 rounded-lg overflow-hidden bg-surface-800">
           <img 
-            src={item.image} 
+            src={src}
             alt={item.title} 
+            loading="lazy"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
             onError={(e) => {
-              e.currentTarget.src = 'https://via.placeholder.com/300x300/1f2632/666?text=No+Image';
+              const target = e.currentTarget;
+              if (!target.dataset.fallback) {
+                target.dataset.fallback = '1';
+                target.src = FALLBACK;
+              }
             }}
           />
         </div>
