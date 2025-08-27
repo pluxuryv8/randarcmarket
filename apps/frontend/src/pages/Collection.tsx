@@ -175,14 +175,16 @@ const CollectionPage: React.FC = () => {
         <div className="mb-8">
           <div className="flex items-center gap-6 mb-6">
             <div className="w-24 h-24 rounded-xl overflow-hidden">
-              <img 
-                src={collection.cover} 
-                alt={collection.title}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = 'https://via.placeholder.com/96x96/1f2632/666?text=No+Image';
-                }}
-              />
+              {collection.cover && (
+                <img 
+                  src={collection.cover} 
+                  alt={collection.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+              )}
             </div>
             <div>
               <h1 className="text-3xl font-bold text-text-100 mb-2">{collection.title}</h1>

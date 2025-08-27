@@ -1,24 +1,30 @@
-const GATEWAYS = [
-  'https://cloudflare-ipfs.com/ipfs/',
-  'https://ipfs.io/ipfs/',
-  'https://gateway.pinata.cloud/ipfs/',
-];
-
-export function toHttp(url?: string | null): string | undefined {
+/**
+ * Нормализация IPFS/URL → HTTPS
+ */
+export function toHttp(url?: string): string | undefined {
   if (!url) return;
   const u = url.trim();
+
+  // ipfs://<cid>[/path]
   if (u.startsWith('ipfs://')) {
     const cid = u.replace('ipfs://', '').replace(/^ipfs\//, '');
-    return GATEWAYS[0] + cid;
+    return `https://cloudflare-ipfs.com/ipfs/${cid}`;
   }
-  if (u.startsWith('ipfs/')) return GATEWAYS[0] + u.replace(/^ipfs\//, '');
-  if (u.startsWith('//')) return 'https:' + u;
-  return u;
+  // ipfs/<cid>[/path]
+  if (u.startsWith('ipfs/')) {
+    return `https://cloudflare-ipfs.com/ipfs/${u.slice(5)}`;
+  }
+  // Protocol-relative //host/...
+  if (u.startsWith('//')) return `https:${u}`;
+  // http → https
+  if (u.startsWith('http://')) return `https://${u.slice(7)}`;
+  // https ок
+  if (u.startsWith('https://')) return u;
+
+  // Относительные пути или что-то иное не трогаем (лучше вернуть undefined, чем фейковый домен)
+  return undefined;
 }
 
-export function pickMedia(...srcs:(string|undefined|null)[]) {
-  for (const s of srcs) {
-    const h = toHttp(s);
-    if (h) return h;
-  }
+export function isValidUrl(url: string): boolean {
+  try { new URL(url); return true; } catch { return false; }
 }
