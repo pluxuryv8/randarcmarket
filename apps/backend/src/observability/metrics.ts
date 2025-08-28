@@ -29,10 +29,81 @@ export const providerFailure = new client.Counter({
   labelNames: ['provider', 'endpoint'] as const,
 });
 
+// Radar metrics
+export const radarRoundsTotal = new client.Counter({
+  name: 'radar_rounds_total',
+  help: 'Total number of radar rounds',
+  labelNames: ['status'] as const,
+});
+
+export const radarRoundCloseDuration = new client.Histogram({
+  name: 'radar_round_close_duration_ms',
+  help: 'Radar round close duration in milliseconds',
+  labelNames: ['status'] as const,
+  buckets: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+});
+
+export const radarEntriesTotal = new client.Counter({
+  name: 'radar_entries_total',
+  help: 'Total number of radar entries',
+  labelNames: ['tier'] as const,
+});
+
+export const radarCommitRevealFailures = new client.Counter({
+  name: 'radar_commit_reveal_failures_total',
+  help: 'Total number of commit-reveal verification failures',
+});
+
+export const radarActiveRounds = new client.Gauge({
+  name: 'radar_active_rounds',
+  help: 'Number of currently active radar rounds',
+});
+
+// Radar reservation metrics
+export const radarReservationsTotal = new client.Counter({
+  name: 'radar_reservations_total',
+  help: 'Total number of radar reservations',
+  labelNames: ['status'] as const,
+});
+
+export const radarReservationsActive = new client.Gauge({
+  name: 'radar_reservations_active',
+  help: 'Number of currently active radar reservations',
+});
+
+// Radar order metrics
+export const radarOrdersTotal = new client.Counter({
+  name: 'radar_orders_total',
+  help: 'Total number of radar orders',
+  labelNames: ['status'] as const,
+});
+
+export const radarExecutionDurationMs = new client.Histogram({
+  name: 'radar_execution_duration_ms',
+  help: 'Radar order execution duration in milliseconds',
+  buckets: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1500],
+});
+
+export const radarDeliveryTotal = new client.Counter({
+  name: 'radar_delivery_total',
+  help: 'Total number of radar deliveries',
+  labelNames: ['status'] as const,
+});
+
 register.registerMetric(httpRequestsTotal);
 register.registerMetric(httpRequestDuration);
 register.registerMetric(providerSuccess);
 register.registerMetric(providerFailure);
+register.registerMetric(radarRoundsTotal);
+register.registerMetric(radarRoundCloseDuration);
+register.registerMetric(radarEntriesTotal);
+register.registerMetric(radarCommitRevealFailures);
+register.registerMetric(radarActiveRounds);
+register.registerMetric(radarReservationsTotal);
+register.registerMetric(radarReservationsActive);
+register.registerMetric(radarOrdersTotal);
+register.registerMetric(radarExecutionDurationMs);
+register.registerMetric(radarDeliveryTotal);
 
 export function metricsMiddleware(req: Request, res: Response, next: NextFunction) {
   const start = process.hrtime.bigint();

@@ -1,111 +1,42 @@
-import express, { Router } from 'express';
-import { z } from 'zod';
-import { memo } from '../util/cache';
-import { tryProviders, getCollections as getCollectionsFromProviders, getItem as getItemFromProviders } from '../providers/gifts';
-import { prisma } from '../db/client';
-import { etagOf, notModified } from '../util/httpCache';
+import { Router } from 'express';
+import { Gifts } from '../providers/gifts';
+import { memo, setCacheHeaders } from '../util/cache';
 
-const router: Router = express.Router();
+const r = Router();
 
-// Zod schemas for validation
-const collectionsQuery = z.object({
-  limit: z.coerce.number().min(1).max(100).default(100),
-  offset: z.coerce.number().min(0).max(10000).default(0),
+r.get('/collections', async (req,res)=>{
+  const data = await memo('collections:gifts', 10*60*1000, async ()=>{
+    const collections = await Gifts.listCollections();
+    const totalItems = collections.reduce((s,c)=> s+(c.supply||0), 0);
+    return { totalCollections: collections.length, totalItems, collections };
+  });
+  setCacheHeaders(res, 600); 
+  res.json(data);
 });
 
-const itemsQuery = z.object({
-  limit: z.coerce.number().min(1).max(100).default(20),
-  offset: z.coerce.number().min(0).max(10000).default(0),
-  collectionId: z.string().min(1).optional(),
-  forSale: z.enum(['true','false']).optional(),
-  minPrice: z.coerce.number().nonnegative().optional(),
-  maxPrice: z.coerce.number().nonnegative().optional(),
-  source: z.enum(['tonapi','nftscan']).optional()
+r.get('/items', async (req,res)=>{
+  const params = {
+    collectionId: req.query.collectionId as string | undefined,
+    forSale: req.query.forSale === 'true',
+    minPrice: req.query.minPrice ? Number(req.query.minPrice) : undefined,
+    maxPrice: req.query.maxPrice ? Number(req.query.maxPrice) : undefined,
+    search: (req.query.search as string) || undefined,
+    sort: (req.query.sort as any) || 'listed_at',
+    order: (req.query.order as any) || 'desc',
+    limit: req.query.limit ? Number(req.query.limit) : 36,
+    cursor: (req.query.cursor as string) || null,
+  };
+  const key = `items:${JSON.stringify(params)}`;
+  const page = await memo(key, 60*1000, () => Gifts.listItems(params));
+  setCacheHeaders(res, 60); 
+  res.json(page);
 });
 
-// GET /api/nft/collections
-router.get('/collections', async (req, res) => {
-  try {
-    const q = collectionsQuery.parse(req.query);
-    const limit = Math.min(Number(req.query.limit||100), 200);
-    const offset = Math.max(Number(req.query.offset||0), 0);
-
-    const rows = await prisma.collection.findMany({
-      orderBy: { volume24hTon: 'desc' },
-      skip: offset,
-      take: limit
-    });
-
-    let payload: any = { success:true, collections: rows, meta:{ source: 'db', count: rows.length }};
-    let lastMod = new Date().toUTCString();
-
-    const etag = etagOf(payload);
-    if (notModified(req, etag, lastMod)) return res.status(304).end();
-    res.setHeader('ETag', etag);
-    res.setHeader('Last-Modified', lastMod);
-    res.setHeader('Cache-Control', 'public, max-age=30');
-    return res.json(payload);
-  } catch (error) {
-    console.error('Collections error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch collections' });
-  }
+r.get('/items/:address', async (req,res)=>{
+  const item = await memo(`item:${req.params.address}`, 60*1000, () => Gifts.getItem(req.params.address));
+  if (!item) return res.status(404).json({ error:'not_found' });
+  setCacheHeaders(res, 60); 
+  res.json(item);
 });
 
-// GET /api/nft/items
-router.get('/items', async (req, res) => {
-  try {
-    const q = itemsQuery.parse(req.query);
-    const limit = Math.min(Number(req.query.limit||20), 100);
-    const offset = Math.max(Number(req.query.offset||0), 0);
-    const collectionId = req.query.collectionId as string | undefined;
-    const forSale = req.query.forSale === 'true';
-
-    const where:any = {};
-    if (collectionId) where.collectionId = collectionId;
-    if (forSale) where.forSale = true;
-
-    const rows = await prisma.item.findMany({
-      where, orderBy: [{ priceTon: 'asc' }, { updatedAt: 'desc' }],
-      skip: offset, take: limit
-    });
-
-    let payload:any = { success:true, items: rows, meta:{ source:'db', count: rows.length } };
-    const etag = etagOf(payload);
-    if (notModified(req, etag)) return res.status(304).end();
-    res.setHeader('ETag', etag);
-    res.setHeader('Cache-Control','public, max-age=30');
-    return res.json(payload);
-  } catch (error) {
-    console.error('Items error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch items' });
-  }
-});
-
-// GET /api/nft/items/:address
-router.get('/items/:address', async (req, res) => {
-  try {
-    const { address } = req.params;
-
-    const item = await memo(
-      `item:${address}`,
-      async () => await getItemFromProviders(address),
-      300 // сек
-    );
-
-    if (!item) return res.status(404).json({ success: false, error: 'Item not found' });
-
-    res.json({ 
-      success: true, 
-      item, 
-      meta: { 
-        source: 'auto', 
-        count: 1 
-      } 
-    });
-  } catch (error) {
-    console.error('Item error:', error);
-    res.status(500).json({ success: false, error: 'Failed to fetch item' });
-  }
-});
-
-export default router;
+export default r;

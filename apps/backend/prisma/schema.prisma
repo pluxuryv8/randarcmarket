@@ -79,3 +79,42 @@ model RadarEntry {
   @@unique([roundId, userId])
   @@index([userId, createdAt])
 }
+
+model RadarReservation {
+  id            String   @id @default(cuid())
+  roundId       String
+  itemAddress   String
+  source        String   // 'randar' | 'fragment' | 'getgems' | ...
+  userId        String
+  priceTon      Float
+  status        String   // 'pending' | 'expired' | 'cancelled'
+  reserveToken  String   // случайная строка 24-32 симв., одноразовая
+  expiresAt     DateTime // now + 8s
+  createdAt     DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([itemAddress, status])
+  @@index([roundId, status])
+}
+
+model RadarOrder {
+  id             String   @id @default(cuid())
+  reservationId  String
+  userId         String
+  itemAddress    String
+  source         String
+  priceTon       Float
+  status         String   // 'created' | 'queued' | 'onchain_pending' | 'onchain_ok' | 'onchain_fail' | 'delivered'
+  txHash         String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId, status])
+  @@index([reservationId])
+}
+
+model WalletBalance {
+  userId    String  @id
+  ton       Float   @default(0)
+  updatedAt DateTime @updatedAt
+}

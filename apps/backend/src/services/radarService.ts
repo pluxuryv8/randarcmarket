@@ -1,5 +1,13 @@
 import { prisma } from '../db/client';
-import { generateSeed, hashSeed, makeRand, randToFloat } from '../util/commitReveal';
+import { generateSeed, hashSeed, makeRand, randToFloat, verifyCommitReveal } from '../util/commitReveal';
+import { getLatestBlockHash } from '../util/ton';
+import { 
+  radarRoundsTotal, 
+  radarRoundCloseDuration, 
+  radarEntriesTotal, 
+  radarCommitRevealFailures,
+  radarActiveRounds 
+} from '../observability/metrics';
 
 export interface RadarEntry {
   id: string;
@@ -62,6 +70,10 @@ export async function createOrJoinRound(
       }
     });
 
+    // Метрики: создание раунда
+    radarRoundsTotal.inc({ status: 'open' });
+    radarActiveRounds.inc();
+
     // Запускаем таймер для автоматического закрытия
     setTimeout(() => closeRound(round!.id), 500);
   }
@@ -90,6 +102,9 @@ export async function createOrJoinRound(
     }
   });
 
+  // Метрики: добавление участника
+  radarEntriesTotal.inc({ tier });
+
   return {
     roundId: round.id,
     roundEndsAt: round.endsAt,
@@ -101,6 +116,8 @@ export async function createOrJoinRound(
  * Закрывает раунд и определяет победителей
  */
 export async function closeRound(roundId: string): Promise<void> {
+  const startTime = Date.now();
+  
   const round = await prisma.radarRound.findUnique({
     where: { id: roundId },
     include: { entries: true }
@@ -110,14 +127,22 @@ export async function closeRound(roundId: string): Promise<void> {
     return;
   }
 
-  // Генерируем public salt (в будущем это может быть TON block hash)
-  const publicSalt = Date.now().toString();
+  // Получаем TON block hash как public salt
+  const publicSalt = await getLatestBlockHash();
   
   // Создаем итоговый rand
   const rand = makeRand(round.serverSeed!, publicSalt);
   
   // Выбираем победителей
   const winners = pickWeightedWinners(round.entries, rand);
+  
+  // Логируем commit-reveal данные
+  console.log(`🔐 Radar round ${roundId} reveal:`, {
+    seedHash: round.seedHash,
+    publicSalt,
+    rand,
+    winnersCount: winners.length
+  });
   
   // Обновляем раунд
   await prisma.radarRound.update({
@@ -129,6 +154,19 @@ export async function closeRound(roundId: string): Promise<void> {
       status: 'revealed'
     }
   });
+
+  // Метрики: закрытие раунда
+  const closeDuration = Date.now() - startTime;
+  radarRoundCloseDuration.observe({ status: 'revealed' }, closeDuration);
+  radarRoundsTotal.inc({ status: 'closed' });
+  radarRoundsTotal.inc({ status: 'revealed' });
+  radarActiveRounds.dec();
+
+  // Проверяем целостность commit-reveal
+  if (!verifyCommitReveal(round.seedHash, round.serverSeed!)) {
+    radarCommitRevealFailures.inc();
+    console.error(`❌ Commit-reveal verification failed for round ${roundId}`);
+  }
 }
 
 /**
@@ -187,7 +225,7 @@ export async function getResult(roundId: string, userId: string): Promise<RadarR
 /**
  * Выбирает победителей на основе взвешенной рулетки
  */
-function pickWeightedWinners(entries: RadarEntry[], rand: string): RadarWinner[] {
+function pickWeightedWinners(entries: any[], rand: string): RadarWinner[] {
   if (entries.length === 0) {
     return [];
   }

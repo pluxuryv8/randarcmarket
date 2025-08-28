@@ -11,6 +11,7 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
   setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
+  globalSetup: '<rootDir>/jest.globalSetup.ts',
   testTimeout: 10000,
   transformIgnorePatterns: [
     'node_modules/(?!(uuid)/)'

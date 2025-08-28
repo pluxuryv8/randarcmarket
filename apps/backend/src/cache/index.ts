@@ -1,4 +1,4 @@
-import LRU from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import Redis from 'ioredis';
 
 const ttl = Number(process.env.CACHE_DEFAULT_TTL || 60);
@@ -9,7 +9,10 @@ if (redisUrl) {
   try { redis = new Redis(redisUrl); } catch { redis = null; }
 }
 
-const lru = new LRU<string, string>({ max: 500, ttl: ttl * 1000 });
+const lru = new LRUCache<string, string>({ 
+  max: 500, 
+  ttl: ttl * 1000 
+});
 
 export async function cacheGet(key: string): Promise<string | null> {
   const v = lru.get(key);

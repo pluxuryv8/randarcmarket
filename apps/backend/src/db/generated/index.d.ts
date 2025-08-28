@@ -38,6 +38,21 @@ export type RadarRound = $Result.DefaultSelection<Prisma.$RadarRoundPayload>
  * 
  */
 export type RadarEntry = $Result.DefaultSelection<Prisma.$RadarEntryPayload>
+/**
+ * Model RadarReservation
+ * 
+ */
+export type RadarReservation = $Result.DefaultSelection<Prisma.$RadarReservationPayload>
+/**
+ * Model RadarOrder
+ * 
+ */
+export type RadarOrder = $Result.DefaultSelection<Prisma.$RadarOrderPayload>
+/**
+ * Model WalletBalance
+ * 
+ */
+export type WalletBalance = $Result.DefaultSelection<Prisma.$WalletBalancePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -211,6 +226,36 @@ export class PrismaClient<
     * ```
     */
   get radarEntry(): Prisma.RadarEntryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.radarReservation`: Exposes CRUD operations for the **RadarReservation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RadarReservations
+    * const radarReservations = await prisma.radarReservation.findMany()
+    * ```
+    */
+  get radarReservation(): Prisma.RadarReservationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.radarOrder`: Exposes CRUD operations for the **RadarOrder** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RadarOrders
+    * const radarOrders = await prisma.radarOrder.findMany()
+    * ```
+    */
+  get radarOrder(): Prisma.RadarOrderDelegate<ExtArgs>;
+
+  /**
+   * `prisma.walletBalance`: Exposes CRUD operations for the **WalletBalance** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WalletBalances
+    * const walletBalances = await prisma.walletBalance.findMany()
+    * ```
+    */
+  get walletBalance(): Prisma.WalletBalanceDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -656,7 +701,10 @@ export namespace Prisma {
     Item: 'Item',
     Trait: 'Trait',
     RadarRound: 'RadarRound',
-    RadarEntry: 'RadarEntry'
+    RadarEntry: 'RadarEntry',
+    RadarReservation: 'RadarReservation',
+    RadarOrder: 'RadarOrder',
+    WalletBalance: 'WalletBalance'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -672,7 +720,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "collection" | "item" | "trait" | "radarRound" | "radarEntry"
+      modelProps: "collection" | "item" | "trait" | "radarRound" | "radarEntry" | "radarReservation" | "radarOrder" | "walletBalance"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1023,6 +1071,216 @@ export namespace Prisma {
           count: {
             args: Prisma.RadarEntryCountArgs<ExtArgs>
             result: $Utils.Optional<RadarEntryCountAggregateOutputType> | number
+          }
+        }
+      }
+      RadarReservation: {
+        payload: Prisma.$RadarReservationPayload<ExtArgs>
+        fields: Prisma.RadarReservationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RadarReservationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RadarReservationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>
+          }
+          findFirst: {
+            args: Prisma.RadarReservationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RadarReservationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>
+          }
+          findMany: {
+            args: Prisma.RadarReservationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>[]
+          }
+          create: {
+            args: Prisma.RadarReservationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>
+          }
+          createMany: {
+            args: Prisma.RadarReservationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RadarReservationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>[]
+          }
+          delete: {
+            args: Prisma.RadarReservationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>
+          }
+          update: {
+            args: Prisma.RadarReservationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>
+          }
+          deleteMany: {
+            args: Prisma.RadarReservationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RadarReservationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RadarReservationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarReservationPayload>
+          }
+          aggregate: {
+            args: Prisma.RadarReservationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRadarReservation>
+          }
+          groupBy: {
+            args: Prisma.RadarReservationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RadarReservationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RadarReservationCountArgs<ExtArgs>
+            result: $Utils.Optional<RadarReservationCountAggregateOutputType> | number
+          }
+        }
+      }
+      RadarOrder: {
+        payload: Prisma.$RadarOrderPayload<ExtArgs>
+        fields: Prisma.RadarOrderFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RadarOrderFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RadarOrderFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>
+          }
+          findFirst: {
+            args: Prisma.RadarOrderFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RadarOrderFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>
+          }
+          findMany: {
+            args: Prisma.RadarOrderFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>[]
+          }
+          create: {
+            args: Prisma.RadarOrderCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>
+          }
+          createMany: {
+            args: Prisma.RadarOrderCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RadarOrderCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>[]
+          }
+          delete: {
+            args: Prisma.RadarOrderDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>
+          }
+          update: {
+            args: Prisma.RadarOrderUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>
+          }
+          deleteMany: {
+            args: Prisma.RadarOrderDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RadarOrderUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RadarOrderUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarOrderPayload>
+          }
+          aggregate: {
+            args: Prisma.RadarOrderAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRadarOrder>
+          }
+          groupBy: {
+            args: Prisma.RadarOrderGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RadarOrderGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RadarOrderCountArgs<ExtArgs>
+            result: $Utils.Optional<RadarOrderCountAggregateOutputType> | number
+          }
+        }
+      }
+      WalletBalance: {
+        payload: Prisma.$WalletBalancePayload<ExtArgs>
+        fields: Prisma.WalletBalanceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WalletBalanceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WalletBalanceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+          }
+          findFirst: {
+            args: Prisma.WalletBalanceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WalletBalanceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+          }
+          findMany: {
+            args: Prisma.WalletBalanceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>[]
+          }
+          create: {
+            args: Prisma.WalletBalanceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+          }
+          createMany: {
+            args: Prisma.WalletBalanceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.WalletBalanceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>[]
+          }
+          delete: {
+            args: Prisma.WalletBalanceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+          }
+          update: {
+            args: Prisma.WalletBalanceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+          }
+          deleteMany: {
+            args: Prisma.WalletBalanceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WalletBalanceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WalletBalanceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WalletBalancePayload>
+          }
+          aggregate: {
+            args: Prisma.WalletBalanceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWalletBalance>
+          }
+          groupBy: {
+            args: Prisma.WalletBalanceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WalletBalanceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.WalletBalanceCountArgs<ExtArgs>
+            result: $Utils.Optional<WalletBalanceCountAggregateOutputType> | number
           }
         }
       }
@@ -6216,6 +6474,2832 @@ export namespace Prisma {
 
 
   /**
+   * Model RadarReservation
+   */
+
+  export type AggregateRadarReservation = {
+    _count: RadarReservationCountAggregateOutputType | null
+    _avg: RadarReservationAvgAggregateOutputType | null
+    _sum: RadarReservationSumAggregateOutputType | null
+    _min: RadarReservationMinAggregateOutputType | null
+    _max: RadarReservationMaxAggregateOutputType | null
+  }
+
+  export type RadarReservationAvgAggregateOutputType = {
+    priceTon: number | null
+  }
+
+  export type RadarReservationSumAggregateOutputType = {
+    priceTon: number | null
+  }
+
+  export type RadarReservationMinAggregateOutputType = {
+    id: string | null
+    roundId: string | null
+    itemAddress: string | null
+    source: string | null
+    userId: string | null
+    priceTon: number | null
+    status: string | null
+    reserveToken: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RadarReservationMaxAggregateOutputType = {
+    id: string | null
+    roundId: string | null
+    itemAddress: string | null
+    source: string | null
+    userId: string | null
+    priceTon: number | null
+    status: string | null
+    reserveToken: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type RadarReservationCountAggregateOutputType = {
+    id: number
+    roundId: number
+    itemAddress: number
+    source: number
+    userId: number
+    priceTon: number
+    status: number
+    reserveToken: number
+    expiresAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RadarReservationAvgAggregateInputType = {
+    priceTon?: true
+  }
+
+  export type RadarReservationSumAggregateInputType = {
+    priceTon?: true
+  }
+
+  export type RadarReservationMinAggregateInputType = {
+    id?: true
+    roundId?: true
+    itemAddress?: true
+    source?: true
+    userId?: true
+    priceTon?: true
+    status?: true
+    reserveToken?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type RadarReservationMaxAggregateInputType = {
+    id?: true
+    roundId?: true
+    itemAddress?: true
+    source?: true
+    userId?: true
+    priceTon?: true
+    status?: true
+    reserveToken?: true
+    expiresAt?: true
+    createdAt?: true
+  }
+
+  export type RadarReservationCountAggregateInputType = {
+    id?: true
+    roundId?: true
+    itemAddress?: true
+    source?: true
+    userId?: true
+    priceTon?: true
+    status?: true
+    reserveToken?: true
+    expiresAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RadarReservationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarReservation to aggregate.
+     */
+    where?: RadarReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarReservations to fetch.
+     */
+    orderBy?: RadarReservationOrderByWithRelationInput | RadarReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RadarReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarReservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RadarReservations
+    **/
+    _count?: true | RadarReservationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RadarReservationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RadarReservationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RadarReservationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RadarReservationMaxAggregateInputType
+  }
+
+  export type GetRadarReservationAggregateType<T extends RadarReservationAggregateArgs> = {
+        [P in keyof T & keyof AggregateRadarReservation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRadarReservation[P]>
+      : GetScalarType<T[P], AggregateRadarReservation[P]>
+  }
+
+
+
+
+  export type RadarReservationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadarReservationWhereInput
+    orderBy?: RadarReservationOrderByWithAggregationInput | RadarReservationOrderByWithAggregationInput[]
+    by: RadarReservationScalarFieldEnum[] | RadarReservationScalarFieldEnum
+    having?: RadarReservationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RadarReservationCountAggregateInputType | true
+    _avg?: RadarReservationAvgAggregateInputType
+    _sum?: RadarReservationSumAggregateInputType
+    _min?: RadarReservationMinAggregateInputType
+    _max?: RadarReservationMaxAggregateInputType
+  }
+
+  export type RadarReservationGroupByOutputType = {
+    id: string
+    roundId: string
+    itemAddress: string
+    source: string
+    userId: string
+    priceTon: number
+    status: string
+    reserveToken: string
+    expiresAt: Date
+    createdAt: Date
+    _count: RadarReservationCountAggregateOutputType | null
+    _avg: RadarReservationAvgAggregateOutputType | null
+    _sum: RadarReservationSumAggregateOutputType | null
+    _min: RadarReservationMinAggregateOutputType | null
+    _max: RadarReservationMaxAggregateOutputType | null
+  }
+
+  type GetRadarReservationGroupByPayload<T extends RadarReservationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RadarReservationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RadarReservationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RadarReservationGroupByOutputType[P]>
+            : GetScalarType<T[P], RadarReservationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RadarReservationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    itemAddress?: boolean
+    source?: boolean
+    userId?: boolean
+    priceTon?: boolean
+    status?: boolean
+    reserveToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["radarReservation"]>
+
+  export type RadarReservationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    itemAddress?: boolean
+    source?: boolean
+    userId?: boolean
+    priceTon?: boolean
+    status?: boolean
+    reserveToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["radarReservation"]>
+
+  export type RadarReservationSelectScalar = {
+    id?: boolean
+    roundId?: boolean
+    itemAddress?: boolean
+    source?: boolean
+    userId?: boolean
+    priceTon?: boolean
+    status?: boolean
+    reserveToken?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $RadarReservationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RadarReservation"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roundId: string
+      itemAddress: string
+      source: string
+      userId: string
+      priceTon: number
+      status: string
+      reserveToken: string
+      expiresAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["radarReservation"]>
+    composites: {}
+  }
+
+  type RadarReservationGetPayload<S extends boolean | null | undefined | RadarReservationDefaultArgs> = $Result.GetResult<Prisma.$RadarReservationPayload, S>
+
+  type RadarReservationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RadarReservationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RadarReservationCountAggregateInputType | true
+    }
+
+  export interface RadarReservationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RadarReservation'], meta: { name: 'RadarReservation' } }
+    /**
+     * Find zero or one RadarReservation that matches the filter.
+     * @param {RadarReservationFindUniqueArgs} args - Arguments to find a RadarReservation
+     * @example
+     * // Get one RadarReservation
+     * const radarReservation = await prisma.radarReservation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RadarReservationFindUniqueArgs>(args: SelectSubset<T, RadarReservationFindUniqueArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RadarReservation that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RadarReservationFindUniqueOrThrowArgs} args - Arguments to find a RadarReservation
+     * @example
+     * // Get one RadarReservation
+     * const radarReservation = await prisma.radarReservation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RadarReservationFindUniqueOrThrowArgs>(args: SelectSubset<T, RadarReservationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RadarReservation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationFindFirstArgs} args - Arguments to find a RadarReservation
+     * @example
+     * // Get one RadarReservation
+     * const radarReservation = await prisma.radarReservation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RadarReservationFindFirstArgs>(args?: SelectSubset<T, RadarReservationFindFirstArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RadarReservation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationFindFirstOrThrowArgs} args - Arguments to find a RadarReservation
+     * @example
+     * // Get one RadarReservation
+     * const radarReservation = await prisma.radarReservation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RadarReservationFindFirstOrThrowArgs>(args?: SelectSubset<T, RadarReservationFindFirstOrThrowArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RadarReservations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RadarReservations
+     * const radarReservations = await prisma.radarReservation.findMany()
+     * 
+     * // Get first 10 RadarReservations
+     * const radarReservations = await prisma.radarReservation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const radarReservationWithIdOnly = await prisma.radarReservation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RadarReservationFindManyArgs>(args?: SelectSubset<T, RadarReservationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RadarReservation.
+     * @param {RadarReservationCreateArgs} args - Arguments to create a RadarReservation.
+     * @example
+     * // Create one RadarReservation
+     * const RadarReservation = await prisma.radarReservation.create({
+     *   data: {
+     *     // ... data to create a RadarReservation
+     *   }
+     * })
+     * 
+     */
+    create<T extends RadarReservationCreateArgs>(args: SelectSubset<T, RadarReservationCreateArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RadarReservations.
+     * @param {RadarReservationCreateManyArgs} args - Arguments to create many RadarReservations.
+     * @example
+     * // Create many RadarReservations
+     * const radarReservation = await prisma.radarReservation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RadarReservationCreateManyArgs>(args?: SelectSubset<T, RadarReservationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RadarReservations and returns the data saved in the database.
+     * @param {RadarReservationCreateManyAndReturnArgs} args - Arguments to create many RadarReservations.
+     * @example
+     * // Create many RadarReservations
+     * const radarReservation = await prisma.radarReservation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RadarReservations and only return the `id`
+     * const radarReservationWithIdOnly = await prisma.radarReservation.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RadarReservationCreateManyAndReturnArgs>(args?: SelectSubset<T, RadarReservationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RadarReservation.
+     * @param {RadarReservationDeleteArgs} args - Arguments to delete one RadarReservation.
+     * @example
+     * // Delete one RadarReservation
+     * const RadarReservation = await prisma.radarReservation.delete({
+     *   where: {
+     *     // ... filter to delete one RadarReservation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RadarReservationDeleteArgs>(args: SelectSubset<T, RadarReservationDeleteArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RadarReservation.
+     * @param {RadarReservationUpdateArgs} args - Arguments to update one RadarReservation.
+     * @example
+     * // Update one RadarReservation
+     * const radarReservation = await prisma.radarReservation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RadarReservationUpdateArgs>(args: SelectSubset<T, RadarReservationUpdateArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RadarReservations.
+     * @param {RadarReservationDeleteManyArgs} args - Arguments to filter RadarReservations to delete.
+     * @example
+     * // Delete a few RadarReservations
+     * const { count } = await prisma.radarReservation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RadarReservationDeleteManyArgs>(args?: SelectSubset<T, RadarReservationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RadarReservations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RadarReservations
+     * const radarReservation = await prisma.radarReservation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RadarReservationUpdateManyArgs>(args: SelectSubset<T, RadarReservationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RadarReservation.
+     * @param {RadarReservationUpsertArgs} args - Arguments to update or create a RadarReservation.
+     * @example
+     * // Update or create a RadarReservation
+     * const radarReservation = await prisma.radarReservation.upsert({
+     *   create: {
+     *     // ... data to create a RadarReservation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RadarReservation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RadarReservationUpsertArgs>(args: SelectSubset<T, RadarReservationUpsertArgs<ExtArgs>>): Prisma__RadarReservationClient<$Result.GetResult<Prisma.$RadarReservationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RadarReservations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationCountArgs} args - Arguments to filter RadarReservations to count.
+     * @example
+     * // Count the number of RadarReservations
+     * const count = await prisma.radarReservation.count({
+     *   where: {
+     *     // ... the filter for the RadarReservations we want to count
+     *   }
+     * })
+    **/
+    count<T extends RadarReservationCountArgs>(
+      args?: Subset<T, RadarReservationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RadarReservationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RadarReservation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RadarReservationAggregateArgs>(args: Subset<T, RadarReservationAggregateArgs>): Prisma.PrismaPromise<GetRadarReservationAggregateType<T>>
+
+    /**
+     * Group by RadarReservation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarReservationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RadarReservationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RadarReservationGroupByArgs['orderBy'] }
+        : { orderBy?: RadarReservationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RadarReservationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRadarReservationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RadarReservation model
+   */
+  readonly fields: RadarReservationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RadarReservation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RadarReservationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RadarReservation model
+   */ 
+  interface RadarReservationFieldRefs {
+    readonly id: FieldRef<"RadarReservation", 'String'>
+    readonly roundId: FieldRef<"RadarReservation", 'String'>
+    readonly itemAddress: FieldRef<"RadarReservation", 'String'>
+    readonly source: FieldRef<"RadarReservation", 'String'>
+    readonly userId: FieldRef<"RadarReservation", 'String'>
+    readonly priceTon: FieldRef<"RadarReservation", 'Float'>
+    readonly status: FieldRef<"RadarReservation", 'String'>
+    readonly reserveToken: FieldRef<"RadarReservation", 'String'>
+    readonly expiresAt: FieldRef<"RadarReservation", 'DateTime'>
+    readonly createdAt: FieldRef<"RadarReservation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RadarReservation findUnique
+   */
+  export type RadarReservationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarReservation to fetch.
+     */
+    where: RadarReservationWhereUniqueInput
+  }
+
+  /**
+   * RadarReservation findUniqueOrThrow
+   */
+  export type RadarReservationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarReservation to fetch.
+     */
+    where: RadarReservationWhereUniqueInput
+  }
+
+  /**
+   * RadarReservation findFirst
+   */
+  export type RadarReservationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarReservation to fetch.
+     */
+    where?: RadarReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarReservations to fetch.
+     */
+    orderBy?: RadarReservationOrderByWithRelationInput | RadarReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarReservations.
+     */
+    cursor?: RadarReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarReservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarReservations.
+     */
+    distinct?: RadarReservationScalarFieldEnum | RadarReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RadarReservation findFirstOrThrow
+   */
+  export type RadarReservationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarReservation to fetch.
+     */
+    where?: RadarReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarReservations to fetch.
+     */
+    orderBy?: RadarReservationOrderByWithRelationInput | RadarReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarReservations.
+     */
+    cursor?: RadarReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarReservations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarReservations.
+     */
+    distinct?: RadarReservationScalarFieldEnum | RadarReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RadarReservation findMany
+   */
+  export type RadarReservationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarReservations to fetch.
+     */
+    where?: RadarReservationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarReservations to fetch.
+     */
+    orderBy?: RadarReservationOrderByWithRelationInput | RadarReservationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RadarReservations.
+     */
+    cursor?: RadarReservationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarReservations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarReservations.
+     */
+    skip?: number
+    distinct?: RadarReservationScalarFieldEnum | RadarReservationScalarFieldEnum[]
+  }
+
+  /**
+   * RadarReservation create
+   */
+  export type RadarReservationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * The data needed to create a RadarReservation.
+     */
+    data: XOR<RadarReservationCreateInput, RadarReservationUncheckedCreateInput>
+  }
+
+  /**
+   * RadarReservation createMany
+   */
+  export type RadarReservationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RadarReservations.
+     */
+    data: RadarReservationCreateManyInput | RadarReservationCreateManyInput[]
+  }
+
+  /**
+   * RadarReservation createManyAndReturn
+   */
+  export type RadarReservationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RadarReservations.
+     */
+    data: RadarReservationCreateManyInput | RadarReservationCreateManyInput[]
+  }
+
+  /**
+   * RadarReservation update
+   */
+  export type RadarReservationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * The data needed to update a RadarReservation.
+     */
+    data: XOR<RadarReservationUpdateInput, RadarReservationUncheckedUpdateInput>
+    /**
+     * Choose, which RadarReservation to update.
+     */
+    where: RadarReservationWhereUniqueInput
+  }
+
+  /**
+   * RadarReservation updateMany
+   */
+  export type RadarReservationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RadarReservations.
+     */
+    data: XOR<RadarReservationUpdateManyMutationInput, RadarReservationUncheckedUpdateManyInput>
+    /**
+     * Filter which RadarReservations to update
+     */
+    where?: RadarReservationWhereInput
+  }
+
+  /**
+   * RadarReservation upsert
+   */
+  export type RadarReservationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * The filter to search for the RadarReservation to update in case it exists.
+     */
+    where: RadarReservationWhereUniqueInput
+    /**
+     * In case the RadarReservation found by the `where` argument doesn't exist, create a new RadarReservation with this data.
+     */
+    create: XOR<RadarReservationCreateInput, RadarReservationUncheckedCreateInput>
+    /**
+     * In case the RadarReservation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RadarReservationUpdateInput, RadarReservationUncheckedUpdateInput>
+  }
+
+  /**
+   * RadarReservation delete
+   */
+  export type RadarReservationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+    /**
+     * Filter which RadarReservation to delete.
+     */
+    where: RadarReservationWhereUniqueInput
+  }
+
+  /**
+   * RadarReservation deleteMany
+   */
+  export type RadarReservationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarReservations to delete
+     */
+    where?: RadarReservationWhereInput
+  }
+
+  /**
+   * RadarReservation without action
+   */
+  export type RadarReservationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarReservation
+     */
+    select?: RadarReservationSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RadarOrder
+   */
+
+  export type AggregateRadarOrder = {
+    _count: RadarOrderCountAggregateOutputType | null
+    _avg: RadarOrderAvgAggregateOutputType | null
+    _sum: RadarOrderSumAggregateOutputType | null
+    _min: RadarOrderMinAggregateOutputType | null
+    _max: RadarOrderMaxAggregateOutputType | null
+  }
+
+  export type RadarOrderAvgAggregateOutputType = {
+    priceTon: number | null
+  }
+
+  export type RadarOrderSumAggregateOutputType = {
+    priceTon: number | null
+  }
+
+  export type RadarOrderMinAggregateOutputType = {
+    id: string | null
+    reservationId: string | null
+    userId: string | null
+    itemAddress: string | null
+    source: string | null
+    priceTon: number | null
+    status: string | null
+    txHash: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RadarOrderMaxAggregateOutputType = {
+    id: string | null
+    reservationId: string | null
+    userId: string | null
+    itemAddress: string | null
+    source: string | null
+    priceTon: number | null
+    status: string | null
+    txHash: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RadarOrderCountAggregateOutputType = {
+    id: number
+    reservationId: number
+    userId: number
+    itemAddress: number
+    source: number
+    priceTon: number
+    status: number
+    txHash: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RadarOrderAvgAggregateInputType = {
+    priceTon?: true
+  }
+
+  export type RadarOrderSumAggregateInputType = {
+    priceTon?: true
+  }
+
+  export type RadarOrderMinAggregateInputType = {
+    id?: true
+    reservationId?: true
+    userId?: true
+    itemAddress?: true
+    source?: true
+    priceTon?: true
+    status?: true
+    txHash?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RadarOrderMaxAggregateInputType = {
+    id?: true
+    reservationId?: true
+    userId?: true
+    itemAddress?: true
+    source?: true
+    priceTon?: true
+    status?: true
+    txHash?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RadarOrderCountAggregateInputType = {
+    id?: true
+    reservationId?: true
+    userId?: true
+    itemAddress?: true
+    source?: true
+    priceTon?: true
+    status?: true
+    txHash?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RadarOrderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarOrder to aggregate.
+     */
+    where?: RadarOrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarOrders to fetch.
+     */
+    orderBy?: RadarOrderOrderByWithRelationInput | RadarOrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RadarOrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarOrders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarOrders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RadarOrders
+    **/
+    _count?: true | RadarOrderCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RadarOrderAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RadarOrderSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RadarOrderMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RadarOrderMaxAggregateInputType
+  }
+
+  export type GetRadarOrderAggregateType<T extends RadarOrderAggregateArgs> = {
+        [P in keyof T & keyof AggregateRadarOrder]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRadarOrder[P]>
+      : GetScalarType<T[P], AggregateRadarOrder[P]>
+  }
+
+
+
+
+  export type RadarOrderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadarOrderWhereInput
+    orderBy?: RadarOrderOrderByWithAggregationInput | RadarOrderOrderByWithAggregationInput[]
+    by: RadarOrderScalarFieldEnum[] | RadarOrderScalarFieldEnum
+    having?: RadarOrderScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RadarOrderCountAggregateInputType | true
+    _avg?: RadarOrderAvgAggregateInputType
+    _sum?: RadarOrderSumAggregateInputType
+    _min?: RadarOrderMinAggregateInputType
+    _max?: RadarOrderMaxAggregateInputType
+  }
+
+  export type RadarOrderGroupByOutputType = {
+    id: string
+    reservationId: string
+    userId: string
+    itemAddress: string
+    source: string
+    priceTon: number
+    status: string
+    txHash: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: RadarOrderCountAggregateOutputType | null
+    _avg: RadarOrderAvgAggregateOutputType | null
+    _sum: RadarOrderSumAggregateOutputType | null
+    _min: RadarOrderMinAggregateOutputType | null
+    _max: RadarOrderMaxAggregateOutputType | null
+  }
+
+  type GetRadarOrderGroupByPayload<T extends RadarOrderGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RadarOrderGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RadarOrderGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RadarOrderGroupByOutputType[P]>
+            : GetScalarType<T[P], RadarOrderGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RadarOrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reservationId?: boolean
+    userId?: boolean
+    itemAddress?: boolean
+    source?: boolean
+    priceTon?: boolean
+    status?: boolean
+    txHash?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["radarOrder"]>
+
+  export type RadarOrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reservationId?: boolean
+    userId?: boolean
+    itemAddress?: boolean
+    source?: boolean
+    priceTon?: boolean
+    status?: boolean
+    txHash?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["radarOrder"]>
+
+  export type RadarOrderSelectScalar = {
+    id?: boolean
+    reservationId?: boolean
+    userId?: boolean
+    itemAddress?: boolean
+    source?: boolean
+    priceTon?: boolean
+    status?: boolean
+    txHash?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $RadarOrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RadarOrder"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      reservationId: string
+      userId: string
+      itemAddress: string
+      source: string
+      priceTon: number
+      status: string
+      txHash: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["radarOrder"]>
+    composites: {}
+  }
+
+  type RadarOrderGetPayload<S extends boolean | null | undefined | RadarOrderDefaultArgs> = $Result.GetResult<Prisma.$RadarOrderPayload, S>
+
+  type RadarOrderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RadarOrderFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RadarOrderCountAggregateInputType | true
+    }
+
+  export interface RadarOrderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RadarOrder'], meta: { name: 'RadarOrder' } }
+    /**
+     * Find zero or one RadarOrder that matches the filter.
+     * @param {RadarOrderFindUniqueArgs} args - Arguments to find a RadarOrder
+     * @example
+     * // Get one RadarOrder
+     * const radarOrder = await prisma.radarOrder.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RadarOrderFindUniqueArgs>(args: SelectSubset<T, RadarOrderFindUniqueArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RadarOrder that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RadarOrderFindUniqueOrThrowArgs} args - Arguments to find a RadarOrder
+     * @example
+     * // Get one RadarOrder
+     * const radarOrder = await prisma.radarOrder.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RadarOrderFindUniqueOrThrowArgs>(args: SelectSubset<T, RadarOrderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RadarOrder that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderFindFirstArgs} args - Arguments to find a RadarOrder
+     * @example
+     * // Get one RadarOrder
+     * const radarOrder = await prisma.radarOrder.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RadarOrderFindFirstArgs>(args?: SelectSubset<T, RadarOrderFindFirstArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RadarOrder that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderFindFirstOrThrowArgs} args - Arguments to find a RadarOrder
+     * @example
+     * // Get one RadarOrder
+     * const radarOrder = await prisma.radarOrder.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RadarOrderFindFirstOrThrowArgs>(args?: SelectSubset<T, RadarOrderFindFirstOrThrowArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RadarOrders that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RadarOrders
+     * const radarOrders = await prisma.radarOrder.findMany()
+     * 
+     * // Get first 10 RadarOrders
+     * const radarOrders = await prisma.radarOrder.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const radarOrderWithIdOnly = await prisma.radarOrder.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RadarOrderFindManyArgs>(args?: SelectSubset<T, RadarOrderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RadarOrder.
+     * @param {RadarOrderCreateArgs} args - Arguments to create a RadarOrder.
+     * @example
+     * // Create one RadarOrder
+     * const RadarOrder = await prisma.radarOrder.create({
+     *   data: {
+     *     // ... data to create a RadarOrder
+     *   }
+     * })
+     * 
+     */
+    create<T extends RadarOrderCreateArgs>(args: SelectSubset<T, RadarOrderCreateArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RadarOrders.
+     * @param {RadarOrderCreateManyArgs} args - Arguments to create many RadarOrders.
+     * @example
+     * // Create many RadarOrders
+     * const radarOrder = await prisma.radarOrder.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RadarOrderCreateManyArgs>(args?: SelectSubset<T, RadarOrderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RadarOrders and returns the data saved in the database.
+     * @param {RadarOrderCreateManyAndReturnArgs} args - Arguments to create many RadarOrders.
+     * @example
+     * // Create many RadarOrders
+     * const radarOrder = await prisma.radarOrder.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RadarOrders and only return the `id`
+     * const radarOrderWithIdOnly = await prisma.radarOrder.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RadarOrderCreateManyAndReturnArgs>(args?: SelectSubset<T, RadarOrderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RadarOrder.
+     * @param {RadarOrderDeleteArgs} args - Arguments to delete one RadarOrder.
+     * @example
+     * // Delete one RadarOrder
+     * const RadarOrder = await prisma.radarOrder.delete({
+     *   where: {
+     *     // ... filter to delete one RadarOrder
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RadarOrderDeleteArgs>(args: SelectSubset<T, RadarOrderDeleteArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RadarOrder.
+     * @param {RadarOrderUpdateArgs} args - Arguments to update one RadarOrder.
+     * @example
+     * // Update one RadarOrder
+     * const radarOrder = await prisma.radarOrder.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RadarOrderUpdateArgs>(args: SelectSubset<T, RadarOrderUpdateArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RadarOrders.
+     * @param {RadarOrderDeleteManyArgs} args - Arguments to filter RadarOrders to delete.
+     * @example
+     * // Delete a few RadarOrders
+     * const { count } = await prisma.radarOrder.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RadarOrderDeleteManyArgs>(args?: SelectSubset<T, RadarOrderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RadarOrders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RadarOrders
+     * const radarOrder = await prisma.radarOrder.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RadarOrderUpdateManyArgs>(args: SelectSubset<T, RadarOrderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RadarOrder.
+     * @param {RadarOrderUpsertArgs} args - Arguments to update or create a RadarOrder.
+     * @example
+     * // Update or create a RadarOrder
+     * const radarOrder = await prisma.radarOrder.upsert({
+     *   create: {
+     *     // ... data to create a RadarOrder
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RadarOrder we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RadarOrderUpsertArgs>(args: SelectSubset<T, RadarOrderUpsertArgs<ExtArgs>>): Prisma__RadarOrderClient<$Result.GetResult<Prisma.$RadarOrderPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RadarOrders.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderCountArgs} args - Arguments to filter RadarOrders to count.
+     * @example
+     * // Count the number of RadarOrders
+     * const count = await prisma.radarOrder.count({
+     *   where: {
+     *     // ... the filter for the RadarOrders we want to count
+     *   }
+     * })
+    **/
+    count<T extends RadarOrderCountArgs>(
+      args?: Subset<T, RadarOrderCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RadarOrderCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RadarOrder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RadarOrderAggregateArgs>(args: Subset<T, RadarOrderAggregateArgs>): Prisma.PrismaPromise<GetRadarOrderAggregateType<T>>
+
+    /**
+     * Group by RadarOrder.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarOrderGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RadarOrderGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RadarOrderGroupByArgs['orderBy'] }
+        : { orderBy?: RadarOrderGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RadarOrderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRadarOrderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RadarOrder model
+   */
+  readonly fields: RadarOrderFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RadarOrder.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RadarOrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RadarOrder model
+   */ 
+  interface RadarOrderFieldRefs {
+    readonly id: FieldRef<"RadarOrder", 'String'>
+    readonly reservationId: FieldRef<"RadarOrder", 'String'>
+    readonly userId: FieldRef<"RadarOrder", 'String'>
+    readonly itemAddress: FieldRef<"RadarOrder", 'String'>
+    readonly source: FieldRef<"RadarOrder", 'String'>
+    readonly priceTon: FieldRef<"RadarOrder", 'Float'>
+    readonly status: FieldRef<"RadarOrder", 'String'>
+    readonly txHash: FieldRef<"RadarOrder", 'String'>
+    readonly createdAt: FieldRef<"RadarOrder", 'DateTime'>
+    readonly updatedAt: FieldRef<"RadarOrder", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RadarOrder findUnique
+   */
+  export type RadarOrderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarOrder to fetch.
+     */
+    where: RadarOrderWhereUniqueInput
+  }
+
+  /**
+   * RadarOrder findUniqueOrThrow
+   */
+  export type RadarOrderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarOrder to fetch.
+     */
+    where: RadarOrderWhereUniqueInput
+  }
+
+  /**
+   * RadarOrder findFirst
+   */
+  export type RadarOrderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarOrder to fetch.
+     */
+    where?: RadarOrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarOrders to fetch.
+     */
+    orderBy?: RadarOrderOrderByWithRelationInput | RadarOrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarOrders.
+     */
+    cursor?: RadarOrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarOrders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarOrders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarOrders.
+     */
+    distinct?: RadarOrderScalarFieldEnum | RadarOrderScalarFieldEnum[]
+  }
+
+  /**
+   * RadarOrder findFirstOrThrow
+   */
+  export type RadarOrderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarOrder to fetch.
+     */
+    where?: RadarOrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarOrders to fetch.
+     */
+    orderBy?: RadarOrderOrderByWithRelationInput | RadarOrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarOrders.
+     */
+    cursor?: RadarOrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarOrders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarOrders.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarOrders.
+     */
+    distinct?: RadarOrderScalarFieldEnum | RadarOrderScalarFieldEnum[]
+  }
+
+  /**
+   * RadarOrder findMany
+   */
+  export type RadarOrderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * Filter, which RadarOrders to fetch.
+     */
+    where?: RadarOrderWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarOrders to fetch.
+     */
+    orderBy?: RadarOrderOrderByWithRelationInput | RadarOrderOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RadarOrders.
+     */
+    cursor?: RadarOrderWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarOrders from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarOrders.
+     */
+    skip?: number
+    distinct?: RadarOrderScalarFieldEnum | RadarOrderScalarFieldEnum[]
+  }
+
+  /**
+   * RadarOrder create
+   */
+  export type RadarOrderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * The data needed to create a RadarOrder.
+     */
+    data: XOR<RadarOrderCreateInput, RadarOrderUncheckedCreateInput>
+  }
+
+  /**
+   * RadarOrder createMany
+   */
+  export type RadarOrderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RadarOrders.
+     */
+    data: RadarOrderCreateManyInput | RadarOrderCreateManyInput[]
+  }
+
+  /**
+   * RadarOrder createManyAndReturn
+   */
+  export type RadarOrderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RadarOrders.
+     */
+    data: RadarOrderCreateManyInput | RadarOrderCreateManyInput[]
+  }
+
+  /**
+   * RadarOrder update
+   */
+  export type RadarOrderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * The data needed to update a RadarOrder.
+     */
+    data: XOR<RadarOrderUpdateInput, RadarOrderUncheckedUpdateInput>
+    /**
+     * Choose, which RadarOrder to update.
+     */
+    where: RadarOrderWhereUniqueInput
+  }
+
+  /**
+   * RadarOrder updateMany
+   */
+  export type RadarOrderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RadarOrders.
+     */
+    data: XOR<RadarOrderUpdateManyMutationInput, RadarOrderUncheckedUpdateManyInput>
+    /**
+     * Filter which RadarOrders to update
+     */
+    where?: RadarOrderWhereInput
+  }
+
+  /**
+   * RadarOrder upsert
+   */
+  export type RadarOrderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * The filter to search for the RadarOrder to update in case it exists.
+     */
+    where: RadarOrderWhereUniqueInput
+    /**
+     * In case the RadarOrder found by the `where` argument doesn't exist, create a new RadarOrder with this data.
+     */
+    create: XOR<RadarOrderCreateInput, RadarOrderUncheckedCreateInput>
+    /**
+     * In case the RadarOrder was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RadarOrderUpdateInput, RadarOrderUncheckedUpdateInput>
+  }
+
+  /**
+   * RadarOrder delete
+   */
+  export type RadarOrderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+    /**
+     * Filter which RadarOrder to delete.
+     */
+    where: RadarOrderWhereUniqueInput
+  }
+
+  /**
+   * RadarOrder deleteMany
+   */
+  export type RadarOrderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarOrders to delete
+     */
+    where?: RadarOrderWhereInput
+  }
+
+  /**
+   * RadarOrder without action
+   */
+  export type RadarOrderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarOrder
+     */
+    select?: RadarOrderSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WalletBalance
+   */
+
+  export type AggregateWalletBalance = {
+    _count: WalletBalanceCountAggregateOutputType | null
+    _avg: WalletBalanceAvgAggregateOutputType | null
+    _sum: WalletBalanceSumAggregateOutputType | null
+    _min: WalletBalanceMinAggregateOutputType | null
+    _max: WalletBalanceMaxAggregateOutputType | null
+  }
+
+  export type WalletBalanceAvgAggregateOutputType = {
+    ton: number | null
+  }
+
+  export type WalletBalanceSumAggregateOutputType = {
+    ton: number | null
+  }
+
+  export type WalletBalanceMinAggregateOutputType = {
+    userId: string | null
+    ton: number | null
+    updatedAt: Date | null
+  }
+
+  export type WalletBalanceMaxAggregateOutputType = {
+    userId: string | null
+    ton: number | null
+    updatedAt: Date | null
+  }
+
+  export type WalletBalanceCountAggregateOutputType = {
+    userId: number
+    ton: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WalletBalanceAvgAggregateInputType = {
+    ton?: true
+  }
+
+  export type WalletBalanceSumAggregateInputType = {
+    ton?: true
+  }
+
+  export type WalletBalanceMinAggregateInputType = {
+    userId?: true
+    ton?: true
+    updatedAt?: true
+  }
+
+  export type WalletBalanceMaxAggregateInputType = {
+    userId?: true
+    ton?: true
+    updatedAt?: true
+  }
+
+  export type WalletBalanceCountAggregateInputType = {
+    userId?: true
+    ton?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WalletBalanceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WalletBalance to aggregate.
+     */
+    where?: WalletBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletBalances to fetch.
+     */
+    orderBy?: WalletBalanceOrderByWithRelationInput | WalletBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WalletBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WalletBalances
+    **/
+    _count?: true | WalletBalanceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WalletBalanceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WalletBalanceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WalletBalanceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WalletBalanceMaxAggregateInputType
+  }
+
+  export type GetWalletBalanceAggregateType<T extends WalletBalanceAggregateArgs> = {
+        [P in keyof T & keyof AggregateWalletBalance]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWalletBalance[P]>
+      : GetScalarType<T[P], AggregateWalletBalance[P]>
+  }
+
+
+
+
+  export type WalletBalanceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WalletBalanceWhereInput
+    orderBy?: WalletBalanceOrderByWithAggregationInput | WalletBalanceOrderByWithAggregationInput[]
+    by: WalletBalanceScalarFieldEnum[] | WalletBalanceScalarFieldEnum
+    having?: WalletBalanceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WalletBalanceCountAggregateInputType | true
+    _avg?: WalletBalanceAvgAggregateInputType
+    _sum?: WalletBalanceSumAggregateInputType
+    _min?: WalletBalanceMinAggregateInputType
+    _max?: WalletBalanceMaxAggregateInputType
+  }
+
+  export type WalletBalanceGroupByOutputType = {
+    userId: string
+    ton: number
+    updatedAt: Date
+    _count: WalletBalanceCountAggregateOutputType | null
+    _avg: WalletBalanceAvgAggregateOutputType | null
+    _sum: WalletBalanceSumAggregateOutputType | null
+    _min: WalletBalanceMinAggregateOutputType | null
+    _max: WalletBalanceMaxAggregateOutputType | null
+  }
+
+  type GetWalletBalanceGroupByPayload<T extends WalletBalanceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WalletBalanceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WalletBalanceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WalletBalanceGroupByOutputType[P]>
+            : GetScalarType<T[P], WalletBalanceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WalletBalanceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    ton?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["walletBalance"]>
+
+  export type WalletBalanceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    ton?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["walletBalance"]>
+
+  export type WalletBalanceSelectScalar = {
+    userId?: boolean
+    ton?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $WalletBalancePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WalletBalance"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      ton: number
+      updatedAt: Date
+    }, ExtArgs["result"]["walletBalance"]>
+    composites: {}
+  }
+
+  type WalletBalanceGetPayload<S extends boolean | null | undefined | WalletBalanceDefaultArgs> = $Result.GetResult<Prisma.$WalletBalancePayload, S>
+
+  type WalletBalanceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<WalletBalanceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: WalletBalanceCountAggregateInputType | true
+    }
+
+  export interface WalletBalanceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WalletBalance'], meta: { name: 'WalletBalance' } }
+    /**
+     * Find zero or one WalletBalance that matches the filter.
+     * @param {WalletBalanceFindUniqueArgs} args - Arguments to find a WalletBalance
+     * @example
+     * // Get one WalletBalance
+     * const walletBalance = await prisma.walletBalance.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WalletBalanceFindUniqueArgs>(args: SelectSubset<T, WalletBalanceFindUniqueArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one WalletBalance that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {WalletBalanceFindUniqueOrThrowArgs} args - Arguments to find a WalletBalance
+     * @example
+     * // Get one WalletBalance
+     * const walletBalance = await prisma.walletBalance.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WalletBalanceFindUniqueOrThrowArgs>(args: SelectSubset<T, WalletBalanceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first WalletBalance that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceFindFirstArgs} args - Arguments to find a WalletBalance
+     * @example
+     * // Get one WalletBalance
+     * const walletBalance = await prisma.walletBalance.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WalletBalanceFindFirstArgs>(args?: SelectSubset<T, WalletBalanceFindFirstArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first WalletBalance that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceFindFirstOrThrowArgs} args - Arguments to find a WalletBalance
+     * @example
+     * // Get one WalletBalance
+     * const walletBalance = await prisma.walletBalance.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WalletBalanceFindFirstOrThrowArgs>(args?: SelectSubset<T, WalletBalanceFindFirstOrThrowArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more WalletBalances that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WalletBalances
+     * const walletBalances = await prisma.walletBalance.findMany()
+     * 
+     * // Get first 10 WalletBalances
+     * const walletBalances = await prisma.walletBalance.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const walletBalanceWithUserIdOnly = await prisma.walletBalance.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends WalletBalanceFindManyArgs>(args?: SelectSubset<T, WalletBalanceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a WalletBalance.
+     * @param {WalletBalanceCreateArgs} args - Arguments to create a WalletBalance.
+     * @example
+     * // Create one WalletBalance
+     * const WalletBalance = await prisma.walletBalance.create({
+     *   data: {
+     *     // ... data to create a WalletBalance
+     *   }
+     * })
+     * 
+     */
+    create<T extends WalletBalanceCreateArgs>(args: SelectSubset<T, WalletBalanceCreateArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many WalletBalances.
+     * @param {WalletBalanceCreateManyArgs} args - Arguments to create many WalletBalances.
+     * @example
+     * // Create many WalletBalances
+     * const walletBalance = await prisma.walletBalance.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WalletBalanceCreateManyArgs>(args?: SelectSubset<T, WalletBalanceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many WalletBalances and returns the data saved in the database.
+     * @param {WalletBalanceCreateManyAndReturnArgs} args - Arguments to create many WalletBalances.
+     * @example
+     * // Create many WalletBalances
+     * const walletBalance = await prisma.walletBalance.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many WalletBalances and only return the `userId`
+     * const walletBalanceWithUserIdOnly = await prisma.walletBalance.createManyAndReturn({ 
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends WalletBalanceCreateManyAndReturnArgs>(args?: SelectSubset<T, WalletBalanceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a WalletBalance.
+     * @param {WalletBalanceDeleteArgs} args - Arguments to delete one WalletBalance.
+     * @example
+     * // Delete one WalletBalance
+     * const WalletBalance = await prisma.walletBalance.delete({
+     *   where: {
+     *     // ... filter to delete one WalletBalance
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WalletBalanceDeleteArgs>(args: SelectSubset<T, WalletBalanceDeleteArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one WalletBalance.
+     * @param {WalletBalanceUpdateArgs} args - Arguments to update one WalletBalance.
+     * @example
+     * // Update one WalletBalance
+     * const walletBalance = await prisma.walletBalance.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WalletBalanceUpdateArgs>(args: SelectSubset<T, WalletBalanceUpdateArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more WalletBalances.
+     * @param {WalletBalanceDeleteManyArgs} args - Arguments to filter WalletBalances to delete.
+     * @example
+     * // Delete a few WalletBalances
+     * const { count } = await prisma.walletBalance.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WalletBalanceDeleteManyArgs>(args?: SelectSubset<T, WalletBalanceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WalletBalances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WalletBalances
+     * const walletBalance = await prisma.walletBalance.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WalletBalanceUpdateManyArgs>(args: SelectSubset<T, WalletBalanceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WalletBalance.
+     * @param {WalletBalanceUpsertArgs} args - Arguments to update or create a WalletBalance.
+     * @example
+     * // Update or create a WalletBalance
+     * const walletBalance = await prisma.walletBalance.upsert({
+     *   create: {
+     *     // ... data to create a WalletBalance
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WalletBalance we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WalletBalanceUpsertArgs>(args: SelectSubset<T, WalletBalanceUpsertArgs<ExtArgs>>): Prisma__WalletBalanceClient<$Result.GetResult<Prisma.$WalletBalancePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of WalletBalances.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceCountArgs} args - Arguments to filter WalletBalances to count.
+     * @example
+     * // Count the number of WalletBalances
+     * const count = await prisma.walletBalance.count({
+     *   where: {
+     *     // ... the filter for the WalletBalances we want to count
+     *   }
+     * })
+    **/
+    count<T extends WalletBalanceCountArgs>(
+      args?: Subset<T, WalletBalanceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WalletBalanceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WalletBalance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WalletBalanceAggregateArgs>(args: Subset<T, WalletBalanceAggregateArgs>): Prisma.PrismaPromise<GetWalletBalanceAggregateType<T>>
+
+    /**
+     * Group by WalletBalance.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WalletBalanceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WalletBalanceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WalletBalanceGroupByArgs['orderBy'] }
+        : { orderBy?: WalletBalanceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WalletBalanceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWalletBalanceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WalletBalance model
+   */
+  readonly fields: WalletBalanceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WalletBalance.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WalletBalanceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WalletBalance model
+   */ 
+  interface WalletBalanceFieldRefs {
+    readonly userId: FieldRef<"WalletBalance", 'String'>
+    readonly ton: FieldRef<"WalletBalance", 'Float'>
+    readonly updatedAt: FieldRef<"WalletBalance", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WalletBalance findUnique
+   */
+  export type WalletBalanceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * Filter, which WalletBalance to fetch.
+     */
+    where: WalletBalanceWhereUniqueInput
+  }
+
+  /**
+   * WalletBalance findUniqueOrThrow
+   */
+  export type WalletBalanceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * Filter, which WalletBalance to fetch.
+     */
+    where: WalletBalanceWhereUniqueInput
+  }
+
+  /**
+   * WalletBalance findFirst
+   */
+  export type WalletBalanceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * Filter, which WalletBalance to fetch.
+     */
+    where?: WalletBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletBalances to fetch.
+     */
+    orderBy?: WalletBalanceOrderByWithRelationInput | WalletBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WalletBalances.
+     */
+    cursor?: WalletBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WalletBalances.
+     */
+    distinct?: WalletBalanceScalarFieldEnum | WalletBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * WalletBalance findFirstOrThrow
+   */
+  export type WalletBalanceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * Filter, which WalletBalance to fetch.
+     */
+    where?: WalletBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletBalances to fetch.
+     */
+    orderBy?: WalletBalanceOrderByWithRelationInput | WalletBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WalletBalances.
+     */
+    cursor?: WalletBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletBalances.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WalletBalances.
+     */
+    distinct?: WalletBalanceScalarFieldEnum | WalletBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * WalletBalance findMany
+   */
+  export type WalletBalanceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * Filter, which WalletBalances to fetch.
+     */
+    where?: WalletBalanceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WalletBalances to fetch.
+     */
+    orderBy?: WalletBalanceOrderByWithRelationInput | WalletBalanceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WalletBalances.
+     */
+    cursor?: WalletBalanceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WalletBalances from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WalletBalances.
+     */
+    skip?: number
+    distinct?: WalletBalanceScalarFieldEnum | WalletBalanceScalarFieldEnum[]
+  }
+
+  /**
+   * WalletBalance create
+   */
+  export type WalletBalanceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * The data needed to create a WalletBalance.
+     */
+    data: XOR<WalletBalanceCreateInput, WalletBalanceUncheckedCreateInput>
+  }
+
+  /**
+   * WalletBalance createMany
+   */
+  export type WalletBalanceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WalletBalances.
+     */
+    data: WalletBalanceCreateManyInput | WalletBalanceCreateManyInput[]
+  }
+
+  /**
+   * WalletBalance createManyAndReturn
+   */
+  export type WalletBalanceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many WalletBalances.
+     */
+    data: WalletBalanceCreateManyInput | WalletBalanceCreateManyInput[]
+  }
+
+  /**
+   * WalletBalance update
+   */
+  export type WalletBalanceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * The data needed to update a WalletBalance.
+     */
+    data: XOR<WalletBalanceUpdateInput, WalletBalanceUncheckedUpdateInput>
+    /**
+     * Choose, which WalletBalance to update.
+     */
+    where: WalletBalanceWhereUniqueInput
+  }
+
+  /**
+   * WalletBalance updateMany
+   */
+  export type WalletBalanceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WalletBalances.
+     */
+    data: XOR<WalletBalanceUpdateManyMutationInput, WalletBalanceUncheckedUpdateManyInput>
+    /**
+     * Filter which WalletBalances to update
+     */
+    where?: WalletBalanceWhereInput
+  }
+
+  /**
+   * WalletBalance upsert
+   */
+  export type WalletBalanceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * The filter to search for the WalletBalance to update in case it exists.
+     */
+    where: WalletBalanceWhereUniqueInput
+    /**
+     * In case the WalletBalance found by the `where` argument doesn't exist, create a new WalletBalance with this data.
+     */
+    create: XOR<WalletBalanceCreateInput, WalletBalanceUncheckedCreateInput>
+    /**
+     * In case the WalletBalance was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WalletBalanceUpdateInput, WalletBalanceUncheckedUpdateInput>
+  }
+
+  /**
+   * WalletBalance delete
+   */
+  export type WalletBalanceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+    /**
+     * Filter which WalletBalance to delete.
+     */
+    where: WalletBalanceWhereUniqueInput
+  }
+
+  /**
+   * WalletBalance deleteMany
+   */
+  export type WalletBalanceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WalletBalances to delete
+     */
+    where?: WalletBalanceWhereInput
+  }
+
+  /**
+   * WalletBalance without action
+   */
+  export type WalletBalanceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WalletBalance
+     */
+    select?: WalletBalanceSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -6296,6 +9380,47 @@ export namespace Prisma {
   };
 
   export type RadarEntryScalarFieldEnum = (typeof RadarEntryScalarFieldEnum)[keyof typeof RadarEntryScalarFieldEnum]
+
+
+  export const RadarReservationScalarFieldEnum: {
+    id: 'id',
+    roundId: 'roundId',
+    itemAddress: 'itemAddress',
+    source: 'source',
+    userId: 'userId',
+    priceTon: 'priceTon',
+    status: 'status',
+    reserveToken: 'reserveToken',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
+  };
+
+  export type RadarReservationScalarFieldEnum = (typeof RadarReservationScalarFieldEnum)[keyof typeof RadarReservationScalarFieldEnum]
+
+
+  export const RadarOrderScalarFieldEnum: {
+    id: 'id',
+    reservationId: 'reservationId',
+    userId: 'userId',
+    itemAddress: 'itemAddress',
+    source: 'source',
+    priceTon: 'priceTon',
+    status: 'status',
+    txHash: 'txHash',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RadarOrderScalarFieldEnum = (typeof RadarOrderScalarFieldEnum)[keyof typeof RadarOrderScalarFieldEnum]
+
+
+  export const WalletBalanceScalarFieldEnum: {
+    userId: 'userId',
+    ton: 'ton',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WalletBalanceScalarFieldEnum = (typeof WalletBalanceScalarFieldEnum)[keyof typeof WalletBalanceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -6721,6 +9846,208 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"RadarEntry"> | Date | string
   }
 
+  export type RadarReservationWhereInput = {
+    AND?: RadarReservationWhereInput | RadarReservationWhereInput[]
+    OR?: RadarReservationWhereInput[]
+    NOT?: RadarReservationWhereInput | RadarReservationWhereInput[]
+    id?: StringFilter<"RadarReservation"> | string
+    roundId?: StringFilter<"RadarReservation"> | string
+    itemAddress?: StringFilter<"RadarReservation"> | string
+    source?: StringFilter<"RadarReservation"> | string
+    userId?: StringFilter<"RadarReservation"> | string
+    priceTon?: FloatFilter<"RadarReservation"> | number
+    status?: StringFilter<"RadarReservation"> | string
+    reserveToken?: StringFilter<"RadarReservation"> | string
+    expiresAt?: DateTimeFilter<"RadarReservation"> | Date | string
+    createdAt?: DateTimeFilter<"RadarReservation"> | Date | string
+  }
+
+  export type RadarReservationOrderByWithRelationInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    userId?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    reserveToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarReservationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RadarReservationWhereInput | RadarReservationWhereInput[]
+    OR?: RadarReservationWhereInput[]
+    NOT?: RadarReservationWhereInput | RadarReservationWhereInput[]
+    roundId?: StringFilter<"RadarReservation"> | string
+    itemAddress?: StringFilter<"RadarReservation"> | string
+    source?: StringFilter<"RadarReservation"> | string
+    userId?: StringFilter<"RadarReservation"> | string
+    priceTon?: FloatFilter<"RadarReservation"> | number
+    status?: StringFilter<"RadarReservation"> | string
+    reserveToken?: StringFilter<"RadarReservation"> | string
+    expiresAt?: DateTimeFilter<"RadarReservation"> | Date | string
+    createdAt?: DateTimeFilter<"RadarReservation"> | Date | string
+  }, "id">
+
+  export type RadarReservationOrderByWithAggregationInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    userId?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    reserveToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: RadarReservationCountOrderByAggregateInput
+    _avg?: RadarReservationAvgOrderByAggregateInput
+    _max?: RadarReservationMaxOrderByAggregateInput
+    _min?: RadarReservationMinOrderByAggregateInput
+    _sum?: RadarReservationSumOrderByAggregateInput
+  }
+
+  export type RadarReservationScalarWhereWithAggregatesInput = {
+    AND?: RadarReservationScalarWhereWithAggregatesInput | RadarReservationScalarWhereWithAggregatesInput[]
+    OR?: RadarReservationScalarWhereWithAggregatesInput[]
+    NOT?: RadarReservationScalarWhereWithAggregatesInput | RadarReservationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RadarReservation"> | string
+    roundId?: StringWithAggregatesFilter<"RadarReservation"> | string
+    itemAddress?: StringWithAggregatesFilter<"RadarReservation"> | string
+    source?: StringWithAggregatesFilter<"RadarReservation"> | string
+    userId?: StringWithAggregatesFilter<"RadarReservation"> | string
+    priceTon?: FloatWithAggregatesFilter<"RadarReservation"> | number
+    status?: StringWithAggregatesFilter<"RadarReservation"> | string
+    reserveToken?: StringWithAggregatesFilter<"RadarReservation"> | string
+    expiresAt?: DateTimeWithAggregatesFilter<"RadarReservation"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"RadarReservation"> | Date | string
+  }
+
+  export type RadarOrderWhereInput = {
+    AND?: RadarOrderWhereInput | RadarOrderWhereInput[]
+    OR?: RadarOrderWhereInput[]
+    NOT?: RadarOrderWhereInput | RadarOrderWhereInput[]
+    id?: StringFilter<"RadarOrder"> | string
+    reservationId?: StringFilter<"RadarOrder"> | string
+    userId?: StringFilter<"RadarOrder"> | string
+    itemAddress?: StringFilter<"RadarOrder"> | string
+    source?: StringFilter<"RadarOrder"> | string
+    priceTon?: FloatFilter<"RadarOrder"> | number
+    status?: StringFilter<"RadarOrder"> | string
+    txHash?: StringNullableFilter<"RadarOrder"> | string | null
+    createdAt?: DateTimeFilter<"RadarOrder"> | Date | string
+    updatedAt?: DateTimeFilter<"RadarOrder"> | Date | string
+  }
+
+  export type RadarOrderOrderByWithRelationInput = {
+    id?: SortOrder
+    reservationId?: SortOrder
+    userId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    txHash?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RadarOrderWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RadarOrderWhereInput | RadarOrderWhereInput[]
+    OR?: RadarOrderWhereInput[]
+    NOT?: RadarOrderWhereInput | RadarOrderWhereInput[]
+    reservationId?: StringFilter<"RadarOrder"> | string
+    userId?: StringFilter<"RadarOrder"> | string
+    itemAddress?: StringFilter<"RadarOrder"> | string
+    source?: StringFilter<"RadarOrder"> | string
+    priceTon?: FloatFilter<"RadarOrder"> | number
+    status?: StringFilter<"RadarOrder"> | string
+    txHash?: StringNullableFilter<"RadarOrder"> | string | null
+    createdAt?: DateTimeFilter<"RadarOrder"> | Date | string
+    updatedAt?: DateTimeFilter<"RadarOrder"> | Date | string
+  }, "id">
+
+  export type RadarOrderOrderByWithAggregationInput = {
+    id?: SortOrder
+    reservationId?: SortOrder
+    userId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    txHash?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RadarOrderCountOrderByAggregateInput
+    _avg?: RadarOrderAvgOrderByAggregateInput
+    _max?: RadarOrderMaxOrderByAggregateInput
+    _min?: RadarOrderMinOrderByAggregateInput
+    _sum?: RadarOrderSumOrderByAggregateInput
+  }
+
+  export type RadarOrderScalarWhereWithAggregatesInput = {
+    AND?: RadarOrderScalarWhereWithAggregatesInput | RadarOrderScalarWhereWithAggregatesInput[]
+    OR?: RadarOrderScalarWhereWithAggregatesInput[]
+    NOT?: RadarOrderScalarWhereWithAggregatesInput | RadarOrderScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RadarOrder"> | string
+    reservationId?: StringWithAggregatesFilter<"RadarOrder"> | string
+    userId?: StringWithAggregatesFilter<"RadarOrder"> | string
+    itemAddress?: StringWithAggregatesFilter<"RadarOrder"> | string
+    source?: StringWithAggregatesFilter<"RadarOrder"> | string
+    priceTon?: FloatWithAggregatesFilter<"RadarOrder"> | number
+    status?: StringWithAggregatesFilter<"RadarOrder"> | string
+    txHash?: StringNullableWithAggregatesFilter<"RadarOrder"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"RadarOrder"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"RadarOrder"> | Date | string
+  }
+
+  export type WalletBalanceWhereInput = {
+    AND?: WalletBalanceWhereInput | WalletBalanceWhereInput[]
+    OR?: WalletBalanceWhereInput[]
+    NOT?: WalletBalanceWhereInput | WalletBalanceWhereInput[]
+    userId?: StringFilter<"WalletBalance"> | string
+    ton?: FloatFilter<"WalletBalance"> | number
+    updatedAt?: DateTimeFilter<"WalletBalance"> | Date | string
+  }
+
+  export type WalletBalanceOrderByWithRelationInput = {
+    userId?: SortOrder
+    ton?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WalletBalanceWhereUniqueInput = Prisma.AtLeast<{
+    userId?: string
+    AND?: WalletBalanceWhereInput | WalletBalanceWhereInput[]
+    OR?: WalletBalanceWhereInput[]
+    NOT?: WalletBalanceWhereInput | WalletBalanceWhereInput[]
+    ton?: FloatFilter<"WalletBalance"> | number
+    updatedAt?: DateTimeFilter<"WalletBalance"> | Date | string
+  }, "userId">
+
+  export type WalletBalanceOrderByWithAggregationInput = {
+    userId?: SortOrder
+    ton?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WalletBalanceCountOrderByAggregateInput
+    _avg?: WalletBalanceAvgOrderByAggregateInput
+    _max?: WalletBalanceMaxOrderByAggregateInput
+    _min?: WalletBalanceMinOrderByAggregateInput
+    _sum?: WalletBalanceSumOrderByAggregateInput
+  }
+
+  export type WalletBalanceScalarWhereWithAggregatesInput = {
+    AND?: WalletBalanceScalarWhereWithAggregatesInput | WalletBalanceScalarWhereWithAggregatesInput[]
+    OR?: WalletBalanceScalarWhereWithAggregatesInput[]
+    NOT?: WalletBalanceScalarWhereWithAggregatesInput | WalletBalanceScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"WalletBalance"> | string
+    ton?: FloatWithAggregatesFilter<"WalletBalance"> | number
+    updatedAt?: DateTimeWithAggregatesFilter<"WalletBalance"> | Date | string
+  }
+
   export type CollectionCreateInput = {
     id: string
     address: string
@@ -7124,6 +10451,230 @@ export namespace Prisma {
     tier?: StringFieldUpdateOperationsInput | string
     weight?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarReservationCreateInput = {
+    id?: string
+    roundId: string
+    itemAddress: string
+    source: string
+    userId: string
+    priceTon: number
+    status: string
+    reserveToken: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type RadarReservationUncheckedCreateInput = {
+    id?: string
+    roundId: string
+    itemAddress: string
+    source: string
+    userId: string
+    priceTon: number
+    status: string
+    reserveToken: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type RadarReservationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reserveToken?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarReservationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reserveToken?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarReservationCreateManyInput = {
+    id?: string
+    roundId: string
+    itemAddress: string
+    source: string
+    userId: string
+    priceTon: number
+    status: string
+    reserveToken: string
+    expiresAt: Date | string
+    createdAt?: Date | string
+  }
+
+  export type RadarReservationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reserveToken?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarReservationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    reserveToken?: StringFieldUpdateOperationsInput | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarOrderCreateInput = {
+    id?: string
+    reservationId: string
+    userId: string
+    itemAddress: string
+    source: string
+    priceTon: number
+    status: string
+    txHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RadarOrderUncheckedCreateInput = {
+    id?: string
+    reservationId: string
+    userId: string
+    itemAddress: string
+    source: string
+    priceTon: number
+    status: string
+    txHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RadarOrderUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reservationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarOrderUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reservationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarOrderCreateManyInput = {
+    id?: string
+    reservationId: string
+    userId: string
+    itemAddress: string
+    source: string
+    priceTon: number
+    status: string
+    txHash?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RadarOrderUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reservationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarOrderUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reservationId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    priceTon?: FloatFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    txHash?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletBalanceCreateInput = {
+    userId: string
+    ton?: number
+    updatedAt?: Date | string
+  }
+
+  export type WalletBalanceUncheckedCreateInput = {
+    userId: string
+    ton?: number
+    updatedAt?: Date | string
+  }
+
+  export type WalletBalanceUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    ton?: FloatFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletBalanceUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    ton?: FloatFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletBalanceCreateManyInput = {
+    userId: string
+    ton?: number
+    updatedAt?: Date | string
+  }
+
+  export type WalletBalanceUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    ton?: FloatFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WalletBalanceUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    ton?: FloatFieldUpdateOperationsInput | number
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7548,6 +11099,126 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type RadarReservationCountOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    userId?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    reserveToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarReservationAvgOrderByAggregateInput = {
+    priceTon?: SortOrder
+  }
+
+  export type RadarReservationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    userId?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    reserveToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarReservationMinOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    userId?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    reserveToken?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarReservationSumOrderByAggregateInput = {
+    priceTon?: SortOrder
+  }
+
+  export type RadarOrderCountOrderByAggregateInput = {
+    id?: SortOrder
+    reservationId?: SortOrder
+    userId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    txHash?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RadarOrderAvgOrderByAggregateInput = {
+    priceTon?: SortOrder
+  }
+
+  export type RadarOrderMaxOrderByAggregateInput = {
+    id?: SortOrder
+    reservationId?: SortOrder
+    userId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    txHash?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RadarOrderMinOrderByAggregateInput = {
+    id?: SortOrder
+    reservationId?: SortOrder
+    userId?: SortOrder
+    itemAddress?: SortOrder
+    source?: SortOrder
+    priceTon?: SortOrder
+    status?: SortOrder
+    txHash?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RadarOrderSumOrderByAggregateInput = {
+    priceTon?: SortOrder
+  }
+
+  export type WalletBalanceCountOrderByAggregateInput = {
+    userId?: SortOrder
+    ton?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WalletBalanceAvgOrderByAggregateInput = {
+    ton?: SortOrder
+  }
+
+  export type WalletBalanceMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    ton?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WalletBalanceMinOrderByAggregateInput = {
+    userId?: SortOrder
+    ton?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WalletBalanceSumOrderByAggregateInput = {
+    ton?: SortOrder
   }
 
   export type ItemCreateNestedManyWithoutCollectionInput = {
@@ -8274,6 +11945,18 @@ export namespace Prisma {
      * @deprecated Use RadarEntryDefaultArgs instead
      */
     export type RadarEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RadarEntryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RadarReservationDefaultArgs instead
+     */
+    export type RadarReservationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RadarReservationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RadarOrderDefaultArgs instead
+     */
+    export type RadarOrderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RadarOrderDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use WalletBalanceDefaultArgs instead
+     */
+    export type WalletBalanceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WalletBalanceDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

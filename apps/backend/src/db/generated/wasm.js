@@ -176,6 +176,38 @@ exports.Prisma.RadarEntryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.RadarReservationScalarFieldEnum = {
+  id: 'id',
+  roundId: 'roundId',
+  itemAddress: 'itemAddress',
+  source: 'source',
+  userId: 'userId',
+  priceTon: 'priceTon',
+  status: 'status',
+  reserveToken: 'reserveToken',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RadarOrderScalarFieldEnum = {
+  id: 'id',
+  reservationId: 'reservationId',
+  userId: 'userId',
+  itemAddress: 'itemAddress',
+  source: 'source',
+  priceTon: 'priceTon',
+  status: 'status',
+  txHash: 'txHash',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WalletBalanceScalarFieldEnum = {
+  userId: 'userId',
+  ton: 'ton',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -192,7 +224,10 @@ exports.Prisma.ModelName = {
   Item: 'Item',
   Trait: 'Trait',
   RadarRound: 'RadarRound',
-  RadarEntry: 'RadarEntry'
+  RadarEntry: 'RadarEntry',
+  RadarReservation: 'RadarReservation',
+  RadarOrder: 'RadarOrder',
+  WalletBalance: 'WalletBalance'
 };
 
 /**
