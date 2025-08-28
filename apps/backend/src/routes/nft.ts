@@ -1,11 +1,11 @@
-import express from 'express';
+import express, { Router } from 'express';
 import { z } from 'zod';
 import { memo } from '../util/cache';
 import { tryProviders, getCollections as getCollectionsFromProviders, getItem as getItemFromProviders } from '../providers/gifts';
 import { prisma } from '../db/client';
 import { etagOf, notModified } from '../util/httpCache';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 // Zod schemas for validation
 const collectionsQuery = z.object({
