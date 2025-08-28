@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import crypto from 'crypto';
+import { z } from 'zod';
 import { AuthenticatedRequest } from '../auth/jwt';
 import { 
   addWatchlistFilter, 
@@ -9,6 +10,8 @@ import {
   startRadarWorker 
 } from './worker';
 import { WatchlistFilter, ApiResponse } from '../../types';
+import { createOrJoinRound, getResult, getRoundStats } from '../../services/radarService';
+import { prisma } from '../../db/client';
 
 export const radarRouter = Router();
 
@@ -135,6 +138,186 @@ radarRouter.get('/notifications', (req: AuthenticatedRequest, res: Response) => 
     res.status(500).json({
       success: false,
       error: 'Failed to get notifications'
+    } as ApiResponse);
+  }
+});
+
+// Zod schemas для валидации
+const joinRequestSchema = z.object({
+  itemAddress: z.string().min(1),
+  tier: z.enum(['free', 'pro']).default('free')
+});
+
+const resultParamsSchema = z.object({
+  roundId: z.string().min(1)
+});
+
+// POST /api/radar/join - Присоединиться к раунду
+radarRouter.post('/join', (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user?.sub;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        error: 'Unauthorized'
+      } as ApiResponse);
+    }
+    
+    const body = joinRequestSchema.parse(req.body);
+    
+    createOrJoinRound(body.itemAddress, userId, body.tier)
+      .then(result => {
+        res.json({
+          success: true,
+          roundId: result.roundId,
+          roundEndsAt: result.roundEndsAt,
+          seedHash: result.seedHash,
+          meta: { source: 'radar' }
+        } as ApiResponse);
+      })
+      .catch(error => {
+        console.error('Join radar error:', error);
+        
+        if (error instanceof z.ZodError) {
+          return res.status(400).json({
+            success: false,
+            error: 'Invalid request data',
+            details: error.errors
+          } as ApiResponse);
+        }
+        
+        if (error instanceof Error && error.message.includes('already joined')) {
+          return res.status(409).json({
+            success: false,
+            error: 'User already joined this round'
+          } as ApiResponse);
+        }
+        
+        res.status(500).json({
+          success: false,
+          error: 'Failed to join radar round'
+        } as ApiResponse);
+      });
+  } catch (error) {
+    console.error('Join radar error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to join radar round'
+    } as ApiResponse);
+  }
+});
+
+// GET /api/radar/result/:roundId - Получить результат раунда
+radarRouter.get('/result/:roundId', (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user?.sub;
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        error: 'Unauthorized'
+      } as ApiResponse);
+    }
+    
+    const params = resultParamsSchema.parse(req.params);
+    
+    getResult(params.roundId, userId)
+      .then(async result => {
+        // Получаем информацию о NFT для фронта
+        const item = await prisma.item.findUnique({
+          where: { address: result.itemAddress },
+          select: { address: true, title: true, image: true }
+        });
+
+        res.json({
+          success: true,
+          caught: result.caught,
+          itemAddress: result.itemAddress,
+          item: item,
+          reveal: result.reveal,
+          meta: { source: 'radar' }
+        } as ApiResponse);
+      })
+      .catch(error => {
+        console.error('Get result error:', error);
+        
+        if (error instanceof z.ZodError) {
+          return res.status(400).json({
+            success: false,
+            error: 'Invalid round ID'
+          } as ApiResponse);
+        }
+        
+        if (error instanceof Error) {
+          if (error.message.includes('not found')) {
+            return res.status(404).json({
+              success: false,
+              error: 'Round not found'
+            } as ApiResponse);
+          }
+          
+          if (error.message.includes('did not participate')) {
+            return res.status(403).json({
+              success: false,
+              error: 'User did not participate in this round'
+            } as ApiResponse);
+          }
+          
+          if (error.message.includes('not yet revealed')) {
+            return res.status(202).json({
+              success: false,
+              error: 'Round not yet revealed',
+              status: 'waiting'
+            } as ApiResponse);
+          }
+        }
+        
+        res.status(500).json({
+          success: false,
+          error: 'Failed to get radar result'
+        } as ApiResponse);
+      });
+  } catch (error) {
+    console.error('Get result error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get radar result'
+    } as ApiResponse);
+  }
+});
+
+// GET /api/radar/stats/:roundId - Статистика раунда (для отладки)
+radarRouter.get('/stats/:roundId', (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const params = resultParamsSchema.parse(req.params);
+    
+    getRoundStats(params.roundId)
+      .then(stats => {
+        res.json({
+          success: true,
+          stats,
+          meta: { source: 'radar' }
+        } as ApiResponse);
+      })
+      .catch(error => {
+        console.error('Get stats error:', error);
+        
+        if (error instanceof Error && error.message.includes('not found')) {
+          return res.status(404).json({
+            success: false,
+            error: 'Round not found'
+          } as ApiResponse);
+        }
+        
+        res.status(500).json({
+          success: false,
+          error: 'Failed to get round stats'
+        } as ApiResponse);
+      });
+  } catch (error) {
+    console.error('Get stats error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to get round stats'
     } as ApiResponse);
   }
 });

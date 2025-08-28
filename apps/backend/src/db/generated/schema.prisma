@@ -47,3 +47,35 @@ model Trait {
 
   @@index([itemId])
 }
+
+model RadarRound {
+  id          String   @id @default(cuid())
+  itemAddress String
+  startsAt    DateTime
+  endsAt      DateTime
+  seedHash    String // commit (SHA256 от serverSeed)
+  serverSeed  String? // reveal после закрытия
+  publicSalt  String? // соль (TON block hash или timestamp)
+  rand        String? // итоговый HMAC
+  winnersJson String? // массив победителей {userId, weight} в JSON формате
+  status      String // 'open' | 'closed' | 'revealed' | 'executed'
+  createdAt   DateTime @default(now())
+
+  entries RadarEntry[]
+
+  @@index([itemAddress, status])
+}
+
+model RadarEntry {
+  id        String   @id @default(cuid())
+  roundId   String
+  userId    String
+  tier      String // 'free' | 'pro'
+  weight    Float
+  createdAt DateTime @default(now())
+
+  round RadarRound @relation(fields: [roundId], references: [id], onDelete: Cascade)
+
+  @@unique([roundId, userId])
+  @@index([userId, createdAt])
+}

@@ -153,6 +153,29 @@ exports.Prisma.TraitScalarFieldEnum = {
   value: 'value'
 };
 
+exports.Prisma.RadarRoundScalarFieldEnum = {
+  id: 'id',
+  itemAddress: 'itemAddress',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  seedHash: 'seedHash',
+  serverSeed: 'serverSeed',
+  publicSalt: 'publicSalt',
+  rand: 'rand',
+  winnersJson: 'winnersJson',
+  status: 'status',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RadarEntryScalarFieldEnum = {
+  id: 'id',
+  roundId: 'roundId',
+  userId: 'userId',
+  tier: 'tier',
+  weight: 'weight',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -167,7 +190,9 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Collection: 'Collection',
   Item: 'Item',
-  Trait: 'Trait'
+  Trait: 'Trait',
+  RadarRound: 'RadarRound',
+  RadarEntry: 'RadarEntry'
 };
 
 /**

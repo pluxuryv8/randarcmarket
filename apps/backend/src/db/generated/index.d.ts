@@ -28,6 +28,16 @@ export type Item = $Result.DefaultSelection<Prisma.$ItemPayload>
  * 
  */
 export type Trait = $Result.DefaultSelection<Prisma.$TraitPayload>
+/**
+ * Model RadarRound
+ * 
+ */
+export type RadarRound = $Result.DefaultSelection<Prisma.$RadarRoundPayload>
+/**
+ * Model RadarEntry
+ * 
+ */
+export type RadarEntry = $Result.DefaultSelection<Prisma.$RadarEntryPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -181,6 +191,26 @@ export class PrismaClient<
     * ```
     */
   get trait(): Prisma.TraitDelegate<ExtArgs>;
+
+  /**
+   * `prisma.radarRound`: Exposes CRUD operations for the **RadarRound** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RadarRounds
+    * const radarRounds = await prisma.radarRound.findMany()
+    * ```
+    */
+  get radarRound(): Prisma.RadarRoundDelegate<ExtArgs>;
+
+  /**
+   * `prisma.radarEntry`: Exposes CRUD operations for the **RadarEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RadarEntries
+    * const radarEntries = await prisma.radarEntry.findMany()
+    * ```
+    */
+  get radarEntry(): Prisma.RadarEntryDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -624,7 +654,9 @@ export namespace Prisma {
   export const ModelName: {
     Collection: 'Collection',
     Item: 'Item',
-    Trait: 'Trait'
+    Trait: 'Trait',
+    RadarRound: 'RadarRound',
+    RadarEntry: 'RadarEntry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -640,7 +672,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "collection" | "item" | "trait"
+      modelProps: "collection" | "item" | "trait" | "radarRound" | "radarEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -854,6 +886,146 @@ export namespace Prisma {
           }
         }
       }
+      RadarRound: {
+        payload: Prisma.$RadarRoundPayload<ExtArgs>
+        fields: Prisma.RadarRoundFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RadarRoundFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RadarRoundFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>
+          }
+          findFirst: {
+            args: Prisma.RadarRoundFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RadarRoundFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>
+          }
+          findMany: {
+            args: Prisma.RadarRoundFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>[]
+          }
+          create: {
+            args: Prisma.RadarRoundCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>
+          }
+          createMany: {
+            args: Prisma.RadarRoundCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RadarRoundCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>[]
+          }
+          delete: {
+            args: Prisma.RadarRoundDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>
+          }
+          update: {
+            args: Prisma.RadarRoundUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>
+          }
+          deleteMany: {
+            args: Prisma.RadarRoundDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RadarRoundUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RadarRoundUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarRoundPayload>
+          }
+          aggregate: {
+            args: Prisma.RadarRoundAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRadarRound>
+          }
+          groupBy: {
+            args: Prisma.RadarRoundGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RadarRoundGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RadarRoundCountArgs<ExtArgs>
+            result: $Utils.Optional<RadarRoundCountAggregateOutputType> | number
+          }
+        }
+      }
+      RadarEntry: {
+        payload: Prisma.$RadarEntryPayload<ExtArgs>
+        fields: Prisma.RadarEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RadarEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RadarEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.RadarEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RadarEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>
+          }
+          findMany: {
+            args: Prisma.RadarEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>[]
+          }
+          create: {
+            args: Prisma.RadarEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>
+          }
+          createMany: {
+            args: Prisma.RadarEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RadarEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.RadarEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>
+          }
+          update: {
+            args: Prisma.RadarEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.RadarEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RadarEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.RadarEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RadarEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.RadarEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRadarEntry>
+          }
+          groupBy: {
+            args: Prisma.RadarEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RadarEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RadarEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<RadarEntryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1038,6 +1210,37 @@ export namespace Prisma {
    */
   export type CollectionCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ItemWhereInput
+  }
+
+
+  /**
+   * Count Type RadarRoundCountOutputType
+   */
+
+  export type RadarRoundCountOutputType = {
+    entries: number
+  }
+
+  export type RadarRoundCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    entries?: boolean | RadarRoundCountOutputTypeCountEntriesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RadarRoundCountOutputType without action
+   */
+  export type RadarRoundCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRoundCountOutputType
+     */
+    select?: RadarRoundCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RadarRoundCountOutputType without action
+   */
+  export type RadarRoundCountOutputTypeCountEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadarEntryWhereInput
   }
 
 
@@ -4018,6 +4221,2001 @@ export namespace Prisma {
 
 
   /**
+   * Model RadarRound
+   */
+
+  export type AggregateRadarRound = {
+    _count: RadarRoundCountAggregateOutputType | null
+    _min: RadarRoundMinAggregateOutputType | null
+    _max: RadarRoundMaxAggregateOutputType | null
+  }
+
+  export type RadarRoundMinAggregateOutputType = {
+    id: string | null
+    itemAddress: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    seedHash: string | null
+    serverSeed: string | null
+    publicSalt: string | null
+    rand: string | null
+    winnersJson: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type RadarRoundMaxAggregateOutputType = {
+    id: string | null
+    itemAddress: string | null
+    startsAt: Date | null
+    endsAt: Date | null
+    seedHash: string | null
+    serverSeed: string | null
+    publicSalt: string | null
+    rand: string | null
+    winnersJson: string | null
+    status: string | null
+    createdAt: Date | null
+  }
+
+  export type RadarRoundCountAggregateOutputType = {
+    id: number
+    itemAddress: number
+    startsAt: number
+    endsAt: number
+    seedHash: number
+    serverSeed: number
+    publicSalt: number
+    rand: number
+    winnersJson: number
+    status: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RadarRoundMinAggregateInputType = {
+    id?: true
+    itemAddress?: true
+    startsAt?: true
+    endsAt?: true
+    seedHash?: true
+    serverSeed?: true
+    publicSalt?: true
+    rand?: true
+    winnersJson?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type RadarRoundMaxAggregateInputType = {
+    id?: true
+    itemAddress?: true
+    startsAt?: true
+    endsAt?: true
+    seedHash?: true
+    serverSeed?: true
+    publicSalt?: true
+    rand?: true
+    winnersJson?: true
+    status?: true
+    createdAt?: true
+  }
+
+  export type RadarRoundCountAggregateInputType = {
+    id?: true
+    itemAddress?: true
+    startsAt?: true
+    endsAt?: true
+    seedHash?: true
+    serverSeed?: true
+    publicSalt?: true
+    rand?: true
+    winnersJson?: true
+    status?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RadarRoundAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarRound to aggregate.
+     */
+    where?: RadarRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarRounds to fetch.
+     */
+    orderBy?: RadarRoundOrderByWithRelationInput | RadarRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RadarRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RadarRounds
+    **/
+    _count?: true | RadarRoundCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RadarRoundMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RadarRoundMaxAggregateInputType
+  }
+
+  export type GetRadarRoundAggregateType<T extends RadarRoundAggregateArgs> = {
+        [P in keyof T & keyof AggregateRadarRound]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRadarRound[P]>
+      : GetScalarType<T[P], AggregateRadarRound[P]>
+  }
+
+
+
+
+  export type RadarRoundGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadarRoundWhereInput
+    orderBy?: RadarRoundOrderByWithAggregationInput | RadarRoundOrderByWithAggregationInput[]
+    by: RadarRoundScalarFieldEnum[] | RadarRoundScalarFieldEnum
+    having?: RadarRoundScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RadarRoundCountAggregateInputType | true
+    _min?: RadarRoundMinAggregateInputType
+    _max?: RadarRoundMaxAggregateInputType
+  }
+
+  export type RadarRoundGroupByOutputType = {
+    id: string
+    itemAddress: string
+    startsAt: Date
+    endsAt: Date
+    seedHash: string
+    serverSeed: string | null
+    publicSalt: string | null
+    rand: string | null
+    winnersJson: string | null
+    status: string
+    createdAt: Date
+    _count: RadarRoundCountAggregateOutputType | null
+    _min: RadarRoundMinAggregateOutputType | null
+    _max: RadarRoundMaxAggregateOutputType | null
+  }
+
+  type GetRadarRoundGroupByPayload<T extends RadarRoundGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RadarRoundGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RadarRoundGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RadarRoundGroupByOutputType[P]>
+            : GetScalarType<T[P], RadarRoundGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RadarRoundSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemAddress?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    seedHash?: boolean
+    serverSeed?: boolean
+    publicSalt?: boolean
+    rand?: boolean
+    winnersJson?: boolean
+    status?: boolean
+    createdAt?: boolean
+    entries?: boolean | RadarRound$entriesArgs<ExtArgs>
+    _count?: boolean | RadarRoundCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["radarRound"]>
+
+  export type RadarRoundSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemAddress?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    seedHash?: boolean
+    serverSeed?: boolean
+    publicSalt?: boolean
+    rand?: boolean
+    winnersJson?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["radarRound"]>
+
+  export type RadarRoundSelectScalar = {
+    id?: boolean
+    itemAddress?: boolean
+    startsAt?: boolean
+    endsAt?: boolean
+    seedHash?: boolean
+    serverSeed?: boolean
+    publicSalt?: boolean
+    rand?: boolean
+    winnersJson?: boolean
+    status?: boolean
+    createdAt?: boolean
+  }
+
+  export type RadarRoundInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    entries?: boolean | RadarRound$entriesArgs<ExtArgs>
+    _count?: boolean | RadarRoundCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RadarRoundIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $RadarRoundPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RadarRound"
+    objects: {
+      entries: Prisma.$RadarEntryPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      itemAddress: string
+      startsAt: Date
+      endsAt: Date
+      seedHash: string
+      serverSeed: string | null
+      publicSalt: string | null
+      rand: string | null
+      winnersJson: string | null
+      status: string
+      createdAt: Date
+    }, ExtArgs["result"]["radarRound"]>
+    composites: {}
+  }
+
+  type RadarRoundGetPayload<S extends boolean | null | undefined | RadarRoundDefaultArgs> = $Result.GetResult<Prisma.$RadarRoundPayload, S>
+
+  type RadarRoundCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RadarRoundFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RadarRoundCountAggregateInputType | true
+    }
+
+  export interface RadarRoundDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RadarRound'], meta: { name: 'RadarRound' } }
+    /**
+     * Find zero or one RadarRound that matches the filter.
+     * @param {RadarRoundFindUniqueArgs} args - Arguments to find a RadarRound
+     * @example
+     * // Get one RadarRound
+     * const radarRound = await prisma.radarRound.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RadarRoundFindUniqueArgs>(args: SelectSubset<T, RadarRoundFindUniqueArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RadarRound that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RadarRoundFindUniqueOrThrowArgs} args - Arguments to find a RadarRound
+     * @example
+     * // Get one RadarRound
+     * const radarRound = await prisma.radarRound.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RadarRoundFindUniqueOrThrowArgs>(args: SelectSubset<T, RadarRoundFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RadarRound that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundFindFirstArgs} args - Arguments to find a RadarRound
+     * @example
+     * // Get one RadarRound
+     * const radarRound = await prisma.radarRound.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RadarRoundFindFirstArgs>(args?: SelectSubset<T, RadarRoundFindFirstArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RadarRound that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundFindFirstOrThrowArgs} args - Arguments to find a RadarRound
+     * @example
+     * // Get one RadarRound
+     * const radarRound = await prisma.radarRound.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RadarRoundFindFirstOrThrowArgs>(args?: SelectSubset<T, RadarRoundFindFirstOrThrowArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RadarRounds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RadarRounds
+     * const radarRounds = await prisma.radarRound.findMany()
+     * 
+     * // Get first 10 RadarRounds
+     * const radarRounds = await prisma.radarRound.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const radarRoundWithIdOnly = await prisma.radarRound.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RadarRoundFindManyArgs>(args?: SelectSubset<T, RadarRoundFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RadarRound.
+     * @param {RadarRoundCreateArgs} args - Arguments to create a RadarRound.
+     * @example
+     * // Create one RadarRound
+     * const RadarRound = await prisma.radarRound.create({
+     *   data: {
+     *     // ... data to create a RadarRound
+     *   }
+     * })
+     * 
+     */
+    create<T extends RadarRoundCreateArgs>(args: SelectSubset<T, RadarRoundCreateArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RadarRounds.
+     * @param {RadarRoundCreateManyArgs} args - Arguments to create many RadarRounds.
+     * @example
+     * // Create many RadarRounds
+     * const radarRound = await prisma.radarRound.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RadarRoundCreateManyArgs>(args?: SelectSubset<T, RadarRoundCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RadarRounds and returns the data saved in the database.
+     * @param {RadarRoundCreateManyAndReturnArgs} args - Arguments to create many RadarRounds.
+     * @example
+     * // Create many RadarRounds
+     * const radarRound = await prisma.radarRound.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RadarRounds and only return the `id`
+     * const radarRoundWithIdOnly = await prisma.radarRound.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RadarRoundCreateManyAndReturnArgs>(args?: SelectSubset<T, RadarRoundCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RadarRound.
+     * @param {RadarRoundDeleteArgs} args - Arguments to delete one RadarRound.
+     * @example
+     * // Delete one RadarRound
+     * const RadarRound = await prisma.radarRound.delete({
+     *   where: {
+     *     // ... filter to delete one RadarRound
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RadarRoundDeleteArgs>(args: SelectSubset<T, RadarRoundDeleteArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RadarRound.
+     * @param {RadarRoundUpdateArgs} args - Arguments to update one RadarRound.
+     * @example
+     * // Update one RadarRound
+     * const radarRound = await prisma.radarRound.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RadarRoundUpdateArgs>(args: SelectSubset<T, RadarRoundUpdateArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RadarRounds.
+     * @param {RadarRoundDeleteManyArgs} args - Arguments to filter RadarRounds to delete.
+     * @example
+     * // Delete a few RadarRounds
+     * const { count } = await prisma.radarRound.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RadarRoundDeleteManyArgs>(args?: SelectSubset<T, RadarRoundDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RadarRounds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RadarRounds
+     * const radarRound = await prisma.radarRound.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RadarRoundUpdateManyArgs>(args: SelectSubset<T, RadarRoundUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RadarRound.
+     * @param {RadarRoundUpsertArgs} args - Arguments to update or create a RadarRound.
+     * @example
+     * // Update or create a RadarRound
+     * const radarRound = await prisma.radarRound.upsert({
+     *   create: {
+     *     // ... data to create a RadarRound
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RadarRound we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RadarRoundUpsertArgs>(args: SelectSubset<T, RadarRoundUpsertArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RadarRounds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundCountArgs} args - Arguments to filter RadarRounds to count.
+     * @example
+     * // Count the number of RadarRounds
+     * const count = await prisma.radarRound.count({
+     *   where: {
+     *     // ... the filter for the RadarRounds we want to count
+     *   }
+     * })
+    **/
+    count<T extends RadarRoundCountArgs>(
+      args?: Subset<T, RadarRoundCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RadarRoundCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RadarRound.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RadarRoundAggregateArgs>(args: Subset<T, RadarRoundAggregateArgs>): Prisma.PrismaPromise<GetRadarRoundAggregateType<T>>
+
+    /**
+     * Group by RadarRound.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarRoundGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RadarRoundGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RadarRoundGroupByArgs['orderBy'] }
+        : { orderBy?: RadarRoundGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RadarRoundGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRadarRoundGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RadarRound model
+   */
+  readonly fields: RadarRoundFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RadarRound.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RadarRoundClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    entries<T extends RadarRound$entriesArgs<ExtArgs> = {}>(args?: Subset<T, RadarRound$entriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RadarRound model
+   */ 
+  interface RadarRoundFieldRefs {
+    readonly id: FieldRef<"RadarRound", 'String'>
+    readonly itemAddress: FieldRef<"RadarRound", 'String'>
+    readonly startsAt: FieldRef<"RadarRound", 'DateTime'>
+    readonly endsAt: FieldRef<"RadarRound", 'DateTime'>
+    readonly seedHash: FieldRef<"RadarRound", 'String'>
+    readonly serverSeed: FieldRef<"RadarRound", 'String'>
+    readonly publicSalt: FieldRef<"RadarRound", 'String'>
+    readonly rand: FieldRef<"RadarRound", 'String'>
+    readonly winnersJson: FieldRef<"RadarRound", 'String'>
+    readonly status: FieldRef<"RadarRound", 'String'>
+    readonly createdAt: FieldRef<"RadarRound", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RadarRound findUnique
+   */
+  export type RadarRoundFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarRound to fetch.
+     */
+    where: RadarRoundWhereUniqueInput
+  }
+
+  /**
+   * RadarRound findUniqueOrThrow
+   */
+  export type RadarRoundFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarRound to fetch.
+     */
+    where: RadarRoundWhereUniqueInput
+  }
+
+  /**
+   * RadarRound findFirst
+   */
+  export type RadarRoundFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarRound to fetch.
+     */
+    where?: RadarRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarRounds to fetch.
+     */
+    orderBy?: RadarRoundOrderByWithRelationInput | RadarRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarRounds.
+     */
+    cursor?: RadarRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarRounds.
+     */
+    distinct?: RadarRoundScalarFieldEnum | RadarRoundScalarFieldEnum[]
+  }
+
+  /**
+   * RadarRound findFirstOrThrow
+   */
+  export type RadarRoundFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarRound to fetch.
+     */
+    where?: RadarRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarRounds to fetch.
+     */
+    orderBy?: RadarRoundOrderByWithRelationInput | RadarRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarRounds.
+     */
+    cursor?: RadarRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarRounds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarRounds.
+     */
+    distinct?: RadarRoundScalarFieldEnum | RadarRoundScalarFieldEnum[]
+  }
+
+  /**
+   * RadarRound findMany
+   */
+  export type RadarRoundFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarRounds to fetch.
+     */
+    where?: RadarRoundWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarRounds to fetch.
+     */
+    orderBy?: RadarRoundOrderByWithRelationInput | RadarRoundOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RadarRounds.
+     */
+    cursor?: RadarRoundWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarRounds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarRounds.
+     */
+    skip?: number
+    distinct?: RadarRoundScalarFieldEnum | RadarRoundScalarFieldEnum[]
+  }
+
+  /**
+   * RadarRound create
+   */
+  export type RadarRoundCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RadarRound.
+     */
+    data: XOR<RadarRoundCreateInput, RadarRoundUncheckedCreateInput>
+  }
+
+  /**
+   * RadarRound createMany
+   */
+  export type RadarRoundCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RadarRounds.
+     */
+    data: RadarRoundCreateManyInput | RadarRoundCreateManyInput[]
+  }
+
+  /**
+   * RadarRound createManyAndReturn
+   */
+  export type RadarRoundCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RadarRounds.
+     */
+    data: RadarRoundCreateManyInput | RadarRoundCreateManyInput[]
+  }
+
+  /**
+   * RadarRound update
+   */
+  export type RadarRoundUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RadarRound.
+     */
+    data: XOR<RadarRoundUpdateInput, RadarRoundUncheckedUpdateInput>
+    /**
+     * Choose, which RadarRound to update.
+     */
+    where: RadarRoundWhereUniqueInput
+  }
+
+  /**
+   * RadarRound updateMany
+   */
+  export type RadarRoundUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RadarRounds.
+     */
+    data: XOR<RadarRoundUpdateManyMutationInput, RadarRoundUncheckedUpdateManyInput>
+    /**
+     * Filter which RadarRounds to update
+     */
+    where?: RadarRoundWhereInput
+  }
+
+  /**
+   * RadarRound upsert
+   */
+  export type RadarRoundUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RadarRound to update in case it exists.
+     */
+    where: RadarRoundWhereUniqueInput
+    /**
+     * In case the RadarRound found by the `where` argument doesn't exist, create a new RadarRound with this data.
+     */
+    create: XOR<RadarRoundCreateInput, RadarRoundUncheckedCreateInput>
+    /**
+     * In case the RadarRound was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RadarRoundUpdateInput, RadarRoundUncheckedUpdateInput>
+  }
+
+  /**
+   * RadarRound delete
+   */
+  export type RadarRoundDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+    /**
+     * Filter which RadarRound to delete.
+     */
+    where: RadarRoundWhereUniqueInput
+  }
+
+  /**
+   * RadarRound deleteMany
+   */
+  export type RadarRoundDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarRounds to delete
+     */
+    where?: RadarRoundWhereInput
+  }
+
+  /**
+   * RadarRound.entries
+   */
+  export type RadarRound$entriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    where?: RadarEntryWhereInput
+    orderBy?: RadarEntryOrderByWithRelationInput | RadarEntryOrderByWithRelationInput[]
+    cursor?: RadarEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RadarEntryScalarFieldEnum | RadarEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RadarRound without action
+   */
+  export type RadarRoundDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarRound
+     */
+    select?: RadarRoundSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarRoundInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model RadarEntry
+   */
+
+  export type AggregateRadarEntry = {
+    _count: RadarEntryCountAggregateOutputType | null
+    _avg: RadarEntryAvgAggregateOutputType | null
+    _sum: RadarEntrySumAggregateOutputType | null
+    _min: RadarEntryMinAggregateOutputType | null
+    _max: RadarEntryMaxAggregateOutputType | null
+  }
+
+  export type RadarEntryAvgAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type RadarEntrySumAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type RadarEntryMinAggregateOutputType = {
+    id: string | null
+    roundId: string | null
+    userId: string | null
+    tier: string | null
+    weight: number | null
+    createdAt: Date | null
+  }
+
+  export type RadarEntryMaxAggregateOutputType = {
+    id: string | null
+    roundId: string | null
+    userId: string | null
+    tier: string | null
+    weight: number | null
+    createdAt: Date | null
+  }
+
+  export type RadarEntryCountAggregateOutputType = {
+    id: number
+    roundId: number
+    userId: number
+    tier: number
+    weight: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RadarEntryAvgAggregateInputType = {
+    weight?: true
+  }
+
+  export type RadarEntrySumAggregateInputType = {
+    weight?: true
+  }
+
+  export type RadarEntryMinAggregateInputType = {
+    id?: true
+    roundId?: true
+    userId?: true
+    tier?: true
+    weight?: true
+    createdAt?: true
+  }
+
+  export type RadarEntryMaxAggregateInputType = {
+    id?: true
+    roundId?: true
+    userId?: true
+    tier?: true
+    weight?: true
+    createdAt?: true
+  }
+
+  export type RadarEntryCountAggregateInputType = {
+    id?: true
+    roundId?: true
+    userId?: true
+    tier?: true
+    weight?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RadarEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarEntry to aggregate.
+     */
+    where?: RadarEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarEntries to fetch.
+     */
+    orderBy?: RadarEntryOrderByWithRelationInput | RadarEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RadarEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned RadarEntries
+    **/
+    _count?: true | RadarEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RadarEntryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RadarEntrySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RadarEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RadarEntryMaxAggregateInputType
+  }
+
+  export type GetRadarEntryAggregateType<T extends RadarEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateRadarEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRadarEntry[P]>
+      : GetScalarType<T[P], AggregateRadarEntry[P]>
+  }
+
+
+
+
+  export type RadarEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RadarEntryWhereInput
+    orderBy?: RadarEntryOrderByWithAggregationInput | RadarEntryOrderByWithAggregationInput[]
+    by: RadarEntryScalarFieldEnum[] | RadarEntryScalarFieldEnum
+    having?: RadarEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RadarEntryCountAggregateInputType | true
+    _avg?: RadarEntryAvgAggregateInputType
+    _sum?: RadarEntrySumAggregateInputType
+    _min?: RadarEntryMinAggregateInputType
+    _max?: RadarEntryMaxAggregateInputType
+  }
+
+  export type RadarEntryGroupByOutputType = {
+    id: string
+    roundId: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt: Date
+    _count: RadarEntryCountAggregateOutputType | null
+    _avg: RadarEntryAvgAggregateOutputType | null
+    _sum: RadarEntrySumAggregateOutputType | null
+    _min: RadarEntryMinAggregateOutputType | null
+    _max: RadarEntryMaxAggregateOutputType | null
+  }
+
+  type GetRadarEntryGroupByPayload<T extends RadarEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RadarEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RadarEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RadarEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], RadarEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RadarEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    tier?: boolean
+    weight?: boolean
+    createdAt?: boolean
+    round?: boolean | RadarRoundDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["radarEntry"]>
+
+  export type RadarEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    tier?: boolean
+    weight?: boolean
+    createdAt?: boolean
+    round?: boolean | RadarRoundDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["radarEntry"]>
+
+  export type RadarEntrySelectScalar = {
+    id?: boolean
+    roundId?: boolean
+    userId?: boolean
+    tier?: boolean
+    weight?: boolean
+    createdAt?: boolean
+  }
+
+  export type RadarEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    round?: boolean | RadarRoundDefaultArgs<ExtArgs>
+  }
+  export type RadarEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    round?: boolean | RadarRoundDefaultArgs<ExtArgs>
+  }
+
+  export type $RadarEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "RadarEntry"
+    objects: {
+      round: Prisma.$RadarRoundPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      roundId: string
+      userId: string
+      tier: string
+      weight: number
+      createdAt: Date
+    }, ExtArgs["result"]["radarEntry"]>
+    composites: {}
+  }
+
+  type RadarEntryGetPayload<S extends boolean | null | undefined | RadarEntryDefaultArgs> = $Result.GetResult<Prisma.$RadarEntryPayload, S>
+
+  type RadarEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<RadarEntryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: RadarEntryCountAggregateInputType | true
+    }
+
+  export interface RadarEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RadarEntry'], meta: { name: 'RadarEntry' } }
+    /**
+     * Find zero or one RadarEntry that matches the filter.
+     * @param {RadarEntryFindUniqueArgs} args - Arguments to find a RadarEntry
+     * @example
+     * // Get one RadarEntry
+     * const radarEntry = await prisma.radarEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RadarEntryFindUniqueArgs>(args: SelectSubset<T, RadarEntryFindUniqueArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one RadarEntry that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {RadarEntryFindUniqueOrThrowArgs} args - Arguments to find a RadarEntry
+     * @example
+     * // Get one RadarEntry
+     * const radarEntry = await prisma.radarEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RadarEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, RadarEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first RadarEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryFindFirstArgs} args - Arguments to find a RadarEntry
+     * @example
+     * // Get one RadarEntry
+     * const radarEntry = await prisma.radarEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RadarEntryFindFirstArgs>(args?: SelectSubset<T, RadarEntryFindFirstArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first RadarEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryFindFirstOrThrowArgs} args - Arguments to find a RadarEntry
+     * @example
+     * // Get one RadarEntry
+     * const radarEntry = await prisma.radarEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RadarEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, RadarEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more RadarEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all RadarEntries
+     * const radarEntries = await prisma.radarEntry.findMany()
+     * 
+     * // Get first 10 RadarEntries
+     * const radarEntries = await prisma.radarEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const radarEntryWithIdOnly = await prisma.radarEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RadarEntryFindManyArgs>(args?: SelectSubset<T, RadarEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a RadarEntry.
+     * @param {RadarEntryCreateArgs} args - Arguments to create a RadarEntry.
+     * @example
+     * // Create one RadarEntry
+     * const RadarEntry = await prisma.radarEntry.create({
+     *   data: {
+     *     // ... data to create a RadarEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends RadarEntryCreateArgs>(args: SelectSubset<T, RadarEntryCreateArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many RadarEntries.
+     * @param {RadarEntryCreateManyArgs} args - Arguments to create many RadarEntries.
+     * @example
+     * // Create many RadarEntries
+     * const radarEntry = await prisma.radarEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RadarEntryCreateManyArgs>(args?: SelectSubset<T, RadarEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many RadarEntries and returns the data saved in the database.
+     * @param {RadarEntryCreateManyAndReturnArgs} args - Arguments to create many RadarEntries.
+     * @example
+     * // Create many RadarEntries
+     * const radarEntry = await prisma.radarEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many RadarEntries and only return the `id`
+     * const radarEntryWithIdOnly = await prisma.radarEntry.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RadarEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, RadarEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a RadarEntry.
+     * @param {RadarEntryDeleteArgs} args - Arguments to delete one RadarEntry.
+     * @example
+     * // Delete one RadarEntry
+     * const RadarEntry = await prisma.radarEntry.delete({
+     *   where: {
+     *     // ... filter to delete one RadarEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RadarEntryDeleteArgs>(args: SelectSubset<T, RadarEntryDeleteArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one RadarEntry.
+     * @param {RadarEntryUpdateArgs} args - Arguments to update one RadarEntry.
+     * @example
+     * // Update one RadarEntry
+     * const radarEntry = await prisma.radarEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RadarEntryUpdateArgs>(args: SelectSubset<T, RadarEntryUpdateArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more RadarEntries.
+     * @param {RadarEntryDeleteManyArgs} args - Arguments to filter RadarEntries to delete.
+     * @example
+     * // Delete a few RadarEntries
+     * const { count } = await prisma.radarEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RadarEntryDeleteManyArgs>(args?: SelectSubset<T, RadarEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more RadarEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many RadarEntries
+     * const radarEntry = await prisma.radarEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RadarEntryUpdateManyArgs>(args: SelectSubset<T, RadarEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one RadarEntry.
+     * @param {RadarEntryUpsertArgs} args - Arguments to update or create a RadarEntry.
+     * @example
+     * // Update or create a RadarEntry
+     * const radarEntry = await prisma.radarEntry.upsert({
+     *   create: {
+     *     // ... data to create a RadarEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the RadarEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RadarEntryUpsertArgs>(args: SelectSubset<T, RadarEntryUpsertArgs<ExtArgs>>): Prisma__RadarEntryClient<$Result.GetResult<Prisma.$RadarEntryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of RadarEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryCountArgs} args - Arguments to filter RadarEntries to count.
+     * @example
+     * // Count the number of RadarEntries
+     * const count = await prisma.radarEntry.count({
+     *   where: {
+     *     // ... the filter for the RadarEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends RadarEntryCountArgs>(
+      args?: Subset<T, RadarEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RadarEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a RadarEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RadarEntryAggregateArgs>(args: Subset<T, RadarEntryAggregateArgs>): Prisma.PrismaPromise<GetRadarEntryAggregateType<T>>
+
+    /**
+     * Group by RadarEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RadarEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RadarEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RadarEntryGroupByArgs['orderBy'] }
+        : { orderBy?: RadarEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RadarEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRadarEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the RadarEntry model
+   */
+  readonly fields: RadarEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for RadarEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RadarEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    round<T extends RadarRoundDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RadarRoundDefaultArgs<ExtArgs>>): Prisma__RadarRoundClient<$Result.GetResult<Prisma.$RadarRoundPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the RadarEntry model
+   */ 
+  interface RadarEntryFieldRefs {
+    readonly id: FieldRef<"RadarEntry", 'String'>
+    readonly roundId: FieldRef<"RadarEntry", 'String'>
+    readonly userId: FieldRef<"RadarEntry", 'String'>
+    readonly tier: FieldRef<"RadarEntry", 'String'>
+    readonly weight: FieldRef<"RadarEntry", 'Float'>
+    readonly createdAt: FieldRef<"RadarEntry", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * RadarEntry findUnique
+   */
+  export type RadarEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarEntry to fetch.
+     */
+    where: RadarEntryWhereUniqueInput
+  }
+
+  /**
+   * RadarEntry findUniqueOrThrow
+   */
+  export type RadarEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarEntry to fetch.
+     */
+    where: RadarEntryWhereUniqueInput
+  }
+
+  /**
+   * RadarEntry findFirst
+   */
+  export type RadarEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarEntry to fetch.
+     */
+    where?: RadarEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarEntries to fetch.
+     */
+    orderBy?: RadarEntryOrderByWithRelationInput | RadarEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarEntries.
+     */
+    cursor?: RadarEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarEntries.
+     */
+    distinct?: RadarEntryScalarFieldEnum | RadarEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RadarEntry findFirstOrThrow
+   */
+  export type RadarEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarEntry to fetch.
+     */
+    where?: RadarEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarEntries to fetch.
+     */
+    orderBy?: RadarEntryOrderByWithRelationInput | RadarEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for RadarEntries.
+     */
+    cursor?: RadarEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of RadarEntries.
+     */
+    distinct?: RadarEntryScalarFieldEnum | RadarEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RadarEntry findMany
+   */
+  export type RadarEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which RadarEntries to fetch.
+     */
+    where?: RadarEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of RadarEntries to fetch.
+     */
+    orderBy?: RadarEntryOrderByWithRelationInput | RadarEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing RadarEntries.
+     */
+    cursor?: RadarEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` RadarEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` RadarEntries.
+     */
+    skip?: number
+    distinct?: RadarEntryScalarFieldEnum | RadarEntryScalarFieldEnum[]
+  }
+
+  /**
+   * RadarEntry create
+   */
+  export type RadarEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a RadarEntry.
+     */
+    data: XOR<RadarEntryCreateInput, RadarEntryUncheckedCreateInput>
+  }
+
+  /**
+   * RadarEntry createMany
+   */
+  export type RadarEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many RadarEntries.
+     */
+    data: RadarEntryCreateManyInput | RadarEntryCreateManyInput[]
+  }
+
+  /**
+   * RadarEntry createManyAndReturn
+   */
+  export type RadarEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many RadarEntries.
+     */
+    data: RadarEntryCreateManyInput | RadarEntryCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * RadarEntry update
+   */
+  export type RadarEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a RadarEntry.
+     */
+    data: XOR<RadarEntryUpdateInput, RadarEntryUncheckedUpdateInput>
+    /**
+     * Choose, which RadarEntry to update.
+     */
+    where: RadarEntryWhereUniqueInput
+  }
+
+  /**
+   * RadarEntry updateMany
+   */
+  export type RadarEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update RadarEntries.
+     */
+    data: XOR<RadarEntryUpdateManyMutationInput, RadarEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which RadarEntries to update
+     */
+    where?: RadarEntryWhereInput
+  }
+
+  /**
+   * RadarEntry upsert
+   */
+  export type RadarEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the RadarEntry to update in case it exists.
+     */
+    where: RadarEntryWhereUniqueInput
+    /**
+     * In case the RadarEntry found by the `where` argument doesn't exist, create a new RadarEntry with this data.
+     */
+    create: XOR<RadarEntryCreateInput, RadarEntryUncheckedCreateInput>
+    /**
+     * In case the RadarEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RadarEntryUpdateInput, RadarEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * RadarEntry delete
+   */
+  export type RadarEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+    /**
+     * Filter which RadarEntry to delete.
+     */
+    where: RadarEntryWhereUniqueInput
+  }
+
+  /**
+   * RadarEntry deleteMany
+   */
+  export type RadarEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which RadarEntries to delete
+     */
+    where?: RadarEntryWhereInput
+  }
+
+  /**
+   * RadarEntry without action
+   */
+  export type RadarEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RadarEntry
+     */
+    select?: RadarEntrySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RadarEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4069,6 +6267,35 @@ export namespace Prisma {
   };
 
   export type TraitScalarFieldEnum = (typeof TraitScalarFieldEnum)[keyof typeof TraitScalarFieldEnum]
+
+
+  export const RadarRoundScalarFieldEnum: {
+    id: 'id',
+    itemAddress: 'itemAddress',
+    startsAt: 'startsAt',
+    endsAt: 'endsAt',
+    seedHash: 'seedHash',
+    serverSeed: 'serverSeed',
+    publicSalt: 'publicSalt',
+    rand: 'rand',
+    winnersJson: 'winnersJson',
+    status: 'status',
+    createdAt: 'createdAt'
+  };
+
+  export type RadarRoundScalarFieldEnum = (typeof RadarRoundScalarFieldEnum)[keyof typeof RadarRoundScalarFieldEnum]
+
+
+  export const RadarEntryScalarFieldEnum: {
+    id: 'id',
+    roundId: 'roundId',
+    userId: 'userId',
+    tier: 'tier',
+    weight: 'weight',
+    createdAt: 'createdAt'
+  };
+
+  export type RadarEntryScalarFieldEnum = (typeof RadarEntryScalarFieldEnum)[keyof typeof RadarEntryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4346,6 +6573,154 @@ export namespace Prisma {
     value?: StringWithAggregatesFilter<"Trait"> | string
   }
 
+  export type RadarRoundWhereInput = {
+    AND?: RadarRoundWhereInput | RadarRoundWhereInput[]
+    OR?: RadarRoundWhereInput[]
+    NOT?: RadarRoundWhereInput | RadarRoundWhereInput[]
+    id?: StringFilter<"RadarRound"> | string
+    itemAddress?: StringFilter<"RadarRound"> | string
+    startsAt?: DateTimeFilter<"RadarRound"> | Date | string
+    endsAt?: DateTimeFilter<"RadarRound"> | Date | string
+    seedHash?: StringFilter<"RadarRound"> | string
+    serverSeed?: StringNullableFilter<"RadarRound"> | string | null
+    publicSalt?: StringNullableFilter<"RadarRound"> | string | null
+    rand?: StringNullableFilter<"RadarRound"> | string | null
+    winnersJson?: StringNullableFilter<"RadarRound"> | string | null
+    status?: StringFilter<"RadarRound"> | string
+    createdAt?: DateTimeFilter<"RadarRound"> | Date | string
+    entries?: RadarEntryListRelationFilter
+  }
+
+  export type RadarRoundOrderByWithRelationInput = {
+    id?: SortOrder
+    itemAddress?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    seedHash?: SortOrder
+    serverSeed?: SortOrderInput | SortOrder
+    publicSalt?: SortOrderInput | SortOrder
+    rand?: SortOrderInput | SortOrder
+    winnersJson?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    entries?: RadarEntryOrderByRelationAggregateInput
+  }
+
+  export type RadarRoundWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RadarRoundWhereInput | RadarRoundWhereInput[]
+    OR?: RadarRoundWhereInput[]
+    NOT?: RadarRoundWhereInput | RadarRoundWhereInput[]
+    itemAddress?: StringFilter<"RadarRound"> | string
+    startsAt?: DateTimeFilter<"RadarRound"> | Date | string
+    endsAt?: DateTimeFilter<"RadarRound"> | Date | string
+    seedHash?: StringFilter<"RadarRound"> | string
+    serverSeed?: StringNullableFilter<"RadarRound"> | string | null
+    publicSalt?: StringNullableFilter<"RadarRound"> | string | null
+    rand?: StringNullableFilter<"RadarRound"> | string | null
+    winnersJson?: StringNullableFilter<"RadarRound"> | string | null
+    status?: StringFilter<"RadarRound"> | string
+    createdAt?: DateTimeFilter<"RadarRound"> | Date | string
+    entries?: RadarEntryListRelationFilter
+  }, "id">
+
+  export type RadarRoundOrderByWithAggregationInput = {
+    id?: SortOrder
+    itemAddress?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    seedHash?: SortOrder
+    serverSeed?: SortOrderInput | SortOrder
+    publicSalt?: SortOrderInput | SortOrder
+    rand?: SortOrderInput | SortOrder
+    winnersJson?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    _count?: RadarRoundCountOrderByAggregateInput
+    _max?: RadarRoundMaxOrderByAggregateInput
+    _min?: RadarRoundMinOrderByAggregateInput
+  }
+
+  export type RadarRoundScalarWhereWithAggregatesInput = {
+    AND?: RadarRoundScalarWhereWithAggregatesInput | RadarRoundScalarWhereWithAggregatesInput[]
+    OR?: RadarRoundScalarWhereWithAggregatesInput[]
+    NOT?: RadarRoundScalarWhereWithAggregatesInput | RadarRoundScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RadarRound"> | string
+    itemAddress?: StringWithAggregatesFilter<"RadarRound"> | string
+    startsAt?: DateTimeWithAggregatesFilter<"RadarRound"> | Date | string
+    endsAt?: DateTimeWithAggregatesFilter<"RadarRound"> | Date | string
+    seedHash?: StringWithAggregatesFilter<"RadarRound"> | string
+    serverSeed?: StringNullableWithAggregatesFilter<"RadarRound"> | string | null
+    publicSalt?: StringNullableWithAggregatesFilter<"RadarRound"> | string | null
+    rand?: StringNullableWithAggregatesFilter<"RadarRound"> | string | null
+    winnersJson?: StringNullableWithAggregatesFilter<"RadarRound"> | string | null
+    status?: StringWithAggregatesFilter<"RadarRound"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"RadarRound"> | Date | string
+  }
+
+  export type RadarEntryWhereInput = {
+    AND?: RadarEntryWhereInput | RadarEntryWhereInput[]
+    OR?: RadarEntryWhereInput[]
+    NOT?: RadarEntryWhereInput | RadarEntryWhereInput[]
+    id?: StringFilter<"RadarEntry"> | string
+    roundId?: StringFilter<"RadarEntry"> | string
+    userId?: StringFilter<"RadarEntry"> | string
+    tier?: StringFilter<"RadarEntry"> | string
+    weight?: FloatFilter<"RadarEntry"> | number
+    createdAt?: DateTimeFilter<"RadarEntry"> | Date | string
+    round?: XOR<RadarRoundRelationFilter, RadarRoundWhereInput>
+  }
+
+  export type RadarEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+    round?: RadarRoundOrderByWithRelationInput
+  }
+
+  export type RadarEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    roundId_userId?: RadarEntryRoundIdUserIdCompoundUniqueInput
+    AND?: RadarEntryWhereInput | RadarEntryWhereInput[]
+    OR?: RadarEntryWhereInput[]
+    NOT?: RadarEntryWhereInput | RadarEntryWhereInput[]
+    roundId?: StringFilter<"RadarEntry"> | string
+    userId?: StringFilter<"RadarEntry"> | string
+    tier?: StringFilter<"RadarEntry"> | string
+    weight?: FloatFilter<"RadarEntry"> | number
+    createdAt?: DateTimeFilter<"RadarEntry"> | Date | string
+    round?: XOR<RadarRoundRelationFilter, RadarRoundWhereInput>
+  }, "id" | "roundId_userId">
+
+  export type RadarEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+    _count?: RadarEntryCountOrderByAggregateInput
+    _avg?: RadarEntryAvgOrderByAggregateInput
+    _max?: RadarEntryMaxOrderByAggregateInput
+    _min?: RadarEntryMinOrderByAggregateInput
+    _sum?: RadarEntrySumOrderByAggregateInput
+  }
+
+  export type RadarEntryScalarWhereWithAggregatesInput = {
+    AND?: RadarEntryScalarWhereWithAggregatesInput | RadarEntryScalarWhereWithAggregatesInput[]
+    OR?: RadarEntryScalarWhereWithAggregatesInput[]
+    NOT?: RadarEntryScalarWhereWithAggregatesInput | RadarEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"RadarEntry"> | string
+    roundId?: StringWithAggregatesFilter<"RadarEntry"> | string
+    userId?: StringWithAggregatesFilter<"RadarEntry"> | string
+    tier?: StringWithAggregatesFilter<"RadarEntry"> | string
+    weight?: FloatWithAggregatesFilter<"RadarEntry"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"RadarEntry"> | Date | string
+  }
+
   export type CollectionCreateInput = {
     id: string
     address: string
@@ -4585,6 +6960,170 @@ export namespace Prisma {
     itemId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RadarRoundCreateInput = {
+    id?: string
+    itemAddress: string
+    startsAt: Date | string
+    endsAt: Date | string
+    seedHash: string
+    serverSeed?: string | null
+    publicSalt?: string | null
+    rand?: string | null
+    winnersJson?: string | null
+    status: string
+    createdAt?: Date | string
+    entries?: RadarEntryCreateNestedManyWithoutRoundInput
+  }
+
+  export type RadarRoundUncheckedCreateInput = {
+    id?: string
+    itemAddress: string
+    startsAt: Date | string
+    endsAt: Date | string
+    seedHash: string
+    serverSeed?: string | null
+    publicSalt?: string | null
+    rand?: string | null
+    winnersJson?: string | null
+    status: string
+    createdAt?: Date | string
+    entries?: RadarEntryUncheckedCreateNestedManyWithoutRoundInput
+  }
+
+  export type RadarRoundUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seedHash?: StringFieldUpdateOperationsInput | string
+    serverSeed?: NullableStringFieldUpdateOperationsInput | string | null
+    publicSalt?: NullableStringFieldUpdateOperationsInput | string | null
+    rand?: NullableStringFieldUpdateOperationsInput | string | null
+    winnersJson?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    entries?: RadarEntryUpdateManyWithoutRoundNestedInput
+  }
+
+  export type RadarRoundUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seedHash?: StringFieldUpdateOperationsInput | string
+    serverSeed?: NullableStringFieldUpdateOperationsInput | string | null
+    publicSalt?: NullableStringFieldUpdateOperationsInput | string | null
+    rand?: NullableStringFieldUpdateOperationsInput | string | null
+    winnersJson?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    entries?: RadarEntryUncheckedUpdateManyWithoutRoundNestedInput
+  }
+
+  export type RadarRoundCreateManyInput = {
+    id?: string
+    itemAddress: string
+    startsAt: Date | string
+    endsAt: Date | string
+    seedHash: string
+    serverSeed?: string | null
+    publicSalt?: string | null
+    rand?: string | null
+    winnersJson?: string | null
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type RadarRoundUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seedHash?: StringFieldUpdateOperationsInput | string
+    serverSeed?: NullableStringFieldUpdateOperationsInput | string | null
+    publicSalt?: NullableStringFieldUpdateOperationsInput | string | null
+    rand?: NullableStringFieldUpdateOperationsInput | string | null
+    winnersJson?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarRoundUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seedHash?: StringFieldUpdateOperationsInput | string
+    serverSeed?: NullableStringFieldUpdateOperationsInput | string | null
+    publicSalt?: NullableStringFieldUpdateOperationsInput | string | null
+    rand?: NullableStringFieldUpdateOperationsInput | string | null
+    winnersJson?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarEntryCreateInput = {
+    id?: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt?: Date | string
+    round: RadarRoundCreateNestedOneWithoutEntriesInput
+  }
+
+  export type RadarEntryUncheckedCreateInput = {
+    id?: string
+    roundId: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt?: Date | string
+  }
+
+  export type RadarEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    round?: RadarRoundUpdateOneRequiredWithoutEntriesNestedInput
+  }
+
+  export type RadarEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarEntryCreateManyInput = {
+    id?: string
+    roundId: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt?: Date | string
+  }
+
+  export type RadarEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roundId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4887,6 +7426,130 @@ export namespace Prisma {
     value?: SortOrder
   }
 
+  export type RadarEntryListRelationFilter = {
+    every?: RadarEntryWhereInput
+    some?: RadarEntryWhereInput
+    none?: RadarEntryWhereInput
+  }
+
+  export type RadarEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RadarRoundCountOrderByAggregateInput = {
+    id?: SortOrder
+    itemAddress?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    seedHash?: SortOrder
+    serverSeed?: SortOrder
+    publicSalt?: SortOrder
+    rand?: SortOrder
+    winnersJson?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarRoundMaxOrderByAggregateInput = {
+    id?: SortOrder
+    itemAddress?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    seedHash?: SortOrder
+    serverSeed?: SortOrder
+    publicSalt?: SortOrder
+    rand?: SortOrder
+    winnersJson?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarRoundMinOrderByAggregateInput = {
+    id?: SortOrder
+    itemAddress?: SortOrder
+    startsAt?: SortOrder
+    endsAt?: SortOrder
+    seedHash?: SortOrder
+    serverSeed?: SortOrder
+    publicSalt?: SortOrder
+    rand?: SortOrder
+    winnersJson?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type RadarRoundRelationFilter = {
+    is?: RadarRoundWhereInput
+    isNot?: RadarRoundWhereInput
+  }
+
+  export type RadarEntryRoundIdUserIdCompoundUniqueInput = {
+    roundId: string
+    userId: string
+  }
+
+  export type RadarEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarEntryAvgOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type RadarEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    roundId?: SortOrder
+    userId?: SortOrder
+    tier?: SortOrder
+    weight?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RadarEntrySumOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type ItemCreateNestedManyWithoutCollectionInput = {
     create?: XOR<ItemCreateWithoutCollectionInput, ItemUncheckedCreateWithoutCollectionInput> | ItemCreateWithoutCollectionInput[] | ItemUncheckedCreateWithoutCollectionInput[]
     connectOrCreate?: ItemCreateOrConnectWithoutCollectionInput | ItemCreateOrConnectWithoutCollectionInput[]
@@ -4975,6 +7638,70 @@ export namespace Prisma {
     delete?: CollectionWhereInput | boolean
     connect?: CollectionWhereUniqueInput
     update?: XOR<XOR<CollectionUpdateToOneWithWhereWithoutItemsInput, CollectionUpdateWithoutItemsInput>, CollectionUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type RadarEntryCreateNestedManyWithoutRoundInput = {
+    create?: XOR<RadarEntryCreateWithoutRoundInput, RadarEntryUncheckedCreateWithoutRoundInput> | RadarEntryCreateWithoutRoundInput[] | RadarEntryUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RadarEntryCreateOrConnectWithoutRoundInput | RadarEntryCreateOrConnectWithoutRoundInput[]
+    createMany?: RadarEntryCreateManyRoundInputEnvelope
+    connect?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+  }
+
+  export type RadarEntryUncheckedCreateNestedManyWithoutRoundInput = {
+    create?: XOR<RadarEntryCreateWithoutRoundInput, RadarEntryUncheckedCreateWithoutRoundInput> | RadarEntryCreateWithoutRoundInput[] | RadarEntryUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RadarEntryCreateOrConnectWithoutRoundInput | RadarEntryCreateOrConnectWithoutRoundInput[]
+    createMany?: RadarEntryCreateManyRoundInputEnvelope
+    connect?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+  }
+
+  export type RadarEntryUpdateManyWithoutRoundNestedInput = {
+    create?: XOR<RadarEntryCreateWithoutRoundInput, RadarEntryUncheckedCreateWithoutRoundInput> | RadarEntryCreateWithoutRoundInput[] | RadarEntryUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RadarEntryCreateOrConnectWithoutRoundInput | RadarEntryCreateOrConnectWithoutRoundInput[]
+    upsert?: RadarEntryUpsertWithWhereUniqueWithoutRoundInput | RadarEntryUpsertWithWhereUniqueWithoutRoundInput[]
+    createMany?: RadarEntryCreateManyRoundInputEnvelope
+    set?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    disconnect?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    delete?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    connect?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    update?: RadarEntryUpdateWithWhereUniqueWithoutRoundInput | RadarEntryUpdateWithWhereUniqueWithoutRoundInput[]
+    updateMany?: RadarEntryUpdateManyWithWhereWithoutRoundInput | RadarEntryUpdateManyWithWhereWithoutRoundInput[]
+    deleteMany?: RadarEntryScalarWhereInput | RadarEntryScalarWhereInput[]
+  }
+
+  export type RadarEntryUncheckedUpdateManyWithoutRoundNestedInput = {
+    create?: XOR<RadarEntryCreateWithoutRoundInput, RadarEntryUncheckedCreateWithoutRoundInput> | RadarEntryCreateWithoutRoundInput[] | RadarEntryUncheckedCreateWithoutRoundInput[]
+    connectOrCreate?: RadarEntryCreateOrConnectWithoutRoundInput | RadarEntryCreateOrConnectWithoutRoundInput[]
+    upsert?: RadarEntryUpsertWithWhereUniqueWithoutRoundInput | RadarEntryUpsertWithWhereUniqueWithoutRoundInput[]
+    createMany?: RadarEntryCreateManyRoundInputEnvelope
+    set?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    disconnect?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    delete?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    connect?: RadarEntryWhereUniqueInput | RadarEntryWhereUniqueInput[]
+    update?: RadarEntryUpdateWithWhereUniqueWithoutRoundInput | RadarEntryUpdateWithWhereUniqueWithoutRoundInput[]
+    updateMany?: RadarEntryUpdateManyWithWhereWithoutRoundInput | RadarEntryUpdateManyWithWhereWithoutRoundInput[]
+    deleteMany?: RadarEntryScalarWhereInput | RadarEntryScalarWhereInput[]
+  }
+
+  export type RadarRoundCreateNestedOneWithoutEntriesInput = {
+    create?: XOR<RadarRoundCreateWithoutEntriesInput, RadarRoundUncheckedCreateWithoutEntriesInput>
+    connectOrCreate?: RadarRoundCreateOrConnectWithoutEntriesInput
+    connect?: RadarRoundWhereUniqueInput
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type RadarRoundUpdateOneRequiredWithoutEntriesNestedInput = {
+    create?: XOR<RadarRoundCreateWithoutEntriesInput, RadarRoundUncheckedCreateWithoutEntriesInput>
+    connectOrCreate?: RadarRoundCreateOrConnectWithoutEntriesInput
+    upsert?: RadarRoundUpsertWithoutEntriesInput
+    connect?: RadarRoundWhereUniqueInput
+    update?: XOR<XOR<RadarRoundUpdateToOneWithWhereWithoutEntriesInput, RadarRoundUpdateWithoutEntriesInput>, RadarRoundUncheckedUpdateWithoutEntriesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5142,6 +7869,33 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type ItemCreateWithoutCollectionInput = {
     id: string
     address: string
@@ -5278,6 +8032,131 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RadarEntryCreateWithoutRoundInput = {
+    id?: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt?: Date | string
+  }
+
+  export type RadarEntryUncheckedCreateWithoutRoundInput = {
+    id?: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt?: Date | string
+  }
+
+  export type RadarEntryCreateOrConnectWithoutRoundInput = {
+    where: RadarEntryWhereUniqueInput
+    create: XOR<RadarEntryCreateWithoutRoundInput, RadarEntryUncheckedCreateWithoutRoundInput>
+  }
+
+  export type RadarEntryCreateManyRoundInputEnvelope = {
+    data: RadarEntryCreateManyRoundInput | RadarEntryCreateManyRoundInput[]
+  }
+
+  export type RadarEntryUpsertWithWhereUniqueWithoutRoundInput = {
+    where: RadarEntryWhereUniqueInput
+    update: XOR<RadarEntryUpdateWithoutRoundInput, RadarEntryUncheckedUpdateWithoutRoundInput>
+    create: XOR<RadarEntryCreateWithoutRoundInput, RadarEntryUncheckedCreateWithoutRoundInput>
+  }
+
+  export type RadarEntryUpdateWithWhereUniqueWithoutRoundInput = {
+    where: RadarEntryWhereUniqueInput
+    data: XOR<RadarEntryUpdateWithoutRoundInput, RadarEntryUncheckedUpdateWithoutRoundInput>
+  }
+
+  export type RadarEntryUpdateManyWithWhereWithoutRoundInput = {
+    where: RadarEntryScalarWhereInput
+    data: XOR<RadarEntryUpdateManyMutationInput, RadarEntryUncheckedUpdateManyWithoutRoundInput>
+  }
+
+  export type RadarEntryScalarWhereInput = {
+    AND?: RadarEntryScalarWhereInput | RadarEntryScalarWhereInput[]
+    OR?: RadarEntryScalarWhereInput[]
+    NOT?: RadarEntryScalarWhereInput | RadarEntryScalarWhereInput[]
+    id?: StringFilter<"RadarEntry"> | string
+    roundId?: StringFilter<"RadarEntry"> | string
+    userId?: StringFilter<"RadarEntry"> | string
+    tier?: StringFilter<"RadarEntry"> | string
+    weight?: FloatFilter<"RadarEntry"> | number
+    createdAt?: DateTimeFilter<"RadarEntry"> | Date | string
+  }
+
+  export type RadarRoundCreateWithoutEntriesInput = {
+    id?: string
+    itemAddress: string
+    startsAt: Date | string
+    endsAt: Date | string
+    seedHash: string
+    serverSeed?: string | null
+    publicSalt?: string | null
+    rand?: string | null
+    winnersJson?: string | null
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type RadarRoundUncheckedCreateWithoutEntriesInput = {
+    id?: string
+    itemAddress: string
+    startsAt: Date | string
+    endsAt: Date | string
+    seedHash: string
+    serverSeed?: string | null
+    publicSalt?: string | null
+    rand?: string | null
+    winnersJson?: string | null
+    status: string
+    createdAt?: Date | string
+  }
+
+  export type RadarRoundCreateOrConnectWithoutEntriesInput = {
+    where: RadarRoundWhereUniqueInput
+    create: XOR<RadarRoundCreateWithoutEntriesInput, RadarRoundUncheckedCreateWithoutEntriesInput>
+  }
+
+  export type RadarRoundUpsertWithoutEntriesInput = {
+    update: XOR<RadarRoundUpdateWithoutEntriesInput, RadarRoundUncheckedUpdateWithoutEntriesInput>
+    create: XOR<RadarRoundCreateWithoutEntriesInput, RadarRoundUncheckedCreateWithoutEntriesInput>
+    where?: RadarRoundWhereInput
+  }
+
+  export type RadarRoundUpdateToOneWithWhereWithoutEntriesInput = {
+    where?: RadarRoundWhereInput
+    data: XOR<RadarRoundUpdateWithoutEntriesInput, RadarRoundUncheckedUpdateWithoutEntriesInput>
+  }
+
+  export type RadarRoundUpdateWithoutEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seedHash?: StringFieldUpdateOperationsInput | string
+    serverSeed?: NullableStringFieldUpdateOperationsInput | string | null
+    publicSalt?: NullableStringFieldUpdateOperationsInput | string | null
+    rand?: NullableStringFieldUpdateOperationsInput | string | null
+    winnersJson?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarRoundUncheckedUpdateWithoutEntriesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemAddress?: StringFieldUpdateOperationsInput | string
+    startsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    endsAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    seedHash?: StringFieldUpdateOperationsInput | string
+    serverSeed?: NullableStringFieldUpdateOperationsInput | string | null
+    publicSalt?: NullableStringFieldUpdateOperationsInput | string | null
+    rand?: NullableStringFieldUpdateOperationsInput | string | null
+    winnersJson?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ItemCreateManyCollectionInput = {
     id: string
     address: string
@@ -5330,6 +8209,38 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RadarEntryCreateManyRoundInput = {
+    id?: string
+    userId: string
+    tier: string
+    weight: number
+    createdAt?: Date | string
+  }
+
+  export type RadarEntryUpdateWithoutRoundInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarEntryUncheckedUpdateWithoutRoundInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RadarEntryUncheckedUpdateManyWithoutRoundInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    tier?: StringFieldUpdateOperationsInput | string
+    weight?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
 
 
   /**
@@ -5339,6 +8250,10 @@ export namespace Prisma {
      * @deprecated Use CollectionCountOutputTypeDefaultArgs instead
      */
     export type CollectionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CollectionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RadarRoundCountOutputTypeDefaultArgs instead
+     */
+    export type RadarRoundCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RadarRoundCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use CollectionDefaultArgs instead
      */
@@ -5351,6 +8266,14 @@ export namespace Prisma {
      * @deprecated Use TraitDefaultArgs instead
      */
     export type TraitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = TraitDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RadarRoundDefaultArgs instead
+     */
+    export type RadarRoundArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RadarRoundDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use RadarEntryDefaultArgs instead
+     */
+    export type RadarEntryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = RadarEntryDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
