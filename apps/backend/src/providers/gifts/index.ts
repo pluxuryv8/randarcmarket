@@ -1,5 +1,5 @@
 // apps/backend/src/providers/gifts/index.ts
-import type { Collection, Item } from './types';
+import type { Collection, Item, ItemPage } from './types';
 import tonapiProvider from './tonapi';
 import nftscanProvider from './nftscan';
 
@@ -9,11 +9,11 @@ import nftscanProvider from './nftscan';
 export async function tryProviders(params: any): Promise<Item[]> {
   try {
     const a = await tonapiProvider.listItems(params);
-    if (a.length) return a;
+    if (a.items.length) return a.items;
   } catch {}
   try {
     const b = await nftscanProvider.listItems(params);
-    if (b.length) return b;
+    if (b.items.length) return b.items;
   } catch {}
   return [];
 }

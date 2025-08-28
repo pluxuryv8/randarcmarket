@@ -5,7 +5,9 @@
   "description": "Randar Market - TON/Telegram NFT marketplace with Radar subscription",
   "packageManager": "pnpm@10.15.0",
   "scripts": {
-    "dev": "pnpm -r --parallel --filter ./apps/frontend --filter ./apps/backend dev",
+    "dev": "concurrently -k \"pnpm --filter ./apps/backend dev\" \"pnpm --filter ./apps/frontend dev\"",
+    "dev:backend": "pnpm --filter ./apps/backend dev",
+    "dev:frontend": "pnpm --filter ./apps/frontend dev",
     "build": "pnpm -r --filter ./apps/frontend --filter ./apps/backend build",
     "start": "pnpm --filter ./apps/backend start",
     "lint": "pnpm -r lint",
@@ -15,7 +17,8 @@
     "docker:down": "docker compose -f infra/docker-compose.yml down",
     "docker:logs": "docker compose -f infra/docker-compose.yml logs -f",
     "clean": "pnpm -r clean",
-    "install:all": "pnpm install"
+    "install:all": "pnpm install",
+    "init:db": "pnpm --filter ./apps/backend db:gen && pnpm --filter ./apps/backend db:push"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
@@ -24,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "prettier": "^3.0.0",
-    "concurrently": "^9.2.0"
+    "concurrently": "^8.2.2"
   },
   "engines": {
     "node": ">=18.0.0",

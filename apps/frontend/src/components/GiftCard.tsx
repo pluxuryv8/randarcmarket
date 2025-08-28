@@ -14,7 +14,8 @@ export const GiftCard: React.FC<GiftCardProps> = ({ item }) => {
         <div className="aspect-square mb-4 rounded-lg overflow-hidden bg-surface-800">
           {item.image && (
             <img 
-              src={item.image}
+              src={`/api/img?url=${encodeURIComponent(item.image)}`}
+              srcSet={`/api/img?url=${encodeURIComponent(item.image)} 1x, /api/img?url=${encodeURIComponent(item.image)} 2x`}
               alt={item.title} 
               loading="lazy"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"

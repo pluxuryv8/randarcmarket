@@ -1,9 +1,10 @@
 import type { GiftsProvider, Collection, Item, ItemPage, TraitBucket } from './types';
 import { toHttp, pickMedia } from '../../util/media';
+import { httpGetJson } from '../../util/http';
+import { providerSuccess, providerFailure } from '../../observability/metrics';
 
 const BASE = process.env.NFTSCAN_BASE || 'https://api.nftscan.com';
 const KEY  = process.env.NFTSCAN_TON_API_KEY || '';
-const H = KEY ? { 'X-API-KEY': KEY } : {};
 
 function mapCollection(r:any): Collection {
   return {
@@ -44,9 +45,15 @@ export const NftscanProvider: GiftsProvider = {
     let data:any = null;
     for (const u of urls) {
       try {
-        const res = await fetch(u, { headers: H });
-        if (res.ok) { data = await res.json(); break; }
+        const headers: Record<string,string> = { 'Accept':'application/json', 'Content-Type':'application/json' };
+        if (KEY) headers['X-API-KEY'] = KEY;
+        
+        const json = await httpGetJson(u, { headers, provider: 'nftscan', endpoint: '/collections' });
+        providerSuccess.inc({ provider: 'nftscan', endpoint: '/collections' });
+        data = json;
+        break;
       } catch (e) {
+        providerFailure.inc({ provider: 'nftscan', endpoint: '/collections' });
         console.warn(`NFTScan collections failed for ${u}:`, e);
       }
     }
@@ -65,12 +72,14 @@ export const NftscanProvider: GiftsProvider = {
     ];
     for (const u of urls) { 
       try {
-        const r = await fetch(u,{headers:H}); 
-        if (r.ok) {
-          const data = await r.json() as any;
-          return mapCollection(data.data || data); 
-        }
+        const headers: Record<string,string> = { 'Accept':'application/json', 'Content-Type':'application/json' };
+        if (KEY) headers['X-API-KEY'] = KEY;
+        
+        const data = await httpGetJson(u, { headers, provider: 'nftscan', endpoint: `/collections/${id}` });
+        providerSuccess.inc({ provider: 'nftscan', endpoint: `/collections/${id}` });
+        return mapCollection(data.data || data); 
       } catch (e) {
+        providerFailure.inc({ provider: 'nftscan', endpoint: `/collections/${id}` });
         console.warn(`NFTScan collection ${id} failed for ${u}:`, e);
       }
     }
@@ -93,13 +102,15 @@ export const NftscanProvider: GiftsProvider = {
     ];
     for (const u of urls) {
       try {
-        const res = await fetch(u, { headers: H });
-        if (res.ok) {
-          const json = await res.json() as any;
-          const list = json.data || json.assets || [];
-          return { items: list.map(mapItem), nextCursor: json.next_cursor || json.cursor || null } as ItemPage;
-        }
+        const headers: Record<string,string> = { 'Accept':'application/json', 'Content-Type':'application/json' };
+        if (KEY) headers['X-API-KEY'] = KEY;
+        
+        const json = await httpGetJson(u, { headers, provider: 'nftscan', endpoint: '/assets' });
+        providerSuccess.inc({ provider: 'nftscan', endpoint: '/assets' });
+        const list = json.data || json.assets || [];
+        return { items: list.map(mapItem), nextCursor: json.next_cursor || json.cursor || null } as ItemPage;
       } catch (e) {
+        providerFailure.inc({ provider: 'nftscan', endpoint: '/assets' });
         console.warn(`NFTScan items failed for ${u}:`, e);
       }
     }
@@ -114,12 +125,14 @@ export const NftscanProvider: GiftsProvider = {
     ];
     for (const u of urls) { 
       try {
-        const r = await fetch(u,{headers:H}); 
-        if (r.ok) {
-          const data = await r.json() as any;
-          return mapItem(data.data || data); 
-        }
+        const headers: Record<string,string> = { 'Accept':'application/json', 'Content-Type':'application/json' };
+        if (KEY) headers['X-API-KEY'] = KEY;
+        
+        const data = await httpGetJson(u, { headers, provider: 'nftscan', endpoint: `/assets/${address}` });
+        providerSuccess.inc({ provider: 'nftscan', endpoint: `/assets/${address}` });
+        return mapItem(data.data || data); 
       } catch (e) {
+        providerFailure.inc({ provider: 'nftscan', endpoint: `/assets/${address}` });
         console.warn(`NFTScan item ${address} failed for ${u}:`, e);
       }
     }
@@ -128,3 +141,5 @@ export const NftscanProvider: GiftsProvider = {
 
   async listActivity() { return []; }
 };
+
+export default NftscanProvider;

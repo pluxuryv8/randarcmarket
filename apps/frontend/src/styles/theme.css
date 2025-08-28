@@ -1,0 +1,15 @@
+:root {
+  --bg: #0b0b0d;
+  --bg-soft: #121216;
+  --panel: #16161c;
+  --text: #e7e7ea;
+  --muted: #a0a0ad;
+  --accent: #b71c1c;        /* тёмно-красный */
+  --accent-2: #e53935;      /* чуть ярче для hover */
+  --card: #14141a;
+  --border: #23232b;
+  --success: #2e7d32;
+  --warn: #f9a825;
+}
+
+html, body, #root { background: var(--bg); color: var(--text); }

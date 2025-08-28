@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/db/generated"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Collection {
+  id           String  @id
+  address      String  @unique
+  title        String
+  cover        String?
+  supply       Int?
+  owners       Int?
+  floorTon     Float?
+  volume24hTon Float?
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  
+  items        Item[]
+}
+
+model Item {
+  id           String  @id
+  address      String  @unique
+  title        String
+  image        String?
+  animationUrl String?
+  priceTon     Float?
+  forSale      Boolean  @default(false)
+  lastSaleTon  Float?
+  collectionId String?
+  updatedAt    DateTime
+  createdAt    DateTime @default(now())
+
+  Collection   Collection? @relation(fields: [collectionId], references: [id])
+}
+
+model Trait {
+  id     String  @id
+  itemId String
+  name   String
+  value  String
+
+  @@index([itemId])
+}

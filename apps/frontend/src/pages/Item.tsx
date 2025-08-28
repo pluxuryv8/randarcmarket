@@ -80,7 +80,8 @@ const ItemPage: React.FC = () => {
           <div className="aspect-square bg-bg-800 rounded-lg flex items-center justify-center overflow-hidden">
             {item.image ? (
               <img
-                src={item.image}
+                src={`/api/img?url=${encodeURIComponent(item.image)}`}
+                srcSet={`/api/img?url=${encodeURIComponent(item.image)} 1x, /api/img?url=${encodeURIComponent(item.image)} 2x`}
                 alt={item.title}
                 className="w-full h-full object-cover"
                 onError={(e) => {

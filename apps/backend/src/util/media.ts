@@ -28,3 +28,11 @@ export function toHttp(url?: string): string | undefined {
 export function isValidUrl(url: string): boolean {
   try { new URL(url); return true; } catch { return false; }
 }
+
+export function pickMedia(...urls: (string | undefined)[]): string | undefined {
+  for (const url of urls) {
+    const httpUrl = toHttp(url);
+    if (httpUrl) return httpUrl;
+  }
+  return undefined;
+}
