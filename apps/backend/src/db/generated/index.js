@@ -209,7 +209,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/mihailzarov/Desktop/нфтшный пиздец помогите/randarcmarket/apps/backend/src/db/generated",
+      "value": "C:\\Users\\gerog\\Desktop\\naebka\\randarcmarket\\apps\\backend\\src\\db\\generated",
       "fromEnvVar": null
     },
     "config": {
@@ -218,12 +218,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/mihailzarov/Desktop/нфтшный пиздец помогите/randarcmarket/apps/backend/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\gerog\\Desktop\\naebka\\randarcmarket\\apps\\backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -246,8 +250,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/db/generated\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Collection {\n  id           String   @id\n  address      String   @unique\n  title        String\n  cover        String?\n  supply       Int?\n  owners       Int?\n  floorTon     Float?\n  volume24hTon Float?\n  updatedAt    DateTime @updatedAt\n  createdAt    DateTime @default(now())\n\n  items Item[]\n}\n\nmodel Item {\n  id           String   @id\n  address      String   @unique\n  title        String\n  image        String?\n  animationUrl String?\n  priceTon     Float?\n  forSale      Boolean  @default(false)\n  lastSaleTon  Float?\n  collectionId String?\n  updatedAt    DateTime\n  createdAt    DateTime @default(now())\n\n  Collection Collection? @relation(fields: [collectionId], references: [id])\n}\n\nmodel Trait {\n  id     String @id\n  itemId String\n  name   String\n  value  String\n\n  @@index([itemId])\n}\n\nmodel RadarRound {\n  id          String   @id @default(cuid())\n  itemAddress String\n  startsAt    DateTime\n  endsAt      DateTime\n  seedHash    String // commit (SHA256 от serverSeed)\n  serverSeed  String? // reveal после закрытия\n  publicSalt  String? // соль (TON block hash или timestamp)\n  rand        String? // итоговый HMAC\n  winnersJson String? // массив победителей {userId, weight} в JSON формате\n  status      String // 'open' | 'closed' | 'revealed' | 'executed'\n  createdAt   DateTime @default(now())\n\n  entries RadarEntry[]\n\n  @@index([itemAddress, status])\n}\n\nmodel RadarEntry {\n  id        String   @id @default(cuid())\n  roundId   String\n  userId    String\n  tier      String // 'free' | 'pro'\n  weight    Float\n  createdAt DateTime @default(now())\n\n  round RadarRound @relation(fields: [roundId], references: [id], onDelete: Cascade)\n\n  @@unique([roundId, userId])\n  @@index([userId, createdAt])\n}\n\nmodel RadarReservation {\n  id           String   @id @default(cuid())\n  roundId      String\n  itemAddress  String\n  source       String // 'randar' | 'fragment' | 'getgems' | ...\n  userId       String\n  priceTon     Float\n  status       String // 'pending' | 'expired' | 'cancelled'\n  reserveToken String // случайная строка 24-32 симв., одноразовая\n  expiresAt    DateTime // now + 8s\n  createdAt    DateTime @default(now())\n\n  @@index([userId, createdAt])\n  @@index([itemAddress, status])\n  @@index([roundId, status])\n}\n\nmodel RadarOrder {\n  id            String   @id @default(cuid())\n  reservationId String\n  userId        String\n  itemAddress   String\n  source        String\n  priceTon      Float\n  status        String // 'created' | 'queued' | 'onchain_pending' | 'onchain_ok' | 'onchain_fail' | 'delivered'\n  txHash        String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  @@index([userId, status])\n  @@index([reservationId])\n}\n\nmodel WalletBalance {\n  userId    String   @id\n  ton       Float    @default(0)\n  updatedAt DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "e28e2d4a81b28e01cd11d1d3d29660856332415ec72707ff7b144fd783a07bb8",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/db/generated\"\n  binaryTargets = [\"native\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Collection {\n  id           String   @id\n  address      String   @unique\n  title        String\n  cover        String?\n  supply       Int?\n  owners       Int?\n  floorTon     Float?\n  volume24hTon Float?\n  updatedAt    DateTime @updatedAt\n  createdAt    DateTime @default(now())\n\n  items Item[]\n}\n\nmodel Item {\n  id           String   @id\n  address      String   @unique\n  title        String\n  image        String?\n  animationUrl String?\n  priceTon     Float?\n  forSale      Boolean  @default(false)\n  lastSaleTon  Float?\n  collectionId String?\n  updatedAt    DateTime\n  createdAt    DateTime @default(now())\n\n  Collection Collection? @relation(fields: [collectionId], references: [id])\n}\n\nmodel Trait {\n  id     String @id\n  itemId String\n  name   String\n  value  String\n\n  @@index([itemId])\n}\n\nmodel RadarRound {\n  id          String   @id @default(cuid())\n  itemAddress String\n  startsAt    DateTime\n  endsAt      DateTime\n  seedHash    String // commit (SHA256 от serverSeed)\n  serverSeed  String? // reveal после закрытия\n  publicSalt  String? // соль (TON block hash или timestamp)\n  rand        String? // итоговый HMAC\n  winnersJson String? // массив победителей {userId, weight} в JSON формате\n  status      String // 'open' | 'closed' | 'revealed' | 'executed'\n  createdAt   DateTime @default(now())\n\n  entries RadarEntry[]\n\n  @@index([itemAddress, status])\n}\n\nmodel RadarEntry {\n  id        String   @id @default(cuid())\n  roundId   String\n  userId    String\n  tier      String // 'free' | 'pro'\n  weight    Float\n  createdAt DateTime @default(now())\n\n  round RadarRound @relation(fields: [roundId], references: [id], onDelete: Cascade)\n\n  @@unique([roundId, userId])\n  @@index([userId, createdAt])\n}\n\nmodel RadarReservation {\n  id           String   @id @default(cuid())\n  roundId      String\n  itemAddress  String\n  source       String // 'randar' | 'fragment' | 'getgems' | ...\n  userId       String\n  priceTon     Float\n  status       String // 'pending' | 'expired' | 'cancelled'\n  reserveToken String // случайная строка 24-32 симв., одноразовая\n  expiresAt    DateTime // now + 8s\n  createdAt    DateTime @default(now())\n\n  @@index([userId, createdAt])\n  @@index([itemAddress, status])\n  @@index([roundId, status])\n}\n\nmodel RadarOrder {\n  id            String   @id @default(cuid())\n  reservationId String\n  userId        String\n  itemAddress   String\n  source        String\n  priceTon      Float\n  status        String // 'created' | 'queued' | 'onchain_pending' | 'onchain_ok' | 'onchain_fail' | 'delivered'\n  txHash        String?\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n\n  @@index([userId, status])\n  @@index([reservationId])\n}\n\nmodel WalletBalance {\n  userId    String   @id\n  ton       Float    @default(0)\n  updatedAt DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "a1f9e224e71aa66085de654e9091a428af7e39573b4f638a82a54e2bbf482d76",
   "copyEngine": true
 }
 
@@ -285,8 +289,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "src/db/generated/libquery_engine-darwin-arm64.dylib.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "src/db/generated/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/db/generated/schema.prisma")

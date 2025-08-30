@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RequireAdmin from '../components/RequireAdmin';
 import Card from '../components/ui/Card';
-import Button from '../components/ui/Button';
+import { Button } from '../components/ui/Button';
 
 const API = import.meta.env.VITE_API_BASE || '/api';
 
