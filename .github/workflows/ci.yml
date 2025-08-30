@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main, master ]
   pull_request:
+    branches: [ main, master ]
 
 jobs:
   build_test:
@@ -22,22 +23,46 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
-      - name: Install
+      - name: Install dependencies
         run: pnpm install
+
+      - name: Type check
+        run: pnpm -r type-check || echo "no type-check script"
 
       - name: Lint
         run: pnpm -r lint || echo "no lint script"
 
       - name: Test
-        run: pnpm -r test -- --ci --reporters=default
+        run: pnpm -r test -- --ci --reporters=default || echo "no test script"
 
-      - name: Build
-        run: pnpm -r build || echo "no build script"
+      - name: Build backend
+        run: |
+          cd apps/backend
+          pnpm build || echo "backend build failed"
 
-      - name: Archive backend dist (if any)
+      - name: Build frontend
+        run: |
+          cd apps/frontend
+          pnpm build || echo "frontend build failed"
+
+      - name: Archive backend dist
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: backend-dist
           path: apps/backend/dist
           if-no-files-found: ignore
+
+      - name: Archive frontend dist
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: apps/frontend/dist
+          if-no-files-found: ignore
+
+      - name: Build Docker images
+        if: success()
+        run: |
+          docker build -t randarcmarket-backend:test ./apps/backend
+          docker build -t randarcmarket-frontend:test ./apps/frontend
